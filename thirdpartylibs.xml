@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>fonts/WorkSans-Regular.ttf</location>
+    <name>Work Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/WorkSans-Bold.ttf</location>
+    <name>Work Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/WorkSans-Italic.ttf</location>
+    <name>Work Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/WorkSans-BoldItalic.ttf</location>
+    <name>Work Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/IBMPlexMono-Regular.ttf</location>
+    <name>IBM Plex Mono</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/IBMPlexMono-Bold.ttf</location>
+    <name>IBM Plex Mono</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/InstrumentSans-Regular.ttf</location>
+    <name>Instrument Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/InstrumentSans-Bold.ttf</location>
+    <name>Instrument Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/BalooChettan2-Variable.ttf</location>
+    <name>Baloo Chettan 2</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/NotoSansMalayalam-Regular.ttf</location>
+    <name>Noto Sans Malayalam</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/NotoSansMalayalam-Bold.ttf</location>
+    <name>Noto Sans Malayalam</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/Dyuthi-Regular.ttf</location>
+    <name>Dyuthi</name>
+    <version>-</version>
+    <license>GPL-3.0</license>
+    <licenseversion>3.0</licenseversion>
+  </library>
+  <library>
+    <location>fonts/MANDARAM.ttf</location>
+    <name>Mandaram</name>
+    <version>-</version>
+    <license>GPL-3.0</license>
+    <licenseversion>3.0</licenseversion>
+  </library>
+  <library>
+    <location>fonts/RaghuMalayalamSans-Regular.ttf</location>
+    <name>Raghu Malayalam Sans</name>
+    <version>-</version>
+    <license>OFL-1.1</license>
+    <licenseversion>1.1</licenseversion>
+  </library>
+  <library>
+    <location>fonts/Suruma.ttf</location>
+    <name>Suruma</name>
+    <version>-</version>
+    <license>GPL-3.0</license>
+    <licenseversion>3.0</licenseversion>
+  </library>
+  <library>
+    <location>fonts/THUMBA.ttf</location>
+    <name>Thumba</name>
+    <version>-</version>
+    <license>GPL-3.0</license>
+    <licenseversion>3.0</licenseversion>
+  </library>
+</libraries>
