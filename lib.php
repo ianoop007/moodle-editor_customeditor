@@ -118,6 +118,8 @@ class customeditor_texteditor extends texteditor {
  *
  * Makes the Copy buttons in code blocks and snippets work
  * when content is viewed outside the editor (on Moodle pages).
+ *
+ * @return void
  */
 function editor_customeditor_before_footer() {
     global $PAGE;
