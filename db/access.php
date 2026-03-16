@@ -18,7 +18,7 @@
  * Capability definitions for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

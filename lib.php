@@ -18,7 +18,7 @@
  * Main library file for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,33 +28,60 @@ defined('MOODLE_INTERNAL') || die();
  * Anoop Kakkur Rich Text Editor integration class.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class customeditor_texteditor extends texteditor {
 
+    /**
+     * Check if the editor is supported by the current browser.
+     *
+     * @return bool
+     */
     public function supported_by_browser() {
         return true;
     }
 
+    /**
+     * Get the supported text formats.
+     *
+     * @return array
+     */
     public function get_supported_formats() {
         return array(FORMAT_HTML => FORMAT_HTML, FORMAT_MOODLE => FORMAT_MOODLE);
     }
 
+    /**
+     * Get the preferred text format.
+     *
+     * @return int
+     */
     public function get_preferred_format() {
         return FORMAT_HTML;
     }
 
+    /**
+     * Check if the editor supports repositories.
+     *
+     * @return bool
+     */
     public function supports_repositories() {
         return true;
     }
 
+    /**
+     * Set up the editor for a given textarea element.
+     *
+     * @param string $elementid The ID of the textarea to replace.
+     * @param array|null $options Editor options.
+     * @param mixed $fpoptions File picker options.
+     */
     public function use_editor($elementid, array $options = null, $fpoptions = null) {
         global $PAGE;
 
         $cachebust = get_config('editor_customeditor', 'version') ?: time();
 
-        // Gather all settings to pass to the editor iframe
+        // Gather all settings to pass to the editor iframe.
         $settingskeys = array(
             'enable_menubar', 'enable_statusbar', 'enable_source', 'enable_fullscreen',
             'enable_font_family', 'enable_font_size', 'enable_text_color',
@@ -71,84 +98,18 @@ class customeditor_texteditor extends texteditor {
         $params = array('v' => $cachebust);
         foreach ($settingskeys as $key) {
             $val = get_config('editor_customeditor', $key);
-            // Only pass non-default (disabled) values to keep URL short
             if ($val !== false && $val !== '' && $val !== null) {
                 $params[$key] = $val;
             }
         }
         $editorurl = new moodle_url('/lib/editor/customeditor/editor.html', $params);
 
-        $js = '
-        (function() {
-            var elementid = ' . json_encode($elementid) . ';
-            var editorurl = ' . json_encode($editorurl->out(false)) . ';
-
-            function initCustomEditor() {
-                var textarea = document.getElementById(elementid);
-                if (!textarea) return;
-                if (textarea.dataset.customEditorInit) return;
-                textarea.dataset.customEditorInit = "true";
-
-                textarea.style.display = "none";
-
-                var attoWrap = textarea.closest(".editor_atto_wrap");
-                if (attoWrap) attoWrap.style.display = "none";
-                var tinyWrap = textarea.parentNode.querySelector(".tox.tox-tinymce");
-                if (tinyWrap) tinyWrap.style.display = "none";
-
-                var wrapper = document.createElement("div");
-                wrapper.id = "custom-editor-wrap-" + elementid;
-                wrapper.style.cssText = "width:100%;margin-bottom:0.5rem";
-
-                var iframe = document.createElement("iframe");
-                iframe.id = "custom-editor-iframe-" + elementid;
-                iframe.src = editorurl;
-                iframe.setAttribute("allowfullscreen", "true");
-                var editorHeight = new URLSearchParams(editorurl.split("?")[1] || "").get("editor_height") || "75vh";
-                iframe.style.cssText = "width:100%;height:" + editorHeight + ";border:1px solid #ccc;border-radius:8px;background:#fff;display:block";
-                wrapper.appendChild(iframe);
-
-                textarea.parentNode.insertBefore(wrapper, textarea);
-
-                iframe.addEventListener("load", function() {
-                    try {
-                        var content = textarea.value || "";
-                        if (content) iframe.contentWindow.setMoodleEditorContent(content);
-                    } catch(e) { console.warn("Custom editor load:", e); }
-                });
-
-                var form = textarea.closest("form");
-                if (form && !form.dataset.customEditorBound) {
-                    form.dataset.customEditorBound = "true";
-                    form.addEventListener("submit", function() { syncAllEditors(form); }, true);
-                    var buttons = form.querySelectorAll("[type=submit], .btn-primary, [name=submitbutton], [name=submitbutton2]");
-                    buttons.forEach(function(btn) {
-                        btn.addEventListener("click", function() { syncAllEditors(form); });
-                    });
-                }
-            }
-
-            function syncAllEditors(form) {
-                var iframes = form.querySelectorAll("[id^=custom-editor-iframe-]");
-                iframes.forEach(function(iframe) {
-                    var taId = iframe.id.replace("custom-editor-iframe-", "");
-                    var ta = document.getElementById(taId);
-                    if (ta) {
-                        try { ta.value = iframe.contentWindow.getMoodleEditorContent(); }
-                        catch(e) { console.warn("Custom editor sync:", e); }
-                    }
-                });
-            }
-
-            if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", initCustomEditor);
-            } else {
-                setTimeout(initCustomEditor, 300);
-            }
-        })();
-        ';
-
-        $PAGE->requires->js_init_code($js, true);
+        // Initialise the editor via AMD module.
+        $PAGE->requires->js_call_amd(
+            'editor_customeditor/editor',
+            'init',
+            array($elementid, $editorurl->out(false))
+        );
     }
 }
 
@@ -157,13 +118,8 @@ class customeditor_texteditor extends texteditor {
  *
  * Makes the Copy buttons in code blocks and snippets work
  * when content is viewed outside the editor (on Moodle pages).
- *
- * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 function editor_customeditor_before_footer() {
     global $PAGE;
-    $jsurl = new moodle_url('/lib/editor/customeditor/copybuttons.js');
-    $PAGE->requires->js($jsurl, true);
+    $PAGE->requires->js_call_amd('editor_customeditor/copybuttons', 'init');
 }

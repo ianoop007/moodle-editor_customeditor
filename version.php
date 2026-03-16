@@ -18,15 +18,15 @@
  * Version information for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025030500;
+$plugin->version   = 2025030501;
 $plugin->requires  = 2024042200;
 $plugin->component = 'editor_customeditor';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.0.0';
+$plugin->release   = '1.0.1';
 $plugin->supported = [405, 501];

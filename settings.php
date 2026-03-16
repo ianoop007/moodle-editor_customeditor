@@ -18,7 +18,7 @@
  * Settings for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,283 +26,131 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
 
-    // ── General Settings ──
-    $settings->add(new admin_setting_heading(
-        'editor_customeditor/general',
-        'General Settings',
-        'Configure general editor behavior.'
-    ));
+    $cmp = 'editor_customeditor';
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_menubar',
-        'Show Menu Bar',
-        'Show the File, Edit, View, Insert, Format, Tools, Help menu bar.',
-        1
-    ));
+    // General settings.
+    $settings->add(new admin_setting_heading($cmp . '/general',
+        get_string('general', $cmp), get_string('general_desc', $cmp)));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_statusbar',
-        'Show Status Bar',
-        'Show the bottom status bar with word count, character count, and element path.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_menubar',
+        get_string('enable_menubar', $cmp), get_string('enable_menubar_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_source',
-        'Source Code View',
-        'Allow users to view and edit the HTML source code.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_statusbar',
+        get_string('enable_statusbar', $cmp), get_string('enable_statusbar_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_fullscreen',
-        'Fullscreen Mode',
-        'Allow users to enter fullscreen editing mode (F11).',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_source',
+        get_string('enable_source', $cmp), get_string('enable_source_desc', $cmp), 1));
 
-    // ── Text Formatting ──
-    $settings->add(new admin_setting_heading(
-        'editor_customeditor/formatting_heading',
-        'Text Formatting',
-        'Enable or disable text formatting features.'
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_fullscreen',
+        get_string('enable_fullscreen', $cmp), get_string('enable_fullscreen_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_font_family',
-        'Font Family Selector',
-        'Allow users to change font family.',
-        1
-    ));
+    // Text formatting.
+    $settings->add(new admin_setting_heading($cmp . '/formatting_heading',
+        get_string('formatting_heading', $cmp), get_string('formatting_heading_desc', $cmp)));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_font_size',
-        'Font Size Selector',
-        'Allow users to change font size.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_font_family',
+        get_string('enable_font_family', $cmp), get_string('enable_font_family_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_text_color',
-        'Text Color',
-        'Allow users to change text and highlight colors.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_font_size',
+        get_string('enable_font_size', $cmp), get_string('enable_font_size_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_line_spacing',
-        'Line Spacing',
-        'Allow users to adjust line spacing.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_text_color',
+        get_string('enable_text_color', $cmp), get_string('enable_text_color_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_para_borders',
-        'Paragraph Borders & Shading',
-        'Allow users to add borders and shading to paragraphs.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_line_spacing',
+        get_string('enable_line_spacing', $cmp), get_string('enable_line_spacing_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_columns',
-        'Text Columns',
-        'Allow users to create multi-column text layouts.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_para_borders',
+        get_string('enable_para_borders', $cmp), get_string('enable_para_borders_desc', $cmp), 1));
 
-    // ── Insert Features ──
-    $settings->add(new admin_setting_heading(
-        'editor_customeditor/insert_heading',
-        'Insert Features',
-        'Enable or disable content insertion features.'
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_columns',
+        get_string('enable_columns', $cmp), get_string('enable_columns_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_images',
-        'Images',
-        'Allow users to insert images (URL, file upload, drag & drop).',
-        1
-    ));
+    // Insert features.
+    $settings->add(new admin_setting_heading($cmp . '/insert_heading',
+        get_string('insert_heading', $cmp), get_string('insert_heading_desc', $cmp)));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_links',
-        'Links',
-        'Allow users to insert hyperlinks.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_images',
+        get_string('enable_images', $cmp), get_string('enable_images_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_tables',
-        'Tables',
-        'Allow users to insert and edit tables.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_links',
+        get_string('enable_links', $cmp), get_string('enable_links_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_code_blocks',
-        'Code Blocks & Snippets',
-        'Allow users to insert code blocks with syntax highlighting and code snippets.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_tables',
+        get_string('enable_tables', $cmp), get_string('enable_tables_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_hr',
-        'Horizontal Lines',
-        'Allow users to insert styled horizontal lines.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_code_blocks',
+        get_string('enable_code_blocks', $cmp), get_string('enable_code_blocks_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_special_chars',
-        'Special Characters & Emoji',
-        'Allow users to insert special characters, currency symbols, and emoji.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_hr',
+        get_string('enable_hr', $cmp), get_string('enable_hr_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_video',
-        'Video & Iframe Embeds',
-        'Allow users to embed YouTube/Vimeo videos and iframes.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_special_chars',
+        get_string('enable_special_chars', $cmp), get_string('enable_special_chars_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_shapes',
-        'Shapes',
-        'Allow users to insert shapes with text overlay, resize, and drag.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_video',
+        get_string('enable_video', $cmp), get_string('enable_video_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_smartart',
-        'SmartArt',
-        'Allow users to insert SmartArt templates (process, hierarchy, cycle, etc.).',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_shapes',
+        get_string('enable_shapes', $cmp), get_string('enable_shapes_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_charts',
-        'Charts',
-        'Allow users to insert charts (bar, column, line, pie, donut, area).',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_smartart',
+        get_string('enable_smartart', $cmp), get_string('enable_smartart_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_textbox',
-        'Text Boxes',
-        'Allow users to insert bordered, resizable text boxes.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_charts',
+        get_string('enable_charts', $cmp), get_string('enable_charts_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_heading_templates',
-        'Heading Templates',
-        'Allow users to use pre-styled heading and subheading templates.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_textbox',
+        get_string('enable_textbox', $cmp), get_string('enable_textbox_desc', $cmp), 1));
 
-    // ── Document Features ──
-    $settings->add(new admin_setting_heading(
-        'editor_customeditor/document_heading',
-        'Document Features',
-        'Enable or disable document-level features.'
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_heading_templates',
+        get_string('enable_heading_templates', $cmp), get_string('enable_heading_templates_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_page_break',
-        'Page Break',
-        'Allow users to insert page breaks for print/PDF export.',
-        1
-    ));
+    // Document features.
+    $settings->add(new admin_setting_heading($cmp . '/document_heading',
+        get_string('document_heading', $cmp), get_string('document_heading_desc', $cmp)));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_toc',
-        'Table of Contents',
-        'Allow users to generate a table of contents from headings.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_page_break',
+        get_string('enable_page_break', $cmp), get_string('enable_page_break_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_watermark',
-        'Watermark',
-        'Allow users to add watermark text behind content.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_toc',
+        get_string('enable_toc', $cmp), get_string('enable_toc_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_header_footer',
-        'Header & Footer',
-        'Allow users to add editable headers and footers.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_watermark',
+        get_string('enable_watermark', $cmp), get_string('enable_watermark_desc', $cmp), 1));
 
-    // ── Export / Import ──
-    $settings->add(new admin_setting_heading(
-        'editor_customeditor/export_heading',
-        'Export & Import',
-        'Enable or disable export and import features.'
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_header_footer',
+        get_string('enable_header_footer', $cmp), get_string('enable_header_footer_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_export_pdf',
-        'Export to PDF',
-        'Allow users to export content as PDF.',
-        1
-    ));
+    // Export and import.
+    $settings->add(new admin_setting_heading($cmp . '/export_heading',
+        get_string('export_heading', $cmp), get_string('export_heading_desc', $cmp)));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_export_word',
-        'Export to Word',
-        'Allow users to export content as a Word document.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_export_pdf',
+        get_string('enable_export_pdf', $cmp), get_string('enable_export_pdf_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_import_word',
-        'Import from Word',
-        'Allow users to import content from Word documents.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_export_word',
+        get_string('enable_export_word', $cmp), get_string('enable_export_word_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_export_html',
-        'Export HTML',
-        'Allow users to export the raw HTML.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_import_word',
+        get_string('enable_import_word', $cmp), get_string('enable_import_word_desc', $cmp), 1));
 
-    // ── Advanced ──
-    $settings->add(new admin_setting_heading(
-        'editor_customeditor/advanced_heading',
-        'Advanced Settings',
-        'Advanced configuration options.'
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_export_html',
+        get_string('enable_export_html', $cmp), get_string('enable_export_html_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_find_replace',
-        'Find & Replace',
-        'Allow users to use the find and replace feature.',
-        1
-    ));
+    // Advanced settings.
+    $settings->add(new admin_setting_heading($cmp . '/advanced_heading',
+        get_string('advanced_heading', $cmp), get_string('advanced_heading_desc', $cmp)));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'editor_customeditor/enable_show_blocks',
-        'Show Blocks',
-        'Allow users to toggle visual block outlines.',
-        1
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_find_replace',
+        get_string('enable_find_replace', $cmp), get_string('enable_find_replace_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configtext(
-        'editor_customeditor/editor_height',
-        'Editor Height',
-        'Height of the editor iframe (CSS value, e.g. 75vh, 500px).',
-        '75vh'
-    ));
+    $settings->add(new admin_setting_configcheckbox($cmp . '/enable_show_blocks',
+        get_string('enable_show_blocks', $cmp), get_string('enable_show_blocks_desc', $cmp), 1));
 
-    $settings->add(new admin_setting_configtext(
-        'editor_customeditor/default_font_size',
-        'Default Font Size',
-        'Default font size in pixels for the editor content.',
-        '16'
-    ));
+    $settings->add(new admin_setting_configtext($cmp . '/editor_height',
+        get_string('editor_height', $cmp), get_string('editor_height_desc', $cmp), '75vh'));
+
+    $settings->add(new admin_setting_configtext($cmp . '/default_font_size',
+        get_string('default_font_size', $cmp), get_string('default_font_size_desc', $cmp), '16'));
 }

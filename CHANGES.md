@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.1 (2025-03-15)
+
+### Fixed
+- All settings strings now use get_string() API for translation support
+- Added proper Moodle GPL boilerplate to styles.css
+- Converted copybuttons.js to AMD ES6 module (amd/src/copybuttons.js)
+- Converted editor init JS to AMD ES6 module (amd/src/editor.js)
+- lib.php now uses js_call_amd() instead of js_init_code()
+- Removed legacy copybuttons.js (replaced by AMD module)
+- All source files have proper @copyright, @license, @package tags
+
 ## v1.0.0 (2025-03-05)
 
 ### Added

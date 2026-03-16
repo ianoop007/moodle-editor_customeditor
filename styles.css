@@ -1,10 +1,13 @@
 /**
- * Custom Rich Text Editor — Display Styles
+ * Display styles for the Anoop Kakkur Rich Text Editor.
+ *
  * Moodle automatically includes this file on every page.
  * These styles ensure code blocks, snippets, and copy buttons
- * render correctly when students/users VIEW the content.
+ * render correctly when users view the content.
  *
- * @package editor_customeditor
+ * @package   editor_customeditor
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /* ═══════════════════════════════════════════

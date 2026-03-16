@@ -18,7 +18,7 @@
  * Privacy provider for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * Privacy provider - this plugin does not store personal data.
  *
  * @package   editor_customeditor
- * @copyright 2025 Anoop Kakkur <anoopkakkur@gmail.com>
+ * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\local\metadata\null_provider {
