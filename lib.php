@@ -22,8 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Anoop Kakkur Rich Text Editor integration class.
  *
@@ -32,7 +30,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class customeditor_texteditor extends texteditor {
-
     /**
      * Check if the editor is supported by the current browser.
      *
@@ -48,7 +45,7 @@ class customeditor_texteditor extends texteditor {
      * @return array
      */
     public function get_supported_formats() {
-        return array(FORMAT_HTML => FORMAT_HTML, FORMAT_MOODLE => FORMAT_MOODLE);
+        return [FORMAT_HTML => FORMAT_HTML, FORMAT_MOODLE => FORMAT_MOODLE];
     }
 
     /**
@@ -75,6 +72,7 @@ class customeditor_texteditor extends texteditor {
      * @param string $elementid The ID of the textarea to replace.
      * @param array|null $options Editor options.
      * @param mixed $fpoptions File picker options.
+     * @return void
      */
     public function use_editor($elementid, array $options = null, $fpoptions = null) {
         global $PAGE;
@@ -82,7 +80,7 @@ class customeditor_texteditor extends texteditor {
         $cachebust = get_config('editor_customeditor', 'version') ?: time();
 
         // Gather all settings to pass to the editor iframe.
-        $settingskeys = array(
+        $settingskeys = [
             'enable_menubar', 'enable_statusbar', 'enable_source', 'enable_fullscreen',
             'enable_font_family', 'enable_font_size', 'enable_text_color',
             'enable_line_spacing', 'enable_para_borders', 'enable_columns',
@@ -94,8 +92,8 @@ class customeditor_texteditor extends texteditor {
             'enable_export_pdf', 'enable_export_word', 'enable_import_word', 'enable_export_html',
             'enable_find_replace', 'enable_show_blocks',
             'editor_height', 'default_font_size',
-        );
-        $params = array('v' => $cachebust);
+        ];
+        $params = ['v' => $cachebust];
         foreach ($settingskeys as $key) {
             $val = get_config('editor_customeditor', $key);
             if ($val !== false && $val !== '' && $val !== null) {
@@ -108,7 +106,7 @@ class customeditor_texteditor extends texteditor {
         $PAGE->requires->js_call_amd(
             'editor_customeditor/editor',
             'init',
-            array($elementid, $editorurl->out(false))
+            [$elementid, $editorurl->out(false)]
         );
     }
 }

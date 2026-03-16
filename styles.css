@@ -10,9 +10,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    CODE BLOCK — dark theme with copy button
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 pre[data-lang] {
     position: relative;
     background: #1e1e2e;
@@ -21,7 +21,7 @@ pre[data-lang] {
     padding: 0;
     margin: 1.2em 0;
     overflow: hidden;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     border: 1px solid #313244;
     font-family: 'IBM Plex Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
 }
@@ -48,8 +48,8 @@ pre[data-lang] .copy-code-btn {
     display: flex;
     align-items: center;
     gap: 5px;
-    background: rgba(205,214,244,0.08);
-    border: 1px solid rgba(205,214,244,0.15);
+    background: rgba(205, 214, 244, 0.08);
+    border: 1px solid rgba(205, 214, 244, 0.15);
     color: #a6adc8;
     padding: 4px 10px;
     border-radius: 4px;
@@ -60,7 +60,7 @@ pre[data-lang] .copy-code-btn {
 }
 
 pre[data-lang] .copy-code-btn:hover {
-    background: rgba(205,214,244,0.15);
+    background: rgba(205, 214, 244, 0.15);
     color: #cdd6f4;
 }
 
@@ -85,18 +85,32 @@ pre[data-lang] code {
 }
 
 /* Syntax highlighting colors */
-.syntax-keyword { color: #cba6f7; }
-.syntax-string { color: #a6e3a1; }
-.syntax-comment { color: #6c7086; font-style: italic; }
-.syntax-function { color: #89b4fa; }
-.syntax-number { color: #fab387; }
-.syntax-tag { color: #f38ba8; }
-.syntax-attr { color: #f9e2af; }
+.syntax-keyword {
+    color: #cba6f7;
+}
+.syntax-string {
+    color: #a6e3a1;
+}
+.syntax-comment {
+    color: #6c7086;
+    font-style: italic;
+}
+.syntax-function {
+    color: #89b4fa;
+}
+.syntax-number {
+    color: #fab387;
+}
+.syntax-tag {
+    color: #f38ba8;
+}
+.syntax-attr {
+    color: #f9e2af;
+}
 
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    INLINE CODE SNIPPET — small badge style
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 .code-snippet {
     display: inline-flex;
     align-items: center;
@@ -116,7 +130,7 @@ pre[data-lang] code {
 
 .code-snippet:hover {
     border-color: #93c5fd;
-    box-shadow: 0 0 0 2px rgba(37,99,235,0.08);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
 }
 
 .code-snippet .snippet-text {
@@ -131,7 +145,7 @@ pre[data-lang] code {
     width: 22px;
     height: 22px;
     border: none;
-    background: rgba(9,105,218,0.08);
+    background: rgba(9, 105, 218, 0.08);
     border-radius: 4px;
     cursor: pointer;
     color: #0969da;
@@ -141,12 +155,12 @@ pre[data-lang] code {
 }
 
 .code-snippet .snippet-copy-btn:hover {
-    background: rgba(9,105,218,0.18);
+    background: rgba(9, 105, 218, 0.18);
     color: #0550ae;
 }
 
 .code-snippet .snippet-copy-btn.copied {
-    background: rgba(22,163,74,0.12);
+    background: rgba(22, 163, 74, 0.12);
     color: #16a34a;
 }
 
@@ -160,10 +174,9 @@ pre[data-lang] code {
     stroke-linejoin: round;
 }
 
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    BLOCK CODE SNIPPET — documentation style
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 .code-snippet-block {
     display: flex;
     align-items: flex-start;
@@ -177,7 +190,7 @@ pre[data-lang] code {
 
 .code-snippet-block:hover {
     border-color: #93c5fd;
-    box-shadow: 0 0 0 2px rgba(37,99,235,0.06);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.06);
 }
 
 .code-snippet-block .snippet-block-prefix {
@@ -185,7 +198,7 @@ pre[data-lang] code {
     align-items: center;
     justify-content: center;
     padding: 12px 10px;
-    background: rgba(9,105,218,0.06);
+    background: rgba(9, 105, 218, 0.06);
     border-right: 1px solid #d0d7de;
     color: #0969da;
     font-family: 'IBM Plex Mono', 'Consolas', monospace;
@@ -229,12 +242,12 @@ pre[data-lang] code {
 }
 
 .code-snippet-block .snippet-block-copy:hover {
-    background: rgba(9,105,218,0.08);
+    background: rgba(9, 105, 218, 0.08);
 }
 
 .code-snippet-block .snippet-block-copy.copied {
     color: #16a34a;
-    background: rgba(22,163,74,0.06);
+    background: rgba(22, 163, 74, 0.06);
 }
 
 .code-snippet-block .snippet-block-copy svg {
@@ -247,12 +260,11 @@ pre[data-lang] code {
     stroke-linejoin: round;
 }
 
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    INLINE CODE (simple backtick style)
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 code:not(pre code):not(.snippet-text) {
-    background: rgba(37,99,235,0.08);
+    background: rgba(37, 99, 235, 0.08);
     color: #2563eb;
     padding: 2px 6px;
     border-radius: 4px;
@@ -260,24 +272,22 @@ code:not(pre code):not(.snippet-text) {
     font-size: 0.9em;
 }
 
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    BLOCKQUOTE styling
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 blockquote {
     border-left: 4px solid #2563eb;
     margin: 1em 0;
     padding: 12px 20px;
-    background: rgba(37,99,235,0.04);
+    background: rgba(37, 99, 235, 0.04);
     border-radius: 0 6px 6px 0;
     color: #6b7280;
     font-style: italic;
 }
 
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    TABLE styling
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 .text_to_html table,
 .no-overflow table,
 [data-region="view-overview"] table {
@@ -300,12 +310,11 @@ blockquote {
     font-weight: 600;
 }
 
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    CONTENT TYPOGRAPHY — match editor appearance
    These override the Moodle theme's gray/light
    text colors so output looks like the editor
-   ═══════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 
 /* Main content areas where editor HTML is displayed */
 .text_to_html,
@@ -366,7 +375,8 @@ blockquote {
 }
 
 .text_to_html h5, .no-overflow h5,
-.text_to_html h6, .no-overflow h6 {
+.text_to_html h6,
+.no-overflow h6 {
     color: #1a1a2e;
     font-weight: 600;
     margin: 0.75em 0;
@@ -388,30 +398,35 @@ blockquote {
     color: #1a1a2e;
 }
 
-.text_to_html li, .no-overflow li {
+.text_to_html li,
+.no-overflow li {
     color: #1a1a2e;
     margin: 0.25em 0;
 }
 
 /* Bold text */
 .text_to_html strong, .text_to_html b,
-.no-overflow strong, .no-overflow b {
+.no-overflow strong,
+.no-overflow b {
     color: #1a1a2e;
     font-weight: 700;
 }
 
 /* Links */
-.text_to_html a, .no-overflow a {
+.text_to_html a,
+.no-overflow a {
     color: #2563eb;
     text-decoration: underline;
 }
 
-.text_to_html a:hover, .no-overflow a:hover {
+.text_to_html a:hover,
+.no-overflow a:hover {
     color: #1d4ed8;
 }
 
 /* Horizontal rule */
-.text_to_html hr, .no-overflow hr {
+.text_to_html hr,
+.no-overflow hr {
     border: none;
     height: 2px;
     background: linear-gradient(to right, transparent, #d1d5db, transparent);
@@ -419,51 +434,253 @@ blockquote {
 }
 
 /* Images */
-.text_to_html img, .no-overflow img {
+.text_to_html img,
+.no-overflow img {
     max-width: 100%;
     height: auto;
     border-radius: 6px;
 }
 
-
-
-/* ═══════════════════════════════════════════
+/* ════════════════════════════════════════
    HEADING TEMPLATES — display side
-   ═══════════════════════════════════════════ */
-.heading-tpl-1 { font-size: 2em; font-weight: 800; color: #1a1a2e; border-bottom: 3px solid #2563eb; padding-bottom: 8px; margin: 1em 0 0.5em; }
-.heading-tpl-2 { font-size: 1.8em; font-weight: 700; color: #fff; background: linear-gradient(135deg, #2563eb, #7c3aed); padding: 12px 20px; border-radius: 8px; margin: 1em 0 0.5em; }
-.heading-tpl-3 { font-size: 1.8em; font-weight: 700; color: #1a1a2e; border-left: 5px solid #2563eb; padding-left: 16px; margin: 1em 0 0.5em; }
-.heading-tpl-4 { font-size: 1.8em; font-weight: 700; color: #1a1a2e; text-align: center; text-transform: uppercase; letter-spacing: 2px; border-top: 2px solid #e5e7eb; border-bottom: 2px solid #e5e7eb; padding: 10px 0; margin: 1em 0 0.5em; }
-.heading-tpl-5 { font-size: 1.8em; font-weight: 700; color: #2563eb; background: rgba(37,99,235,0.06); padding: 10px 18px; border-radius: 8px; border: 1px solid rgba(37,99,235,0.15); margin: 1em 0 0.5em; }
+   ════════════════════════════════════════ */
+.heading-tpl-1 {
+    font-size: 2em;
+    font-weight: 800;
+    color: #1a1a2e;
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 8px;
+    margin: 1em 0 0.5em;
+}
+.heading-tpl-2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 1em 0 0.5em;
+}
+.heading-tpl-3 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #1a1a2e;
+    border-left: 5px solid #2563eb;
+    padding-left: 16px;
+    margin: 1em 0 0.5em;
+}
+.heading-tpl-4 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #1a1a2e;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top: 2px solid #e5e7eb;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 10px 0;
+    margin: 1em 0 0.5em;
+}
+.heading-tpl-5 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.06);
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    margin: 1em 0 0.5em;
+}
 
-.subheading-tpl-1 { font-size: 1.2em; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; margin: 0.8em 0 0.4em; }
-.subheading-tpl-2 { font-size: 1.15em; font-weight: 600; color: #fff; background: linear-gradient(135deg, #10b981, #059669); padding: 8px 16px; border-radius: 6px; margin: 0.8em 0 0.4em; }
-.subheading-tpl-3 { font-size: 1.15em; font-weight: 600; color: #374151; border-left: 4px solid #f59e0b; padding-left: 12px; margin: 0.8em 0 0.4em; }
-.subheading-tpl-4 { font-size: 1.15em; font-weight: 600; color: #6366f1; text-transform: uppercase; letter-spacing: 1.5px; margin: 0.8em 0 0.4em; }
-.subheading-tpl-5 { font-size: 1.15em; font-weight: 600; color: #374151; background: #f9fafb; padding: 8px 14px; border-radius: 6px; border: 1px solid #e5e7eb; margin: 0.8em 0 0.4em; }
+.subheading-tpl-1 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 6px;
+    margin: 0.8em 0 0.4em;
+}
+.subheading-tpl-2 {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #10b981, #059669);
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 0.8em 0 0.4em;
+}
+.subheading-tpl-3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #374151;
+    border-left: 4px solid #f59e0b;
+    padding-left: 12px;
+    margin: 0.8em 0 0.4em;
+}
+.subheading-tpl-4 {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #6366f1;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0.8em 0 0.4em;
+}
+.subheading-tpl-5 {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #374151;
+    background: #f9fafb;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    margin: 0.8em 0 0.4em;
+}
 
 /* ── Styled Horizontal Rules (display side) ── */
-.hr-gradient { border: none; height: 2px; background: linear-gradient(90deg, transparent, #6b7280, transparent); margin: 1em 0; }
-.hr-gradient-color { border: none; height: 3px; background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899); border-radius: 2px; margin: 1em 0; }
-.hr-shadow { border: none; height: 1px; background: #d1d5db; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin: 1em 0; }
-.hr-thick { border: none; height: 4px; background: #374151; border-radius: 2px; margin: 1em 0; }
+.hr-gradient {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #6b7280, transparent);
+    margin: 1em 0;
+}
+.hr-gradient-color {
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    border-radius: 2px;
+    margin: 1em 0;
+}
+.hr-shadow {
+    border: none;
+    height: 1px;
+    background: #d1d5db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    margin: 1em 0;
+}
+.hr-thick {
+    border: none;
+    height: 4px;
+    background: #374151;
+    border-radius: 2px;
+    margin: 1em 0;
+}
 
 /* ── Default Bundled Fonts ── */
-@font-face { font-family: 'Work Sans'; src: url('fonts/WorkSans-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Work Sans'; src: url('fonts/WorkSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Work Sans'; src: url('fonts/WorkSans-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Work Sans'; src: url('fonts/WorkSans-BoldItalic.ttf') format('truetype'); font-weight: 700; font-style: italic; font-display: swap; }
-@font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
-@font-face { font-family: 'Instrument Sans'; src: url('fonts/InstrumentSans-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Instrument Sans'; src: url('fonts/InstrumentSans-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('fonts/WorkSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('fonts/WorkSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('fonts/WorkSans-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('fonts/WorkSans-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('fonts/IBMPlexMono-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Instrument Sans';
+    src: url('fonts/InstrumentSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Instrument Sans';
+    src: url('fonts/InstrumentSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
 
 /* ── Malayalam Fonts (bundled) ── */
-@font-face { font-family: 'Baloo Chettan 2'; src: url('fonts/BalooChettan2-Variable.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: 'Noto Sans Malayalam'; src: url('fonts/NotoSansMalayalam-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Noto Sans Malayalam'; src: url('fonts/NotoSansMalayalam-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
-@font-face { font-family: 'Dyuthi'; src: url('fonts/Dyuthi-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Mandaram'; src: url('fonts/MANDARAM.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Raghu Malayalam Sans'; src: url('fonts/RaghuMalayalamSans-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Suruma'; src: url('fonts/Suruma.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Thumba'; src: url('fonts/THUMBA.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+
+@font-face {
+    font-family: 'Baloo Chettan 2';
+    src: url('fonts/BalooChettan2-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Malayalam';
+    src: url('fonts/NotoSansMalayalam-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Malayalam';
+    src: url('fonts/NotoSansMalayalam-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Dyuthi';
+    src: url('fonts/Dyuthi-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mandaram';
+    src: url('fonts/MANDARAM.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Raghu Malayalam Sans';
+    src: url('fonts/RaghuMalayalamSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Suruma';
+    src: url('fonts/Suruma.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Thumba';
+    src: url('fonts/THUMBA.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}

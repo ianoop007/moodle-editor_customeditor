@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.0.2 (2026-03-16)
+
+### Fixed
+- Resolved all 378 Moodle prechecker errors and 37 warnings
+- PHP coding style: multi-line function calls with one argument per line in settings.php
+- PHP coding style: removed unnecessary MOODLE_INTERNAL checks in lib.php and provider.php
+- PHP coding style: converted all array() to short array syntax []
+- PHP coding style: removed blank lines after opening braces
+- Language strings: reordered all string keys in strict alphabetical order
+- JavaScript: emptied @package tags in AMD modules per Moodle ESLint rules
+- JavaScript: added .catch() and return values to Promise .then() chains
+- CSS: expanded all single-line rules to multi-line format
+- CSS: added spaces after commas in rgb() and rgba() functions
+- CSS: added required empty lines before @font-face declarations
+- CSS: split selector lists to one selector per line
+- CSS: ensured all lines within 132 character limit
+- CSS: shortened Unicode decorative comment lines
+- AMD build files rebuilt to match updated source
+- Added GitHub Actions CI workflow for automated testing
+- CI tests against Moodle 4.5 (MariaDB), 5.0 (PostgreSQL), 5.1 (PostgreSQL)
+
 ## v1.0.1 (2025-03-15)
 
 ### Fixed

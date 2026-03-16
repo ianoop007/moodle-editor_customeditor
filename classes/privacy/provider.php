@@ -24,8 +24,6 @@
 
 namespace editor_customeditor\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy provider - this plugin does not store personal data.
  *
@@ -34,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\local\metadata\null_provider {
-
     /**
      * Get the language string identifier for the privacy reason.
      *

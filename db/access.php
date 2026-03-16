@@ -24,16 +24,16 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'editor/customeditor:use' => array(
+$capabilities = [
+    'editor/customeditor:use' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
+        'archetypes' => [
             'editingteacher' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
             'student' => CAP_ALLOW,
             'user' => CAP_ALLOW,
-        ),
-    ),
-);
+        ],
+    ],
+];

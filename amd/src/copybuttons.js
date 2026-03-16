@@ -20,7 +20,7 @@
  * when content is viewed outside the editor (on Moodle pages).
  *
  * @module     editor_customeditor/copybuttons
- * @package    editor_customeditor
+ * @package
  * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -106,6 +106,9 @@ export const init = () => {
         const text = code ? (code.innerText || code.textContent) : '';
         clipboardCopy(text).then(() => {
             showCopied(pre.querySelector('.copy-code-btn'), 'block');
+            return true;
+        }).catch(() => {
+            // Clipboard copy failed silently.
         });
     };
 
@@ -127,6 +130,9 @@ export const init = () => {
                 ? el.querySelector('.snippet-copy-btn')
                 : el.querySelector('.snippet-block-copy');
             showCopied(btn, type);
+            return true;
+        }).catch(() => {
+            // Clipboard copy failed silently.
         });
     };
 };

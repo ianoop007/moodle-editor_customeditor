@@ -17,7 +17,7 @@
  * Editor initialisation module for the Anoop Kakkur Rich Text Editor.
  *
  * @module     editor_customeditor/editor
- * @package    editor_customeditor
+ * @package
  * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
