@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.3 (2026-03-16)
+
+### Fixed
+- Fixed 9 remaining CSS selector-list comma formatting issues
+- All selectors in multi-selector rules now on separate lines with proper commas
+- Moodle prechecker: 0 errors target
+
 ## v1.0.2 (2026-03-16)
 
 ### Fixed

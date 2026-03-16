@@ -336,7 +336,8 @@ blockquote {
 }
 
 /* Headings — ensure dark, bold, proper sizes */
-.text_to_html h1, .no-overflow h1,
+.text_to_html h1,
+.no-overflow h1,
 #region-main .text_to_html h1,
 .generalbox h1 {
     color: #1a1a2e;
@@ -346,7 +347,8 @@ blockquote {
     line-height: 1.2;
 }
 
-.text_to_html h2, .no-overflow h2,
+.text_to_html h2,
+.no-overflow h2,
 #region-main .text_to_html h2,
 .generalbox h2 {
     color: #1a1a2e;
@@ -356,7 +358,8 @@ blockquote {
     line-height: 1.3;
 }
 
-.text_to_html h3, .no-overflow h3,
+.text_to_html h3,
+.no-overflow h3,
 #region-main .text_to_html h3,
 .generalbox h3 {
     color: #1a1a2e;
@@ -365,7 +368,8 @@ blockquote {
     margin: 0.75em 0;
 }
 
-.text_to_html h4, .no-overflow h4,
+.text_to_html h4,
+.no-overflow h4,
 #region-main .text_to_html h4,
 .generalbox h4 {
     color: #1a1a2e;
@@ -374,7 +378,8 @@ blockquote {
     margin: 0.75em 0;
 }
 
-.text_to_html h5, .no-overflow h5,
+.text_to_html h5,
+.no-overflow h5,
 .text_to_html h6,
 .no-overflow h6 {
     color: #1a1a2e;
@@ -383,7 +388,8 @@ blockquote {
 }
 
 /* Paragraphs and body text — force dark color */
-.text_to_html p, .no-overflow p,
+.text_to_html p,
+.no-overflow p,
 #region-main .text_to_html p,
 .generalbox p {
     color: #1a1a2e;
@@ -391,8 +397,10 @@ blockquote {
 }
 
 /* Lists */
-.text_to_html ul, .text_to_html ol,
-.no-overflow ul, .no-overflow ol,
+.text_to_html ul,
+.text_to_html ol,
+.no-overflow ul,
+.no-overflow ol,
 #region-main .text_to_html ul,
 #region-main .text_to_html ol {
     color: #1a1a2e;
@@ -405,7 +413,8 @@ blockquote {
 }
 
 /* Bold text */
-.text_to_html strong, .text_to_html b,
+.text_to_html strong,
+.text_to_html b,
 .no-overflow strong,
 .no-overflow b {
     color: #1a1a2e;
