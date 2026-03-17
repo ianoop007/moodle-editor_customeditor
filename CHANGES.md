@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.4 (2026-03-17)
+
+### Added
+- PHPUnit tests (18 test cases covering editor class, settings, privacy, capabilities, language strings)
+- Behat feature tests (editor visibility and page load scenarios)
+- Tests directory with proper Moodle test structure
+
 ## v1.0.3 (2026-03-16)
 
 ### Fixed

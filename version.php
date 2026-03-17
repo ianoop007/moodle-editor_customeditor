@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025030503;
+$plugin->version   = 2025030504;
 $plugin->requires  = 2024042200;
 $plugin->component = 'editor_customeditor';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.0.3';
+$plugin->release   = '1.0.4';
 $plugin->supported = [405, 501];
