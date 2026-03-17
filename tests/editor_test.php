@@ -32,7 +32,7 @@ namespace editor_customeditor;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers    \customeditor_texteditor
  */
-class editor_test extends \advanced_testcase {
+final class editor_test extends \advanced_testcase {
     /**
      * Test that the editor class exists and can be instantiated.
      */
