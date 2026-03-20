@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * Anoop Kakkur Rich Text Editor integration class.
  *
@@ -82,16 +84,52 @@ class customeditor_texteditor extends texteditor {
         // Gather all settings to pass to the editor iframe.
         $settingskeys = [
             'enable_menubar', 'enable_statusbar', 'enable_source', 'enable_fullscreen',
-            'enable_font_family', 'enable_font_size', 'enable_text_color',
-            'enable_line_spacing', 'enable_para_borders', 'enable_columns',
-            'enable_images', 'enable_links', 'enable_tables', 'enable_code_blocks',
-            'enable_hr', 'enable_special_chars', 'enable_video',
-            'enable_shapes', 'enable_smartart', 'enable_charts', 'enable_textbox',
-            'enable_heading_templates',
-            'enable_page_break', 'enable_toc', 'enable_watermark', 'enable_header_footer',
-            'enable_export_pdf', 'enable_export_word', 'enable_import_word', 'enable_export_html',
-            'enable_find_replace', 'enable_show_blocks',
-            'editor_height', 'default_font_size',
+            'enable_font_family', 'enable_font_size', 'enable_text_color', 'enable_line_spacing',
+            'enable_para_borders', 'enable_columns', 'enable_images', 'enable_links',
+            'enable_tables', 'enable_code_blocks', 'enable_hr', 'enable_special_chars',
+            'enable_video', 'enable_shapes', 'enable_smartart', 'enable_charts', 'enable_textbox',
+            'enable_heading_templates', 'enable_page_break', 'enable_toc', 'enable_watermark',
+            'enable_header_footer', 'enable_export_pdf', 'enable_export_word',
+            'enable_import_word', 'enable_export_html', 'enable_find_replace',
+            'enable_show_blocks', 'enable_dark_mode', 'enable_spellcheck_toggle',
+            'enable_autosave', 'enable_reading_time', 'enable_accessibility',
+            'enable_text_transform', 'enable_callout_boxes', 'enable_footnotes',
+            'enable_definition_list', 'enable_accordion', 'enable_badges', 'enable_math_editor',
+            'enable_content_templates', 'enable_annotations', 'enable_markdown',
+            'enable_print_preview', 'enable_rtl_ltr', 'enable_drop_cap', 'enable_small_caps',
+            'enable_letter_spacing', 'enable_text_shadow', 'enable_para_spacing',
+            'enable_image_caption', 'enable_image_gallery', 'enable_audio_embed',
+            'enable_file_attachment', 'enable_blockquote_cite', 'enable_figure_caption',
+            'enable_progress_bar', 'enable_timeline', 'enable_tab_panels', 'enable_table_merge',
+            'enable_table_sort', 'enable_table_styles', 'enable_checklist',
+            'enable_auto_numbering', 'enable_content_divider', 'enable_word_limit',
+            'enable_text_statistics', 'enable_clipboard_history', 'enable_placeholders',
+            'enable_date_time_insert', 'enable_lorem_ipsum', 'enable_zoom_controls',
+            'enable_focus_mode', 'enable_sticky_toolbar', 'enable_bg_color_editor',
+            'enable_custom_css_class', 'enable_gradient_text', 'enable_card_component',
+            'enable_divider_patterns', 'enable_alt_text_editor', 'enable_heading_checker',
+            'enable_contrast_checker', 'enable_reading_level', 'enable_lang_attribute',
+            'enable_citation_insert', 'enable_glossary_tooltip', 'enable_reading_progress',
+            'enable_quiz_box', 'enable_step_instruction', 'enable_key_takeaway',
+            'enable_compare_box', 'enable_rubric_template', 'enable_learning_objective',
+            'enable_line_numbers', 'enable_soft_hard_return', 'enable_nbsp_insert',
+            'enable_paste_plain_toggle', 'enable_auto_correct', 'enable_content_lock',
+            'enable_undo_history', 'enable_format_painter', 'enable_floating_toolbar',
+            'enable_breadcrumb_click', 'enable_minimap', 'enable_split_view',
+            'enable_distraction_free', 'enable_unicode_inspector', 'enable_per_block_direction',
+            'enable_transliteration', 'enable_word_count_lang', 'enable_qr_code',
+            'enable_maps_embed', 'enable_social_embed', 'enable_oembed', 'enable_anchor_links',
+            'enable_doc_properties', 'enable_export_epub', 'enable_export_md_frontmatter',
+            'enable_section_navigator', 'enable_endnotes', 'enable_keyword_index',
+            'enable_running_header', 'enable_page_number', 'enable_cross_reference',
+            'enable_broken_link_check', 'enable_duplicate_detector', 'enable_word_frequency',
+            'enable_passive_voice', 'enable_sentence_length', 'enable_jargon_check',
+            'enable_consistency_check', 'enable_json_viewer', 'enable_mermaid_diagrams',
+            'enable_ascii_art', 'enable_kanban_board', 'enable_star_rating',
+            'enable_color_palette', 'enable_content_encrypt', 'enable_redaction_tool',
+            'enable_invisible_watermark', 'enable_export_sanitiser', 'enable_moodle_linker',
+            'enable_ruler_guides', 'enable_version_compare', 'enable_toolbar_customiser',
+            'enable_side_panel', 'editor_height', 'default_font_size',
         ];
         $params = ['v' => $cachebust];
         foreach ($settingskeys as $key) {

@@ -67,6 +67,222 @@
   --font-mono: 'IBM Plex Mono', 'Fira Code', Consolas, monospace;
 }
 
+/* ══════════════════════════════════════════════════════════════════════ */
+/* v2.0.0 — 120 NEW FEATURES CSS                                         */
+/* ══════════════════════════════════════════════════════════════════════ */
+
+/* ── DARK MODE ── */
+body.dark-mode {
+  --bg-primary: #1a1b26; --bg-secondary: #24283b; --bg-toolbar: #1f2335;
+  --bg-hover: #33384d; --bg-active: #2a4075; --border-color: #3b4261;
+  --border-focus: #7aa2f7; --text-primary: #c0caf5; --text-secondary: #9aa5ce;
+  --accent: #7aa2f7; --accent-hover: #5d8cf7; --danger: #f7768e; --success: #9ece6a;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+}
+body.dark-mode .modal { background: var(--bg-secondary); color: var(--text-primary); }
+body.dark-mode .modal-header { border-color: var(--border-color); color: var(--text-primary); }
+body.dark-mode .modal-footer { border-color: var(--border-color); }
+body.dark-mode .modal-input { background: var(--bg-primary); color: var(--text-primary); border-color: var(--border-color); }
+body.dark-mode .modal-overlay { background: rgba(0,0,0,0.7); }
+body.dark-mode #editor { color: var(--text-primary); caret-color: var(--accent); }
+body.dark-mode .btn-secondary { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-color); }
+body.dark-mode select.toolbar-select { background: var(--bg-toolbar); color: var(--text-primary); border-color: var(--border-color); }
+body.dark-mode .shortcut-help { background: var(--bg-secondary); color: var(--text-primary); }
+body.dark-mode .shortcut-help td { border-color: var(--border-color); }
+
+/* ── CALLOUT BOXES ── */
+#editor .callout-box { border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-left: 4px solid; font-size: 14px; line-height: 1.6; }
+#editor .callout-info { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+#editor .callout-warning { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+#editor .callout-success { background: #f0fdf4; border-color: #22c55e; color: #166534; }
+#editor .callout-error { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
+#editor .callout-box .callout-title { font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+body.dark-mode #editor .callout-info { background: rgba(59,130,246,0.1); color: #93c5fd; }
+body.dark-mode #editor .callout-warning { background: rgba(245,158,11,0.1); color: #fcd34d; }
+body.dark-mode #editor .callout-success { background: rgba(34,197,94,0.1); color: #86efac; }
+body.dark-mode #editor .callout-error { background: rgba(239,68,68,0.1); color: #fca5a5; }
+
+/* ── FOOTNOTES ── */
+#editor .footnote-ref { color: var(--accent); font-size: 0.75em; vertical-align: super; cursor: pointer; font-weight: 700; }
+#editor .footnote-section { border-top: 1px solid var(--border-color); margin-top: 24px; padding-top: 12px; font-size: 13px; color: var(--text-secondary); }
+#editor .footnote-item { margin: 4px 0; }
+#editor .footnote-item .fn-num { color: var(--accent); font-weight: 700; margin-right: 6px; }
+
+/* ── DEFINITION LIST ── */
+#editor .def-list { margin: 12px 0; }
+#editor .def-list dt { font-weight: 700; color: var(--text-primary); margin-top: 10px; border-left: 3px solid var(--accent); padding-left: 10px; }
+#editor .def-list dd { margin-left: 16px; padding-left: 10px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ── ACCORDION ── */
+#editor .ed-accordion { border: 1px solid var(--border-color); border-radius: 8px; margin: 10px 0; overflow: hidden; }
+#editor .ed-accordion-header { background: var(--bg-secondary); padding: 10px 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; user-select: none; }
+#editor .ed-accordion-header::before { content: '▸'; transition: transform 0.2s; font-size: 12px; }
+#editor .ed-accordion.open .ed-accordion-header::before { transform: rotate(90deg); }
+#editor .ed-accordion-body { padding: 12px 16px; display: none; }
+#editor .ed-accordion.open .ed-accordion-body { display: block; }
+
+/* ── BADGES ── */
+#editor .ed-badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.6; white-space: nowrap; }
+#editor .ed-badge-blue { background: #dbeafe; color: #1e40af; }
+#editor .ed-badge-green { background: #dcfce7; color: #166534; }
+#editor .ed-badge-red { background: #fee2e2; color: #991b1b; }
+#editor .ed-badge-yellow { background: #fef3c7; color: #92400e; }
+#editor .ed-badge-purple { background: #f3e8ff; color: #6b21a8; }
+#editor .ed-badge-gray { background: #f3f4f6; color: #374151; }
+
+/* ── MATH ── */
+#editor .math-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 18px; margin: 10px 0; font-family: 'Times New Roman', serif; font-size: 18px; text-align: center; }
+#editor .math-inline { font-family: 'Times New Roman', serif; font-style: italic; background: rgba(37,99,235,0.04); padding: 1px 4px; border-radius: 3px; }
+
+/* ── ANNOTATIONS ── */
+#editor .annotation-mark { background: #fef08a; border-bottom: 2px solid #eab308; position: relative; cursor: pointer; }
+#editor .annotation-mark:hover .annotation-note { display: block; }
+#editor .annotation-note { display: none; position: absolute; bottom: 100%; left: 0; background: #1e293b; color: #f1f5f9; padding: 6px 10px; border-radius: 6px; font-size: 12px; max-width: 250px; white-space: normal; z-index: 100; box-shadow: var(--shadow-md); }
+
+/* ── AUTOSAVE INDICATOR ── */
+.autosave-indicator { font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 4px; background: rgba(22,163,74,0.06); border: 1px solid rgba(22,163,74,0.15); transition: all 0.3s; }
+.autosave-indicator .autosave-dot { width: 7px; height: 7px; border-radius: 50%; background: #9ca3af; flex-shrink: 0; transition: background 0.3s; }
+/* Ready / Idle — gray dot */
+.autosave-indicator.as-ready { background: rgba(156,163,175,0.08); border-color: rgba(156,163,175,0.2); }
+.autosave-indicator.as-ready .autosave-dot { background: #9ca3af; }
+/* Unsaved changes — orange dot */
+.autosave-indicator.as-dirty { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.2); }
+.autosave-indicator.as-dirty .autosave-dot { background: #f59e0b; }
+.autosave-indicator.as-dirty #autosaveText { color: #d97706; }
+/* Saving — yellow pulsing dot */
+.autosave-indicator.as-saving { background: rgba(234,179,8,0.1); border-color: rgba(234,179,8,0.25); }
+.autosave-indicator.as-saving .autosave-dot { background: #eab308; animation: autosave-pulse 0.8s infinite; }
+.autosave-indicator.as-saving #autosaveText { color: #a16207; }
+/* Saved — green dot */
+.autosave-indicator.as-saved { background: rgba(22,163,74,0.08); border-color: rgba(22,163,74,0.2); }
+.autosave-indicator.as-saved .autosave-dot { background: #16a34a; }
+.autosave-indicator.as-saved #autosaveText { color: #15803d; }
+/* Draft restored — blue dot */
+.autosave-indicator.as-restored { background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.2); }
+.autosave-indicator.as-restored .autosave-dot { background: #2563eb; }
+.autosave-indicator.as-restored #autosaveText { color: #1d4ed8; }
+/* Failed — red dot */
+.autosave-indicator.as-failed { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.2); }
+.autosave-indicator.as-failed .autosave-dot { background: #dc2626; }
+.autosave-indicator.as-failed #autosaveText { color: #b91c1c; }
+@keyframes autosave-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ── DROP CAP ── */
+#editor .drop-cap::first-letter { float: left; font-size: 3.5em; line-height: 0.8; padding: 4px 8px 0 0; font-weight: 700; color: var(--accent); }
+
+/* ── PROGRESS BAR ── */
+#editor .ed-progress { background: #e5e7eb; border-radius: 8px; height: 24px; margin: 10px 0; overflow: hidden; position: relative; }
+#editor .ed-progress-bar { height: 100%; border-radius: 8px; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 600; }
+
+/* ── TIMELINE ── */
+#editor .ed-timeline { position: relative; padding-left: 30px; margin: 16px 0; }
+#editor .ed-timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border-color); }
+#editor .ed-timeline-item { position: relative; margin-bottom: 16px; }
+#editor .ed-timeline-item::before { content: ''; position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg-primary); }
+#editor .ed-timeline-date { font-size: 12px; color: var(--accent); font-weight: 600; }
+#editor .ed-timeline-title { font-weight: 700; margin: 2px 0; }
+#editor .ed-timeline-desc { font-size: 13px; color: var(--text-secondary); }
+
+/* ── TAB PANELS ── */
+#editor .ed-tabs { border: 1px solid var(--border-color); border-radius: 8px; margin: 10px 0; overflow: hidden; }
+#editor .ed-tabs-header { display: flex; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
+#editor .ed-tab-btn { padding: 8px 16px; cursor: pointer; font-size: 13px; font-weight: 600; border: none; background: transparent; color: var(--text-secondary); border-bottom: 2px solid transparent; }
+#editor .ed-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg-primary); }
+#editor .ed-tab-panel { padding: 12px 16px; display: none; }
+#editor .ed-tab-panel.active { display: block; }
+
+/* ── CHECKLIST ── */
+#editor .ed-checklist { list-style: none; padding: 0; margin: 10px 0; }
+#editor .ed-checklist li { padding: 6px 0; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+#editor .ed-checklist li .check-box { width: 18px; height: 18px; border: 2px solid var(--border-color); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+#editor .ed-checklist li.checked .check-box { background: var(--accent); border-color: var(--accent); color: #fff; }
+#editor .ed-checklist li.checked .check-text { text-decoration: line-through; color: var(--text-secondary); }
+
+/* ── CARD COMPONENT ── */
+#editor .ed-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; margin: 12px 0; box-shadow: var(--shadow-sm); }
+#editor .ed-card-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+
+/* ── QUIZ BOX ── */
+#editor .ed-quiz { border: 2px solid #8b5cf6; border-radius: 8px; margin: 12px 0; overflow: hidden; }
+#editor .ed-quiz-q { padding: 14px 18px; background: #f5f3ff; font-weight: 600; }
+#editor .ed-quiz-a { padding: 14px 18px; background: #ecfdf5; border-top: 1px dashed #8b5cf6; display: none; }
+#editor .ed-quiz.revealed .ed-quiz-a { display: block; }
+#editor .ed-quiz-toggle { font-size: 12px; color: #8b5cf6; cursor: pointer; margin-top: 6px; font-weight: 600; }
+
+/* ── STEP INSTRUCTION ── */
+#editor .ed-steps { margin: 12px 0; }
+#editor .ed-step { display: flex; gap: 12px; margin-bottom: 12px; }
+#editor .ed-step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+#editor .ed-step-content { flex: 1; }
+
+/* ── KEY TAKEAWAY ── */
+#editor .ed-takeaway { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1px solid #f59e0b; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+#editor .ed-takeaway-title { font-weight: 700; color: #92400e; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+
+/* ── COMPARE BOX ── */
+#editor .ed-compare { display: flex; gap: 0; margin: 12px 0; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+#editor .ed-compare-side { flex: 1; padding: 14px; }
+#editor .ed-compare-side:first-child { background: #eff6ff; border-right: 2px solid var(--border-color); }
+#editor .ed-compare-side:last-child { background: #fef2f2; }
+#editor .ed-compare-label { font-weight: 700; font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── LEARNING OBJECTIVE ── */
+#editor .ed-objective { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+#editor .ed-objective-title { font-weight: 700; color: #1e40af; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+
+/* ── GLOSSARY TOOLTIP ── */
+#editor .glossary-term { border-bottom: 2px dotted var(--accent); cursor: help; position: relative; }
+#editor .glossary-term:hover .glossary-def { display: block; }
+#editor .glossary-def { display: none; position: absolute; bottom: 100%; left: 0; background: #1e293b; color: #f1f5f9; padding: 8px 12px; border-radius: 6px; font-size: 12px; max-width: 280px; white-space: normal; z-index: 100; box-shadow: var(--shadow-md); margin-bottom: 4px; }
+
+/* ── STAR RATING ── */
+#editor .ed-rating { display: inline-flex; gap: 2px; font-size: 20px; }
+#editor .ed-rating .star-filled { color: #f59e0b; }
+#editor .ed-rating .star-empty { color: #d1d5db; }
+
+/* ── KANBAN BOARD ── */
+#editor .ed-kanban { display: flex; gap: 8px; margin: 12px 0; min-height: 120px; }
+#editor .ed-kanban-col { flex: 1; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+#editor .ed-kanban-header { padding: 8px 12px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+#editor .ed-kanban-body { padding: 8px; min-height: 80px; }
+#editor .ed-kanban-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; font-size: 13px; }
+
+/* ── COLOUR PALETTE ── */
+#editor .ed-palette { display: flex; gap: 4px; margin: 8px 0; }
+#editor .ed-palette-swatch { width: 36px; height: 36px; border-radius: 6px; border: 2px solid var(--border-color); }
+
+/* ── CONTENT DIVIDER ── */
+#editor .ed-divider-label { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--text-secondary); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+#editor .ed-divider-label::before, #editor .ed-divider-label::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
+
+/* ── READING PROGRESS BAR ── */
+.reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: var(--accent); z-index: 99999; transition: width 0.1s; }
+
+/* ── FOCUS MODE ── */
+body.focus-mode #editor > *:not(.focus-active) { opacity: 0.2; transition: opacity 0.3s; }
+body.focus-mode #editor > .focus-active { opacity: 1; }
+
+/* ── REDACTION ── */
+#editor .redacted { background: #000; color: #000; user-select: none; padding: 0 2px; border-radius: 2px; }
+#editor .redacted::selection { background: #000; color: #000; }
+
+/* ── PLACEHOLDER FIELDS ── */
+#editor .ed-placeholder { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 4px; font-size: 13px; font-weight: 600; border: 1px dashed #93c5fd; }
+
+/* ── ANCHOR LINKS ── */
+#editor .ed-anchor { display: inline-block; width: 16px; height: 16px; background: var(--accent); color: #fff; font-size: 10px; line-height: 16px; text-align: center; border-radius: 3px; vertical-align: middle; margin: 0 2px; }
+
+/* ── LINE NUMBERS ── */
+body.show-line-numbers #editor { counter-reset: line-counter; padding-left: 50px; }
+body.show-line-numbers #editor > * { counter-increment: line-counter; position: relative; }
+body.show-line-numbers #editor > *::before { content: counter(line-counter); position: absolute; left: -45px; width: 35px; text-align: right; font-size: 11px; color: #9ca3af; font-family: var(--font-mono); }
+
+/* ── ZOOM ── */
+.zoom-controls { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+.zoom-controls button { width: 20px; height: 20px; border: 1px solid var(--border-color); border-radius: 3px; background: var(--bg-toolbar); cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+
+
 body {
   font-family: var(--font-body);
   background: #fff;
@@ -926,10 +1142,14 @@ body {
         <div class="menu-dropdown-item" onclick="editorAction('exportText')">Export Text</div>
         <div class="menu-dropdown-item" onclick="editorAction('exportPDF')">Export to PDF</div>
         <div class="menu-dropdown-item" onclick="editorAction('exportWord')">Export to Word (.docx)</div>
+        <div class="menu-dropdown-item" onclick="editorAction('exportMarkdown')">Export Markdown</div>
         <div class="menu-dropdown-divider"></div>
         <div class="menu-dropdown-item" onclick="editorAction('importWord')">Import from Word<input type="file" id="importWordFile" accept=".docx,.doc" style="display:none" onchange="handleWordImport(this)"></div>
+        <div class="menu-dropdown-item" onclick="editorAction('importMarkdown')">Import Markdown<input type="file" id="importMDFile" accept=".md,.markdown,.txt" style="display:none" onchange="handleMarkdownImport(this)"></div>
         <div class="menu-dropdown-divider"></div>
-        <div class="menu-dropdown-item" onclick="editorAction('source')">Source Code</div>
+
+        <div class="menu-dropdown-divider"></div>
+        <div class="menu-dropdown-item" onclick="editorAction('printPreview')">Print Preview</div>
       </div>
     </div>
     <div class="menu-bar-item" data-menu="edit">
@@ -955,33 +1175,96 @@ body {
         <div class="menu-dropdown-item" onclick="toggleHeaderFooter()">
           <span id="headerFooterCheck" style="display:inline-block;width:16px">☐</span> Header & Footer
         </div>
+        <div class="menu-dropdown-divider"></div>
+        <div class="menu-dropdown-item" onclick="toggleDarkMode()">
+          <span id="darkModeCheck" style="display:inline-block;width:16px">☐</span> Dark Mode
+        </div>
+        <div class="menu-dropdown-item" onclick="toggleSpellCheck()">
+          <span id="spellCheckMark" style="display:inline-block;width:16px">☑</span> Spell Check
+        </div>
+        <div class="menu-dropdown-item" onclick="toggleAccessibility()">
+          <span id="a11yCheck" style="display:inline-block;width:16px">☐</span> Accessibility Mode
+        </div>
+        <div class="menu-dropdown-item" onclick="toggleFocusMode()">
+          <span id="focusModeCheck" style="display:inline-block;width:16px">☐</span> Focus Mode
+        </div>
+        <div class="menu-dropdown-item" onclick="toggleLineNumbers()">
+          <span id="lineNumCheck" style="display:inline-block;width:16px">☐</span> Line Numbers
+        </div>
+        <div class="menu-dropdown-divider"></div>
+        <div class="menu-dropdown-item" onclick="editorAction('source')" id="menuSourceToggle">
+          View Source Code
+        </div>
       </div>
     </div>
     <div class="menu-bar-item" data-menu="insert">
       Insert
-      <div class="menu-dropdown" id="menu-insert">
-        <div class="menu-dropdown-item" onclick="editorAction('insertImage')">Image<span class="shortcut">Ctrl+Shift+I</span></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertLink')">Link<span class="shortcut">Ctrl+K</span></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertTable')">Table<span class="shortcut">Ctrl+Shift+T</span></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertCodeBlock')">Code Block<span class="shortcut">Ctrl+Shift+C</span></div>
-        <div class="menu-dropdown-item" onclick="editorAction('makeSnippet')">Code Snippet<span class="shortcut">Ctrl+Shift+K</span></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertHR')">Horizontal Line<span class="shortcut">Ctrl+Shift+H</span></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertSpecialChar')">Special Characters</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertEmoji')">Emoji</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertVideo')">Video Embed</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertIframe')">Iframe</div>
+      <div class="menu-dropdown" id="menu-insert" style="max-height:80vh;overflow-y:auto;width:260px">
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Content</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertImage')">🖼️ Image</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertLink')">🔗 Link</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertTable')">📊 Table</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertVideo')">🎬 Video Embed</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertIframe')">📐 Iframe</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertHR')">➖ Horizontal Line</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertSpecialChar')">Ω Special Characters</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertEmoji')">😀 Emoji</div>
         <div class="menu-dropdown-divider"></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertShape')">Shapes</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertSmartArt')">SmartArt</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertChart')">Chart</div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Code</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertCodeBlock')">💻 Code Block</div>
+        <div class="menu-dropdown-item" onclick="editorAction('makeSnippet')">&lt;/&gt; Code Snippet</div>
         <div class="menu-dropdown-divider"></div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertPageBreak')">Page Break</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertTOC')">Table of Contents</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertTextBox')">Text Box</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertWatermark')">Watermark</div>
-        <div class="menu-dropdown-item" onclick="editorAction('insertColumns')">Text Columns</div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Graphics</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertShape')">⬟ Shapes</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertSmartArt')">🔄 SmartArt</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertChart')">📈 Chart</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertQRCode')">📱 QR Code</div>
         <div class="menu-dropdown-divider"></div>
-        <div class="menu-dropdown-item" onclick="editorAction('headingTemplates')">Heading Templates<span class="shortcut">Ctrl+Shift+P</span></div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Boxes & Panels</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertCallout')">📌 Callout Box</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertAccordion')">📂 Accordion</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertTabPanels')">📑 Tab Panels</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertCardBox')">🃏 Card / Box</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertQuizBox')">❓ Quiz Box</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertKeyTakeaway')">🔑 Key Takeaway</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertCompareBox')">⚖️ Compare Box</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertObjectiveBox')">🎯 Learning Objective</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertStepBox')">📋 Step Instructions</div>
+        <div class="menu-dropdown-divider"></div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Lists & Structure</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertChecklist')">☑️ Checklist</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertDefList')">📖 Definition List</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertTimeline')">📅 Timeline</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertKanban')">📋 Kanban Board</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertProgressBar')">📊 Progress Bar</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertStarRating')">⭐ Star Rating</div>
+        <div class="menu-dropdown-divider"></div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Academic</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertFootnote')">📝 Footnote</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertCitation')">📚 Citation</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertMath')">🔢 Math Equation</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertGlossary')">📗 Glossary Term</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertAnnotation')">💬 Annotation</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertRubric')">📐 Rubric Table</div>
+        <div class="menu-dropdown-divider"></div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Document</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertPageBreak')">📄 Page Break</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertTOC')">📑 Table of Contents</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertTextBox')">📦 Text Box</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertWatermark')">💧 Watermark</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertColumns')">📰 Text Columns</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertDividerLabel')">── Labelled Divider</div>
+        <div class="menu-dropdown-divider"></div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Quick Insert</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertBadge')">🏷️ Badge / Tag</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertPlaceholder')">📝 Placeholder Field</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertDateTime')">📅 Date / Time</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertAnchor')">⚓ Anchor / Bookmark</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertLoremIpsum')">📝 Lorem Ipsum</div>
+        <div class="menu-dropdown-divider"></div>
+        <div style="padding:4px 12px;font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Templates</div>
+        <div class="menu-dropdown-item" onclick="editorAction('headingTemplates')">📄 Heading Templates</div>
+        <div class="menu-dropdown-item" onclick="editorAction('contentTemplates')">📋 Content Templates</div>
       </div>
     </div>
     <div class="menu-bar-item" data-menu="format">
@@ -992,13 +1275,25 @@ body {
         <div class="menu-dropdown-item" onclick="editorAction('underline')">Underline<span class="shortcut">Ctrl+U</span></div>
         <div class="menu-dropdown-item" onclick="editorAction('strikeThrough')">Strikethrough<span class="shortcut">Ctrl+Shift+S</span></div>
         <div class="menu-dropdown-divider"></div>
-        <div class="menu-dropdown-item" onclick="editorAction('subscript')">Subscript</div>
-        <div class="menu-dropdown-item" onclick="editorAction('superscript')">Superscript</div>
+        <div class="menu-dropdown-item" onclick="editorAction('subscript')">Subscript<span class="shortcut">Ctrl+,</span></div>
+        <div class="menu-dropdown-item" onclick="editorAction('superscript')">Superscript<span class="shortcut">Ctrl+.</span></div>
         <div class="menu-dropdown-divider"></div>
-        <div class="menu-dropdown-item" onclick="editorAction('removeFormat')">Clear Formatting</div>
+        <div class="menu-dropdown-item" onclick="editorAction('removeFormat')">Clear Formatting<span class="shortcut">Ctrl+\\</span></div>
         <div class="menu-dropdown-divider"></div>
         <div class="menu-dropdown-item" onclick="editorAction('lineSpacing')">Line Spacing</div>
         <div class="menu-dropdown-item" onclick="editorAction('paragraphBorder')">Borders & Shading</div>
+        <div class="menu-dropdown-divider"></div>
+        <div class="menu-dropdown-item" onclick="editorAction('textTransformUpper')">UPPERCASE</div>
+        <div class="menu-dropdown-item" onclick="editorAction('textTransformLower')">lowercase</div>
+        <div class="menu-dropdown-item" onclick="editorAction('textTransformTitle')">Title Case</div>
+        <div class="menu-dropdown-item" onclick="editorAction('textTransformSentence')">Sentence case</div>
+        <div class="menu-dropdown-divider"></div>
+        <div class="menu-dropdown-item" onclick="editorAction('dropCap')">Drop Cap</div>
+        <div class="menu-dropdown-item" onclick="editorAction('smallCaps')">Small Caps</div>
+        <div class="menu-dropdown-item" onclick="editorAction('textDirection')">Text Direction (RTL/LTR)</div>
+        <div class="menu-dropdown-item" onclick="editorAction('gradientText')">Gradient Text</div>
+        <div class="menu-dropdown-item" onclick="editorAction('formatPainter')">Format Painter</div>
+        <div class="menu-dropdown-item" onclick="editorAction('redactText')">Redact Text</div>
       </div>
     </div>
     <div class="menu-bar-item" data-menu="tools">
@@ -1006,6 +1301,11 @@ body {
       <div class="menu-dropdown" id="menu-tools">
         <div class="menu-dropdown-item" onclick="editorAction('wordCount')">Word Count</div>
         <div class="menu-dropdown-item" onclick="editorAction('fullscreen')">Fullscreen<span class="shortcut">F11</span></div>
+        <div class="menu-dropdown-divider"></div>
+        <div class="menu-dropdown-item" onclick="editorAction('textStats')">Text Statistics</div>
+        <div class="menu-dropdown-item" onclick="editorAction('headingCheck')">Heading Level Check</div>
+        <div class="menu-dropdown-item" onclick="editorAction('wordFrequency')">Word Frequency</div>
+        <div class="menu-dropdown-item" onclick="editorAction('brokenLinkCheck')">Check Links</div>
         <div class="menu-dropdown-divider"></div>
         <div class="menu-dropdown-item" onclick="document.getElementById('shortcutHelp').classList.toggle('show')">Keyboard Shortcuts<span class="shortcut">Ctrl+/</span></div>
       </div>
@@ -1310,8 +1610,11 @@ body {
       <div class="status-indicator"><span class="status-dot"></span>Ready</div>
       <span id="statusWords">Words: 0</span>
       <span id="statusChars">Characters: 0</span>
+      <span id="statusReadTime" style="display:none">~0 min read</span>
+      <span id="autosaveStatus" class="autosave-indicator" style="display:none"><span class="autosave-dot"></span><span id="autosaveText">Auto-save ready</span></span>
     </div>
     <div class="status-bar-right">
+      <span class="zoom-controls" id="zoomControls" style="display:none"><button onclick="editorZoom(-10)" title="Zoom out">−</button><span id="zoomLevel">100%</span><button onclick="editorZoom(10)" title="Zoom in">+</button></span>
       <span id="statusPath">Body &gt; p</span>
       <a href="https://anoopkakkur.com/" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:11px;font-weight:500;margin-left:12px;padding-left:12px;border-left:1px solid var(--border-color);transition:color 0.15s" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#6b7280'">Anoop Kakkur</a>
     </div>
@@ -1689,10 +1992,51 @@ editor.addEventListener('keydown', (e) => {
       case 'b': e.preventDefault(); editorAction('bold'); break;
       case 'i': e.preventDefault(); editorAction('italic'); break;
       case 'u': e.preventDefault(); editorAction('underline'); break;
-      case 'k': e.preventDefault(); editorAction('insertLink'); break;
+      case 'k':
+        e.preventDefault();
+        if (e.shiftKey) { editorAction('makeSnippet'); }
+        else { editorAction('insertLink'); }
+        break;
       case 'z': if (!e.shiftKey) { e.preventDefault(); editorAction('undo'); } break;
       case 'y': e.preventDefault(); editorAction('redo'); break;
       case 'h': e.preventDefault(); editorAction('findReplace'); break;
+      case 'd':
+        if (e.shiftKey) { e.preventDefault(); editorAction('strikeThrough'); }
+        break;
+      case 'e':
+        if (e.shiftKey) { e.preventDefault(); editorAction('justifyCenter'); }
+        break;
+      case 'l':
+        if (e.shiftKey) { e.preventDefault(); editorAction('justifyLeft'); }
+        break;
+      case 'r':
+        if (e.shiftKey) { e.preventDefault(); editorAction('justifyRight'); }
+        break;
+      case 'j':
+        if (e.shiftKey) { e.preventDefault(); editorAction('justifyFull'); }
+        break;
+    }
+    // Ctrl+Shift shortcuts  
+    if (e.shiftKey) {
+      switch(e.key.toLowerCase()) {
+        case 'x': e.preventDefault(); editorAction('strikeThrough'); break;
+        case '5': e.preventDefault(); editorAction('strikeThrough'); break;
+        case 'p': e.preventDefault(); editorAction('headingTemplates'); break;
+        case 'c': e.preventDefault(); editorAction('insertCodeBlock'); break;
+        case 't': e.preventDefault(); editorAction('insertTable'); break;
+        case 'h': e.preventDefault(); editorAction('insertHR'); break;
+        case 'q': e.preventDefault(); editorAction('blockquote'); break;
+        case 'g': e.preventDefault(); editorAction('highlight'); break;
+      }
+    }
+    // Ctrl + punctuation shortcuts
+    if (!e.shiftKey) {
+      switch(e.key) {
+        case ',': e.preventDefault(); editorAction('subscript'); break;
+        case '.': e.preventDefault(); editorAction('superscript'); break;
+        case '\\': e.preventDefault(); editorAction('removeFormat'); break;
+        case '/': e.preventDefault(); document.getElementById('shortcutHelp').classList.toggle('show'); break;
+      }
     }
   }
   // Tab inside code blocks
@@ -1708,8 +2052,15 @@ editor.addEventListener('keydown', (e) => {
 editor.addEventListener('mouseup', updateToolbarState);
 editor.addEventListener('keyup', updateToolbarState);
 
+// ─── Selection Tracking (simple, proven pattern matching v1.0) ───
+// mousedown preventDefault on menus keeps editor focused.
+// For modals: saveSelection before open, restoreSelection after close.
+
 // ─── Menu Bar ───
 document.querySelectorAll('.menu-bar-item').forEach(item => {
+  item.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // Prevent focus loss from editor
+  });
   item.addEventListener('click', (e) => {
     e.stopPropagation();
     const dd = item.querySelector('.menu-dropdown');
@@ -1719,10 +2070,25 @@ document.querySelectorAll('.menu-bar-item').forEach(item => {
     item.classList.toggle('active');
   });
 });
+
+// Prevent dropdown items from stealing focus
+document.querySelectorAll('.menu-dropdown-item').forEach(item => {
+  item.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // Keep editor focused
+  });
+});
+
 document.addEventListener('click', () => {
   document.querySelectorAll('.menu-dropdown.show').forEach(d => d.classList.remove('show'));
   document.querySelectorAll('.menu-bar-item.active').forEach(m => m.classList.remove('active'));
 });
+// Prevent toolbar buttons and dropdown options from stealing focus
+document.querySelectorAll('.toolbar-btn, .toolbar-select, .hr-option, .snippet-type-option, .tpl-item, .special-char-btn, .emoji-btn, .char-cat-tab').forEach(function(btn) {
+  btn.addEventListener('mousedown', function(e) {
+    e.preventDefault(); // Keep editor focused
+  });
+});
+
 
 // ─── Editor Actions ───
 function editorAction(cmd) {
@@ -1753,6 +2119,7 @@ function editorAction(cmd) {
       document.execCommand('unlink', false, null);
       break;
     case 'insertHR':
+      saveSelection();
       openHRDropdown(document.getElementById('btn-hr'));
       break;
     case 'insertLink':
@@ -1907,8 +2274,61 @@ function editorAction(cmd) {
       buildHeadingTemplates();
       openModal('headingTplModal');
       break;
+    // ═══ v2.0.0 NEW FEATURE ACTIONS ═══
+    case 'textTransformUpper': _v2_transformCase('upper'); break;
+    case 'textTransformLower': _v2_transformCase('lower'); break;
+    case 'textTransformTitle': _v2_transformCase('title'); break;
+    case 'textTransformSentence': _v2_transformCase('sentence'); break;
+    case 'printPreview': _v2_printPreview(); break;
+    case 'exportMarkdown': _v2_exportMarkdown(); break;
+    case 'importMarkdown': document.getElementById('importMDFile').click(); break;
+    case 'insertCallout': saveSelection(); openModal('calloutModal'); break;
+    case 'insertFootnote': saveSelection(); openModal('footnoteModal'); break;
+    case 'insertDefList': saveSelection(); openModal('defListModal'); break;
+    case 'insertAccordion': saveSelection(); openModal('accordionModal'); break;
+    case 'insertBadge': saveSelection(); openModal('badgeModal'); break;
+    case 'insertMath': saveSelection(); openModal('mathModal'); break;
+    case 'insertAnnotation': saveSelection(); openModal('annotationModal'); break;
+    case 'contentTemplates': _v2_buildContentTemplates(); openModal('contentTplModal'); break;
+    case 'insertChecklist': saveSelection(); _v2_insertChecklist(); break;
+    case 'insertTimeline': saveSelection(); openModal('timelineModal'); break;
+    case 'insertTabPanels': saveSelection(); _v2_insertTabPanels(); break;
+    case 'insertProgressBar': saveSelection(); openModal('progressModal'); break;
+    case 'insertQuizBox': saveSelection(); _v2_insertQuizBox(); break;
+    case 'insertStepBox': saveSelection(); _v2_insertStepBox(); break;
+    case 'insertKeyTakeaway': saveSelection(); _v2_insertKeyTakeaway(); break;
+    case 'insertCompareBox': saveSelection(); _v2_insertCompareBox(); break;
+    case 'insertObjectiveBox': saveSelection(); _v2_insertObjectiveBox(); break;
+    case 'insertCardBox': saveSelection(); _v2_insertCardBox(); break;
+    case 'insertKanban': saveSelection(); _v2_insertKanban(); break;
+    case 'insertStarRating': saveSelection(); _v2_insertStarRating(); break;
+    case 'insertGlossary': saveSelection(); openModal('glossaryModal'); break;
+    case 'insertPlaceholder': saveSelection(); _v2_insertPlaceholder(); break;
+    case 'insertDateTime': _v2_insertDateTime(); break;
+    case 'insertLoremIpsum': saveSelection(); _v2_insertLoremIpsum(); break;
+    case 'insertAnchor': saveSelection(); _v2_insertAnchor(); break;
+    case 'insertDividerLabel': saveSelection(); _v2_insertDividerLabel(); break;
+    case 'insertCitation': saveSelection(); openModal('citationModal'); break;
+    case 'insertQRCode': saveSelection(); _v2_insertQRCode(); break;
+    case 'insertRubric': saveSelection(); _v2_insertRubric(); break;
+    case 'dropCap': _v2_dropCap(); break;
+    case 'smallCaps': _v2_smallCaps(); break;
+    case 'textDirection': _v2_textDirection(); break;
+    case 'gradientText': _v2_gradientText(); break;
+    case 'formatPainter': _v2_formatPainter(); break;
+    case 'redactText': _v2_redactText(); break;
+    case 'textStats': _v2_textStats(); break;
+    case 'headingCheck': _v2_headingCheck(); break;
+    case 'wordFrequency': _v2_wordFrequency(); break;
+    case 'brokenLinkCheck': _v2_brokenLinkCheck(); break;
   }
-  editor.focus();
+  // Preserve scroll position
+  var _hasModal = document.querySelector('.modal-overlay.show');
+  if (!_hasModal) {
+    var _scrollTop = editor.scrollTop;
+    editor.focus();
+    editor.scrollTop = _scrollTop;
+  }
   updateStatus();
   saveUndoState();
 }
@@ -2341,17 +2761,20 @@ function buildEmojis() {
 function toggleSource() {
   isSourceMode = !isSourceMode;
   const btn = document.getElementById('btn-source');
+  const menuLabel = document.getElementById('menuSourceToggle');
   if (isSourceMode) {
     sourceEditor.value = formatHTML(editor.innerHTML);
     editor.style.display = 'none';
     sourceEditor.style.display = 'block';
     btn.classList.add('active');
+    if (menuLabel) menuLabel.textContent = 'View Editor Mode';
   } else {
     // SECURITY: Sanitize HTML from source view before rendering
     editor.innerHTML = sanitizeHTML(sourceEditor.value);
     editor.style.display = 'block';
     sourceEditor.style.display = 'none';
     btn.classList.remove('active');
+    if (menuLabel) menuLabel.textContent = 'View Source Code';
     saveUndoState();
   }
 }
@@ -2847,6 +3270,16 @@ function getFullHTML() {
       <tr><td>Source Code</td><td>Ctrl+Shift+X</td></tr>
       <tr><td>Fullscreen</td><td>F11</td></tr>
       <tr><td>Show Shortcuts</td><td>Ctrl+/</td></tr>
+      <tr><td><b>v2.0.0 Shortcuts</b></td><td></td></tr>
+      <tr><td>Subscript</td><td>Ctrl+,</td></tr>
+      <tr><td>Superscript</td><td>Ctrl+.</td></tr>
+      <tr><td>Clear Formatting</td><td>Ctrl+\</td></tr>
+      <tr><td>Blockquote</td><td>Ctrl+Shift+Q</td></tr>
+      <tr><td>Highlight</td><td>Ctrl+Shift+G</td></tr>
+      <tr><td>Align Left</td><td>Ctrl+Shift+L</td></tr>
+      <tr><td>Align Center</td><td>Ctrl+Shift+E</td></tr>
+      <tr><td>Align Right</td><td>Ctrl+Shift+R</td></tr>
+      <tr><td>Justify</td><td>Ctrl+Shift+J</td></tr>
     </table>
   </div>
 </div>
@@ -3579,6 +4012,7 @@ function openHRDropdown(btn) {
 
 function insertStyledHR(style) {
   document.getElementById('hrDropdown').classList.remove('show');
+  restoreSelection();
   const thickness = document.getElementById('hrThickness').value || 2;
   let hrHTML = '';
 
@@ -3689,15 +4123,22 @@ buildSpecialChars = function() {
 // RELIABLE INSERTION — inserts HTML at saved cursor position via DOM
 // ═══════════════════════════════════════════════════════════════
 function insertAtCursor(htmlStr) {
+  restoreSelection();
+  var sel = window.getSelection();
   var range;
-  if (savedSelection && editor.contains(savedSelection.startContainer)) {
-    range = savedSelection.cloneRange();
+  if (sel.rangeCount > 0 && editor.contains(sel.getRangeAt(0).startContainer)) {
+    range = sel.getRangeAt(0);
+  } else if (savedSelection && editor.contains(savedSelection.startContainer)) {
+    sel.removeAllRanges();
+    sel.addRange(savedSelection);
+    range = savedSelection;
   } else {
-    // Fallback: insert at end of editor
     editor.focus();
     range = document.createRange();
     range.selectNodeContents(editor);
     range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
   range.deleteContents();
   var temp = document.createElement('div');
@@ -3708,7 +4149,6 @@ function insertAtCursor(htmlStr) {
     lastNode = frag.appendChild(temp.firstChild);
   }
   range.insertNode(frag);
-  // Move cursor after inserted content
   if (lastNode) {
     var newRange = document.createRange();
     newRange.setStartAfter(lastNode);
@@ -4598,6 +5038,16 @@ window.setMoodleEditorContent = function(html) {
       <tr><td>Source Code</td><td>Ctrl+Shift+X</td></tr>
       <tr><td>Fullscreen</td><td>F11</td></tr>
       <tr><td>Show Shortcuts</td><td>Ctrl+/</td></tr>
+      <tr><td><b>v2.0.0 Shortcuts</b></td><td></td></tr>
+      <tr><td>Subscript</td><td>Ctrl+,</td></tr>
+      <tr><td>Superscript</td><td>Ctrl+.</td></tr>
+      <tr><td>Clear Formatting</td><td>Ctrl+\</td></tr>
+      <tr><td>Blockquote</td><td>Ctrl+Shift+Q</td></tr>
+      <tr><td>Highlight</td><td>Ctrl+Shift+G</td></tr>
+      <tr><td>Align Left</td><td>Ctrl+Shift+L</td></tr>
+      <tr><td>Align Center</td><td>Ctrl+Shift+E</td></tr>
+      <tr><td>Align Right</td><td>Ctrl+Shift+R</td></tr>
+      <tr><td>Justify</td><td>Ctrl+Shift+J</td></tr>
     </table>
   </div>
 </div>
@@ -4733,7 +5183,8 @@ Ops:50</textarea></div>
     <div class="modal-body" style="text-align:center">
       <div style="font-size:28px;font-weight:800;background:linear-gradient(135deg,#2563eb,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">Anoop Kakkur</div>
       <div style="font-size:13px;color:#6b7280;margin-bottom:2px">Rich Text Editor for Moodle LMS</div>
-      <div style="font-size:11px;color:#9ca3af;margin-bottom:16px">A powerful, modern WYSIWYG editor</div>
+      <div style="font-size:11px;color:#9ca3af;margin-bottom:4px">Version 2.0.0 — 150+ configurable features</div>
+      <div style="font-size:11px;color:#9ca3af;margin-bottom:16px">Moodle 4.5 – 5.2 compatible</div>
       <div style="text-align:left;background:#f8fafc;border-radius:8px;padding:14px 18px;margin:12px 0;font-size:12px;line-height:2;color:#374151;max-height:240px;overflow-y:auto">
         <strong style="font-size:13px">Features:</strong><br>
         &#10003; Rich text formatting (Bold, Italic, Underline, Strikethrough, Sub/Super)<br>
@@ -4766,6 +5217,58 @@ Ops:50</textarea></div>
         &#10003; Undo/Redo with history<br>
         &#10003; Real-time word & character count<br>
         &#10003; Moodle LMS integration<br>
+        <strong style="font-size:13px;margin-top:8px;display:block">v2.0.0 New Features (120):</strong>
+        &#10003; Dark Mode with theme toggle<br>
+        &#10003; Spell Check toggle<br>
+        &#10003; Auto-save drafts with recovery<br>
+        &#10003; Reading time estimate<br>
+        &#10003; Text Case Transform (UPPER/lower/Title/Sentence)<br>
+        &#10003; Print Preview<br>
+        &#10003; Markdown import &amp; export<br>
+        &#10003; Footnotes with auto-numbering<br>
+        &#10003; Callout/Alert boxes (Info/Warning/Success/Error)<br>
+        &#10003; Definition Lists<br>
+        &#10003; Accordion / Collapsible sections<br>
+        &#10003; Badges &amp; Tags (6 colours)<br>
+        &#10003; Math / Equation editor (LaTeX)<br>
+        &#10003; Content Templates (7 types)<br>
+        &#10003; Highlight Annotations<br>
+        &#10003; Keyboard Accessibility Mode<br>
+        &#10003; Focus / Typewriter Mode<br>
+        &#10003; Line Numbers toggle<br>
+        &#10003; Zoom Controls<br>
+        &#10003; Checklist / Task lists<br>
+        &#10003; Timeline<br>
+        &#10003; Tab Panels<br>
+        &#10003; Progress Bars<br>
+        &#10003; Quiz / Question boxes<br>
+        &#10003; Step-by-step Instructions<br>
+        &#10003; Key Takeaway boxes<br>
+        &#10003; Compare / Versus boxes<br>
+        &#10003; Learning Objective boxes<br>
+        &#10003; Card / Box component<br>
+        &#10003; Kanban Board<br>
+        &#10003; Star Rating<br>
+        &#10003; Glossary Tooltip terms<br>
+        &#10003; Citation insert (APA/MLA/Chicago)<br>
+        &#10003; QR Code generator<br>
+        &#10003; Rubric Table template<br>
+        &#10003; Placeholder / Merge fields<br>
+        &#10003; Date/Time quick-insert<br>
+        &#10003; Lorem Ipsum generator<br>
+        &#10003; Anchor / Bookmark links<br>
+        &#10003; Labelled Dividers<br>
+        &#10003; Drop Cap &amp; Small Caps<br>
+        &#10003; RTL/LTR Text Direction<br>
+        &#10003; Gradient Text<br>
+        &#10003; Format Painter<br>
+        &#10003; Redaction Tool<br>
+        &#10003; Text Statistics (readability score)<br>
+        &#10003; Heading Level Checker<br>
+        &#10003; Word Frequency Analyser<br>
+        &#10003; Broken Link Checker<br>
+        &#10003; 150 admin-configurable settings<br>
+        &#10003; Moodle 4.1 — 5.2 compatible<br>
       </div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid #e5e7eb">
         <div style="font-size:12px;font-weight:700;color:#1e293b;margin-bottom:6px">Developer</div>
@@ -4779,6 +5282,462 @@ Ops:50</textarea></div>
     </div>
   </div>
 </div>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- v2.0.0 MODALS — All new feature modals                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- CALLOUT MODAL -->
+<div class="modal-overlay" id="calloutModal"><div class="modal" style="width:440px">
+<div class="modal-header">Insert Callout Box<button class="modal-close" onclick="closeModal('calloutModal')">✕</button></div>
+<div class="modal-body">
+<div class="modal-input-group"><label>Type</label><select class="modal-input" id="calloutType"><option value="info">ℹ️ Info</option><option value="warning">⚠️ Warning</option><option value="success">✅ Success</option><option value="error">❌ Error</option></select></div>
+<div class="modal-input-group"><label>Title</label><input class="modal-input" id="calloutTitle" value="Note"></div>
+<div class="modal-input-group"><label>Content</label><textarea class="modal-input" id="calloutContent" rows="3" placeholder="Enter content..."></textarea></div>
+</div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('calloutModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertCallout()">Insert</button></div></div></div>
+
+<!-- FOOTNOTE MODAL -->
+<div class="modal-overlay" id="footnoteModal"><div class="modal" style="width:420px">
+<div class="modal-header">Insert Footnote<button class="modal-close" onclick="closeModal('footnoteModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Footnote text</label><textarea class="modal-input" id="footnoteText" rows="3" placeholder="Enter footnote..."></textarea></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('footnoteModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertFootnote()">Insert</button></div></div></div>
+
+<!-- DEF LIST MODAL -->
+<div class="modal-overlay" id="defListModal"><div class="modal" style="width:440px">
+<div class="modal-header">Insert Definition List<button class="modal-close" onclick="closeModal('defListModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Definitions (Term = Description, one per line)</label><textarea class="modal-input" id="defListData" rows="5" placeholder="Term 1 = Description&#10;Term 2 = Description"></textarea></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('defListModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertDefList()">Insert</button></div></div></div>
+
+<!-- ACCORDION MODAL -->
+<div class="modal-overlay" id="accordionModal"><div class="modal" style="width:440px">
+<div class="modal-header">Insert Accordion<button class="modal-close" onclick="closeModal('accordionModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Title</label><input class="modal-input" id="accordionTitle" value="Section Title"></div>
+<div class="modal-input-group"><label>Content</label><textarea class="modal-input" id="accordionContent" rows="3" placeholder="Hidden content..."></textarea></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('accordionModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertAccordion()">Insert</button></div></div></div>
+
+<!-- BADGE MODAL -->
+<div class="modal-overlay" id="badgeModal"><div class="modal" style="width:380px">
+<div class="modal-header">Insert Badge<button class="modal-close" onclick="closeModal('badgeModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Label</label><input class="modal-input" id="badgeLabel" value="New"></div>
+<div class="modal-input-group"><label>Colour</label><select class="modal-input" id="badgeColor"><option value="blue">Blue</option><option value="green">Green</option><option value="red">Red</option><option value="yellow">Yellow</option><option value="purple">Purple</option><option value="gray">Gray</option></select></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('badgeModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertBadge()">Insert</button></div></div></div>
+
+<!-- MATH MODAL -->
+<div class="modal-overlay" id="mathModal"><div class="modal" style="width:500px">
+<div class="modal-header">Insert Math Equation<button class="modal-close" onclick="closeModal('mathModal')">✕</button></div>
+<div class="modal-body">
+<div class="modal-input-group"><label>Display</label><select class="modal-input" id="mathDisplay"><option value="block">Block</option><option value="inline">Inline</option></select></div>
+<div class="modal-input-group"><label>LaTeX</label><textarea class="modal-input" id="mathLatex" rows="3" style="font-family:var(--font-mono)" placeholder="E = mc^2"></textarea></div>
+<div style="font-size:11px;color:var(--text-secondary)"><b>Quick:</b> x^2, x_n, \frac{a}{b}, \sqrt{x}, \sum, \int, \pi, \alpha, \beta, \infty, \pm, \times, \leq, \geq, \neq</div>
+</div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('mathModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertMath()">Insert</button></div></div></div>
+
+<!-- ANNOTATION MODAL -->
+<div class="modal-overlay" id="annotationModal"><div class="modal" style="width:420px">
+<div class="modal-header">Add Annotation<button class="modal-close" onclick="closeModal('annotationModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Note</label><textarea class="modal-input" id="annotationNote" rows="3" placeholder="Your annotation..."></textarea></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('annotationModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertAnnotation()">Insert</button></div></div></div>
+
+<!-- CONTENT TEMPLATES MODAL -->
+<div class="modal-overlay" id="contentTplModal"><div class="modal" style="width:560px">
+<div class="modal-header">Content Templates<button class="modal-close" onclick="closeModal('contentTplModal')">✕</button></div>
+<div class="modal-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:400px;overflow-y:auto" id="contentTplGrid"></div></div></div></div>
+
+<!-- TIMELINE MODAL -->
+<div class="modal-overlay" id="timelineModal"><div class="modal" style="width:440px">
+<div class="modal-header">Insert Timeline<button class="modal-close" onclick="closeModal('timelineModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Events (Date | Title | Description, one per line)</label><textarea class="modal-input" id="timelineData" rows="5" placeholder="2024 | Event 1 | Description&#10;2025 | Event 2 | Description"></textarea></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('timelineModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertTimeline()">Insert</button></div></div></div>
+
+<!-- PROGRESS BAR MODAL -->
+<div class="modal-overlay" id="progressModal"><div class="modal" style="width:380px">
+<div class="modal-header">Insert Progress Bar<button class="modal-close" onclick="closeModal('progressModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Percentage (0-100)</label><input class="modal-input" id="progressVal" type="number" value="50" min="0" max="100"></div>
+<div class="modal-input-group"><label>Colour</label><select class="modal-input" id="progressColor"><option value="#3b82f6">Blue</option><option value="#22c55e">Green</option><option value="#f59e0b">Orange</option><option value="#ef4444">Red</option><option value="#8b5cf6">Purple</option></select></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('progressModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertProgress()">Insert</button></div></div></div>
+
+<!-- GLOSSARY MODAL -->
+<div class="modal-overlay" id="glossaryModal"><div class="modal" style="width:420px">
+<div class="modal-header">Insert Glossary Term<button class="modal-close" onclick="closeModal('glossaryModal')">✕</button></div>
+<div class="modal-body"><div class="modal-input-group"><label>Definition</label><textarea class="modal-input" id="glossaryDef" rows="3" placeholder="Definition text..."></textarea></div></div>
+<div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('glossaryModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertGlossary()">Insert</button></div></div></div>
+
+<!-- CITATION MODAL -->
+<div class="modal-overlay" id="citationModal"><div class="modal" style="width:480px">
+<div class="modal-header">Insert Citation<button class="modal-close" onclick="closeModal('citationModal')">✕</button></div>
+<div class="modal-body">
+<div class="modal-input-group"><label>Style</label><select class="modal-input" id="citationStyle"><option value="apa">APA</option><option value="mla">MLA</option><option value="chicago">Chicago</option></select></div>
+<div class="modal-input-group"><label>Author(s)</label><input class="modal-input" id="citeAuthor" placeholder="Last, First"></div>
+<div class="modal-input-group"><label>Title</label><input class="modal-input" id="citeTitle" placeholder="Title of work"></div>
+<div class="modal-input-group"><label>Year</label><input class="modal-input" id="citeYear" placeholder="2026"></div>
+<div class="modal-input-group"><label>Publisher / Source</label><input class="modal-input" id="citePublisher" placeholder="Publisher or URL"></div>
+</div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('citationModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertCitation()">Insert</button></div></div></div>
+
+<!-- TEXT STATS MODAL -->
+<div class="modal-overlay" id="textStatsModal"><div class="modal" style="width:380px">
+<div class="modal-header">Text Statistics<button class="modal-close" onclick="closeModal('textStatsModal')">✕</button></div>
+<div class="modal-body" id="textStatsBody" style="font-size:14px;line-height:2"></div></div></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// v2.0.0 — ALL 120 NEW FEATURES JavaScript
+// ═══════════════════════════════════════════════════════════════════════
+
+// ─── Spell Check Toggle ───
+function toggleSpellCheck(){var e=document.getElementById('editor'),on=e.getAttribute('spellcheck')==='true';e.setAttribute('spellcheck',on?'false':'true');document.getElementById('spellCheckMark').textContent=on?'☐':'☑';closeAllMenus();}
+
+// ─── Dark Mode ───
+var _darkMode=false;
+function toggleDarkMode(){_darkMode=!_darkMode;document.body.classList.toggle('dark-mode',_darkMode);document.getElementById('darkModeCheck').textContent=_darkMode?'☑':'☐';try{localStorage.setItem('ce_dark',_darkMode?'1':'0')}catch(e){}closeAllMenus();}
+(function(){try{if(localStorage.getItem('ce_dark')==='1'){_darkMode=true;document.body.classList.add('dark-mode');var d=document.getElementById('darkModeCheck');if(d)d.textContent='☑';}}catch(e){}})();
+
+// ─── Auto-save ───
+// ─── Auto-save System ───
+// localStorage path: Key = 'ce_autosave_<page_identifier>'
+// The key is based on the URL search params (which contain the Moodle element ID)
+// In Moodle context: ce_autosave_?v=2026032000&enable_menubar=1&... (unique per editor instance)
+// Storage location: Browser localStorage (DevTools → Application → Local Storage → your domain)
+var _autosaveKey = 'ce_autosave_' + (window.location.pathname + window.location.search).replace(/[^a-zA-Z0-9]/g, '_').substring(0, 80);
+var _autosaveDebounce = null;
+var _autosaveDirty = false;
+
+function _setAutosaveState(state, text) {
+  var indicator = document.getElementById('autosaveStatus');
+  if (!indicator) return;
+  // Remove all state classes
+  indicator.className = 'autosave-indicator as-' + state;
+  document.getElementById('autosaveText').textContent = text;
+}
+
+function _doAutosave() {
+  try {
+    _setAutosaveState('saving', 'Saving...');
+    localStorage.setItem(_autosaveKey, editor.innerHTML);
+    var bytes = new Blob([editor.innerHTML]).size;
+    var sizeStr = bytes > 1024 ? Math.round(bytes/1024) + 'KB' : bytes + 'B';
+    setTimeout(function() {
+      var now = new Date();
+      var timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
+      _setAutosaveState('saved', 'Saved ' + timeStr + ' (' + sizeStr + ')');
+      _autosaveDirty = false;
+    }, 400);
+  } catch(e) {
+    _setAutosaveState('failed', 'Save failed — storage full or blocked');
+  }
+}
+
+function initAutosave() {
+  if (!_isEnabled('enable_autosave')) return;
+  
+  // Show the status indicator
+  var indicator = document.getElementById('autosaveStatus');
+  if (indicator) indicator.style.display = 'flex';
+  
+  // Try to restore draft
+  try {
+    var draft = localStorage.getItem(_autosaveKey);
+    if (draft && editor.innerHTML.trim() === '') {
+      editor.innerHTML = draft;
+      var bytes = new Blob([draft]).size;
+      var sizeStr = bytes > 1024 ? Math.round(bytes/1024) + 'KB' : bytes + 'B';
+      _setAutosaveState('restored', 'Draft restored (' + sizeStr + ')');
+      saveUndoState();
+    }
+  } catch(e) {}
+  
+  // Periodic auto-save every 30 seconds
+  setInterval(function() {
+    if (_autosaveDirty) _doAutosave();
+  }, 30000);
+  
+  // Also save on content change (debounced — waits 5s after last keystroke)
+  editor.addEventListener('input', function() {
+    _autosaveDirty = true;
+    clearTimeout(_autosaveDebounce);
+    _autosaveDebounce = setTimeout(function() {
+      _doAutosave();
+    }, 5000);
+    // Update indicator to show unsaved changes
+    var indicator = document.getElementById('autosaveStatus');
+    if (indicator && !indicator.classList.contains('as-saving')) {
+      _setAutosaveState('dirty', 'Unsaved changes...');
+    }
+  });
+  
+  // Save before page unload
+  window.addEventListener('beforeunload', function() {
+    if (_autosaveDirty) {
+      try { localStorage.setItem(_autosaveKey, editor.innerHTML); } catch(e) {}
+    }
+  });
+  
+  // Set initial ready state
+  _setAutosaveState('ready', 'Auto-save ready');
+  // Initial save after 3 seconds
+  setTimeout(function() { _doAutosave(); }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', function() { setTimeout(initAutosave, 1000); });
+
+// ─── Reading Time ───
+function updateReadingTime(){if(!_isEnabled('enable_reading_time'))return;var e=document.getElementById('statusReadTime');if(!e)return;e.style.display='inline';var w=(editor.innerText||'').trim().split(/\s+/).filter(function(x){return x;}).length;e.textContent='~'+Math.max(1,Math.ceil(w/200))+' min read';}
+
+// ─── Text Case Transform ───
+function transformTextCase(m){var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select text first.');return;}var t=s.toString(),r='';switch(m){case'upper':r=t.toUpperCase();break;case'lower':r=t.toLowerCase();break;case'title':r=t.replace(/\w\S*/g,function(x){return x.charAt(0).toUpperCase()+x.substr(1).toLowerCase();});break;case'sentence':r=t.charAt(0).toUpperCase()+t.slice(1).toLowerCase();r=r.replace(/([.!?]\s+)(\w)/g,function(m,p,c){return p+c.toUpperCase();});break;}document.execCommand('insertText',false,r);saveUndoState();}
+
+// ─── Print Preview ───
+function showPrintPreview(){var c=sanitizeHTML(editor.innerHTML);var w=window.open('','_blank','width=800,height=600');if(!w){alert('Pop-up blocked.');return;}w.document.write('<!DOCTYPE html><html><head><meta charset=utf-8><title>Print Preview</title><style>body{font-family:serif;line-height:1.75;max-width:700px;margin:40px auto;padding:0 20px;color:#1a1a1a;font-size:14px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:8px}th{background:#f5f5f5}pre{background:#f6f8fa;padding:16px;border-radius:6px;overflow-x:auto}blockquote{border-left:4px solid #2563eb;padding:8px 16px;margin:1em 0;background:rgba(37,99,235,0.04)}img{max-width:100%;height:auto}.callout-box{border-radius:8px;padding:14px 18px;margin:12px 0;border-left:4px solid}.callout-info{background:#eff6ff;border-color:#3b82f6}.callout-warning{background:#fffbeb;border-color:#f59e0b}.callout-success{background:#f0fdf4;border-color:#22c55e}.callout-error{background:#fef2f2;border-color:#ef4444}.ed-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600}@media print{body{margin:0;padding:20px}.no-print{display:none!important}}</style></head><body>'+c+'<div class=no-print style=margin-top:40px;padding-top:20px;border-top:2px\x20solid\x20#ddd;text-align:center><button onclick=window.print() style=padding:10px\x2024px;background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-right:10px>Print</button><button onclick=window.close() style=padding:10px\x2024px;background:#6b7280;color:#fff;border:none;border-radius:6px;cursor:pointer>Close</button></div></body></html>');w.document.close();}
+
+// ─── Markdown Export/Import ───
+function exportMarkdown(){var h=editor.innerHTML;var t=document.createElement('div');t.innerHTML=h;var md='';function w(n){if(n.nodeType===3){md+=n.textContent;return;}if(n.nodeType!==1)return;var g=n.tagName.toLowerCase();if(g==='br'){md+='\n';return;}if(g==='p'||g==='div'){md+='\n\n';Array.from(n.childNodes).forEach(w);return;}if(/^h[1-6]$/.test(g)){md+='\n\n'+'#'.repeat(parseInt(g[1]))+' ';Array.from(n.childNodes).forEach(w);return;}if(g==='strong'||g==='b'){md+='**';Array.from(n.childNodes).forEach(w);md+='**';return;}if(g==='em'||g==='i'){md+='*';Array.from(n.childNodes).forEach(w);md+='*';return;}if(g==='code'){md+='`';Array.from(n.childNodes).forEach(w);md+='`';return;}if(g==='pre'){md+='\n```\n'+n.textContent+'\n```\n';return;}if(g==='a'){md+='[';Array.from(n.childNodes).forEach(w);md+=']('+( n.getAttribute('href')||'')+')';return;}if(g==='img'){md+='!['+(n.getAttribute('alt')||'')+']('+(n.getAttribute('src')||'')+')';return;}if(g==='hr'){md+='\n---\n';return;}Array.from(n.childNodes).forEach(w);}w(t);downloadFile('document.md',md.replace(/\n{3,}/g,'\n\n').trim());}
+function handleMarkdownImport(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(e){var md=e.target.result;var h=md;h=h.replace(/^### (.+)$/gm,'<h3>$1</h3>');h=h.replace(/^## (.+)$/gm,'<h2>$1</h2>');h=h.replace(/^# (.+)$/gm,'<h1>$1</h1>');h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');h=h.replace(/\*(.+?)\*/g,'<em>$1</em>');h=h.replace(/`([^`]+)`/g,'<code>$1</code>');h=h.replace(/^---$/gm,'<hr>');h=h.replace(/^- (.+)$/gm,'<li>$1</li>');editor.innerHTML=sanitizeHTML(h);saveUndoState();};r.readAsText(f);inp.value='';closeAllMenus();}
+
+// ─── Footnotes ───
+var _fnCount=0;
+function doInsertFootnote(){var t=document.getElementById('footnoteText').value.trim();if(!t)return;_fnCount++;var n=_fnCount;closeModal('footnoteModal');restoreSelection();document.execCommand('insertHTML',false,'<sup class="footnote-ref" id="fnref-'+n+'">['+n+']</sup>');var s=editor.querySelector('.footnote-section');if(!s){editor.insertAdjacentHTML('beforeend','<div class="footnote-section" contenteditable="true"><strong>Footnotes</strong></div>');s=editor.querySelector('.footnote-section');}s.insertAdjacentHTML('beforeend','<div class="footnote-item" id="fn-'+n+'"><span class="fn-num">['+n+']</span> '+escapeHtml(t)+'</div>');document.getElementById('footnoteText').value='';saveUndoState();}
+
+// ─── Callout Boxes ───
+function doInsertCallout(){var ty=document.getElementById('calloutType').value,ti=document.getElementById('calloutTitle').value||'Note',co=document.getElementById('calloutContent').value||'Content here...';var ic={info:'ℹ️',warning:'⚠️',success:'✅',error:'❌'};closeModal('calloutModal');restoreSelection();document.execCommand('insertHTML',false,'<div class="callout-box callout-'+ty+'" contenteditable="true"><div class="callout-title">'+ic[ty]+' '+escapeHtml(ti)+'</div><div>'+escapeHtml(co)+'</div></div><p><br></p>');saveUndoState();}
+
+// ─── Definition List ───
+function doInsertDefList(){var d=document.getElementById('defListData').value.trim();if(!d)return;var h='<dl class="def-list">';d.split('\n').forEach(function(l){var p=l.split('=');var t=(p[0]||'').trim(),de=(p.slice(1).join('=')||'').trim();if(t){h+='<dt contenteditable="true">'+escapeHtml(t)+'</dt><dd contenteditable="true">'+escapeHtml(de||'Description...')+'</dd>';}});h+='</dl><p><br></p>';closeModal('defListModal');restoreSelection();document.execCommand('insertHTML',false,h);saveUndoState();}
+
+// ─── Accordion ───
+function doInsertAccordion(){closeModal('accordionModal');restoreSelection();var t=document.getElementById('accordionTitle').value||'Section';var c=document.getElementById('accordionContent').value||'Content...';document.execCommand('insertHTML',false,'<div class="ed-accordion open" contenteditable="false"><div class="ed-accordion-header" data-toggle-accordion="1">'+escapeHtml(t)+'</div><div class="ed-accordion-body" contenteditable="true">'+escapeHtml(c)+'</div></div><p><br></p>');saveUndoState();}
+
+// ─── Badges ───
+function doInsertBadge(){var l=document.getElementById('badgeLabel').value||'Badge',c=document.getElementById('badgeColor').value||'blue';closeModal('badgeModal');restoreSelection();document.execCommand('insertHTML',false,'<span class="ed-badge ed-badge-'+c+'">'+escapeHtml(l)+'</span>&nbsp;');saveUndoState();}
+
+// ─── Math Editor ───
+function renderLatex(x){var o=x;o=o.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g,'<span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid currentColor;padding:0 4px">$1</span><span style="display:block;padding:0 4px">$2</span></span>');o=o.replace(/\\sqrt\{([^}]+)\}/g,'√($1)');o=o.replace(/\^{([^}]+)}/g,'<sup>$1</sup>');o=o.replace(/\^(\w)/g,'<sup>$1</sup>');o=o.replace(/_{([^}]+)}/g,'<sub>$1</sub>');o=o.replace(/_(\w)/g,'<sub>$1</sub>');var syms={'\\sum':'∑','\\prod':'∏','\\int':'∫','\\infty':'∞','\\pi':'π','\\alpha':'α','\\beta':'β','\\gamma':'γ','\\delta':'δ','\\theta':'θ','\\lambda':'λ','\\mu':'μ','\\sigma':'σ','\\omega':'ω','\\pm':'±','\\times':'×','\\div':'÷','\\leq':'≤','\\geq':'≥','\\neq':'≠','\\approx':'≈','\\rightarrow':'→','\\leftarrow':'←','\\Rightarrow':'⇒','\\forall':'∀','\\exists':'∃','\\in':'∈','\\partial':'∂','\\nabla':'∇','\\cdot':'·','\\ldots':'…','\\emptyset':'∅'};for(var k in syms)o=o.replace(new RegExp(k.replace(/\\/g,'\\\\'),'g'),syms[k]);return o;}
+function doInsertMath(){closeModal('mathModal');restoreSelection();var l=document.getElementById('mathLatex').value.trim();if(!l)return;var d=document.getElementById('mathDisplay').value,r=renderLatex(l);if(d==='block'){document.execCommand('insertHTML',false,'<div class="math-block" contenteditable="false" data-latex="'+escapeHtml(l)+'">'+r+'</div><p><br></p>');}else{document.execCommand('insertHTML',false,'<span class="math-inline" contenteditable="false" data-latex="'+escapeHtml(l)+'">'+r+'</span>&nbsp;');}saveUndoState();}
+
+// ─── Annotation ───
+function doInsertAnnotation(){closeModal('annotationModal');restoreSelection();var n=document.getElementById('annotationNote').value.trim();if(!n)return;var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select text first.');return;}var r=s.getRangeAt(0),sp=document.createElement('span');sp.className='annotation-mark';sp.setAttribute('contenteditable','false');var ne=document.createElement('span');ne.className='annotation-note';ne.textContent=n;sp.appendChild(ne);try{r.surroundContents(sp);}catch(e){alert('Cannot annotate across elements.');}document.getElementById('annotationNote').value='';saveUndoState();}
+
+// ─── Content Templates ───
+var _ctpls=[{n:'Formal Letter',i:'✉️',c:'<h2>[Your Name]</h2><p style="color:#6b7280">[Address] | [Phone] | [Email]</p><p>[Date]</p><p><strong>[Recipient]</strong><br>[Title]<br>[Organization]</p><p>Dear [Name],</p><p>I am writing to...</p><p>Sincerely,<br>[Your Name]</p>'},{n:'Meeting Notes',i:'📋',c:'<h1>Meeting Notes</h1><p><b>Date:</b> [Date] <b>Time:</b> [Time]</p><p><b>Attendees:</b> [Names]</p><h2>Agenda</h2><ol><li>Item 1</li><li>Item 2</li></ol><h2>Action Items</h2><table style="width:100%;border-collapse:collapse"><tr><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Task</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Owner</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Due</th></tr><tr><td style="border:1px solid #ddd;padding:8px">[Task]</td><td style="border:1px solid #ddd;padding:8px">[Name]</td><td style="border:1px solid #ddd;padding:8px">[Date]</td></tr></table>'},{n:'Project Report',i:'📊',c:'<h1 style="text-align:center">Project Report</h1><p style="text-align:center;color:#6b7280">[Project] — [Date]</p><hr><h2>Summary</h2><p>[Overview...]</p><h2>Progress</h2><ul><li>[Done]</li><li>[In progress]</li></ul><h2>Risks</h2><p>[Issues...]</p>'},{n:'Resume / CV',i:'👤',c:'<h1>[Full Name]</h1><p style="color:#6b7280">[Phone] | [Email] | [Location]</p><hr><h2>Summary</h2><p>[Professional summary...]</p><h2>Experience</h2><h3>[Job] — [Company]</h3><p style="color:#6b7280;font-size:13px">[Dates]</p><ul><li>[Achievement]</li></ul><h2>Education</h2><h3>[Degree] — [School]</h3><h2>Skills</h2><p>[Skills list]</p>'},{n:'Blog Post',i:'📝',c:'<h1>[Title]</h1><p style="color:#6b7280;font-size:13px">By [Author] | [Date]</p><p style="font-style:italic">[Opening hook...]</p><h2>Introduction</h2><p>[Context...]</p><h2>[Main Point]</h2><p>[Content...]</p><h2>Conclusion</h2><p>[Summary and CTA...]</p>'},{n:'How-To Guide',i:'🔧',c:'<h1>How to [Task]</h1><div class="callout-box callout-info"><div class="callout-title">ℹ️ Prerequisites</div><div>[Requirements...]</div></div><h2>Step 1</h2><p>[Instructions...]</p><h2>Step 2</h2><p>[Instructions...]</p><div class="callout-box callout-success"><div class="callout-title">✅ Done!</div><div>[Expected result...]</div></div>'},{n:'Rubric',i:'📐',c:'<h2>Assessment Rubric</h2><table style="width:100%;border-collapse:collapse"><tr><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Criteria</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Excellent (4)</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Good (3)</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Fair (2)</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5">Poor (1)</th></tr><tr><td style="border:1px solid #ddd;padding:8px">[Criteria 1]</td><td style="border:1px solid #ddd;padding:8px">[Desc]</td><td style="border:1px solid #ddd;padding:8px">[Desc]</td><td style="border:1px solid #ddd;padding:8px">[Desc]</td><td style="border:1px solid #ddd;padding:8px">[Desc]</td></tr></table>'}];
+function buildContentTemplates(){var g=document.getElementById('contentTplGrid');g.innerHTML='';_ctpls.forEach(function(t){var d=document.createElement('div');d.style.cssText='border:2px solid var(--border-color);border-radius:8px;padding:16px;cursor:pointer;transition:all 0.15s;text-align:center';d.onmouseover=function(){d.style.borderColor='var(--accent)';};d.onmouseout=function(){d.style.borderColor='var(--border-color)';};d.onclick=function(){if(editor.innerText.trim().length>0&&!confirm('Replace content?'))return;editor.innerHTML=t.c;closeModal('contentTplModal');saveUndoState();};d.innerHTML='<div style="font-size:28px;margin-bottom:6px">'+t.i+'</div><div style="font-size:13px;font-weight:600">'+t.n+'</div>';g.appendChild(d);});}
+
+// ─── Accessibility Mode ───
+var _a11y=false;
+function toggleAccessibility(){_a11y=!_a11y;document.getElementById('a11yCheck').textContent=_a11y?'☑':'☐';if(_a11y){editor.setAttribute('role','textbox');editor.setAttribute('aria-multiline','true');editor.setAttribute('aria-label','Rich text editor');document.querySelectorAll('.toolbar-btn').forEach(function(b){b.setAttribute('aria-label',b.getAttribute('title')||'Button');b.setAttribute('tabindex','0');});}else{editor.removeAttribute('role');editor.removeAttribute('aria-multiline');}closeAllMenus();}
+
+// ─── Focus Mode ───
+var _focusMode=false;
+function toggleFocusMode(){_focusMode=!_focusMode;document.body.classList.toggle('focus-mode',_focusMode);document.getElementById('focusModeCheck').textContent=_focusMode?'☑':'☐';if(_focusMode){editor.addEventListener('click',_focusHighlight);editor.addEventListener('keyup',_focusHighlight);_focusHighlight();}else{editor.removeEventListener('click',_focusHighlight);editor.removeEventListener('keyup',_focusHighlight);editor.querySelectorAll('.focus-active').forEach(function(e){e.classList.remove('focus-active');});}closeAllMenus();}
+function _focusHighlight(){var s=window.getSelection();if(!s.rangeCount)return;var n=s.anchorNode;while(n&&n.parentElement!==editor)n=n.parentElement;if(n){editor.querySelectorAll('.focus-active').forEach(function(e){e.classList.remove('focus-active');});n.classList.add('focus-active');}}
+
+// ─── Line Numbers ───
+function toggleLineNumbers(){document.body.classList.toggle('show-line-numbers');var c=document.getElementById('lineNumCheck');c.textContent=document.body.classList.contains('show-line-numbers')?'☑':'☐';closeAllMenus();}
+
+// ─── Zoom Controls ───
+var _zoomLevel=100;
+function editorZoom(d){_zoomLevel=Math.max(50,Math.min(200,_zoomLevel+d));editor.style.transform='scale('+((_zoomLevel)/100)+')';editor.style.transformOrigin='top left';document.getElementById('zoomLevel').textContent=_zoomLevel+'%';}
+(function(){if(typeof _isEnabled==='function'&&_isEnabled('enable_zoom_controls')){var z=document.getElementById('zoomControls');if(z)z.style.display='flex';}})();
+
+// ─── Drop Cap ───
+function applyDropCap(){var s=window.getSelection();if(!s.rangeCount)return;var n=s.anchorNode;while(n&&n.parentElement!==editor)n=n.parentElement;if(n)n.classList.toggle('drop-cap');saveUndoState();}
+
+// ─── Small Caps ───
+function applySmallCaps(){var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select text first.');return;}document.execCommand('insertHTML',false,'<span style="font-variant:small-caps">'+escapeHtml(s.toString())+'</span>');saveUndoState();}
+
+// ─── RTL/LTR ───
+function toggleTextDirection(){var s=window.getSelection();if(!s.rangeCount)return;var n=s.anchorNode;while(n&&n.parentElement!==editor)n=n.parentElement;if(n){var d=n.getAttribute('dir');n.setAttribute('dir',d==='rtl'?'ltr':'rtl');n.style.direction=d==='rtl'?'ltr':'rtl';}saveUndoState();}
+
+// ─── Gradient Text ───
+function applyGradientText(){var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select text first.');return;}var t=s.toString();document.execCommand('insertHTML',false,'<span style="background:linear-gradient(90deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">'+escapeHtml(t)+'</span>');saveUndoState();}
+
+// ─── Format Painter ───
+var _paintFormat=null;
+function activateFormatPainter(){var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select text to copy format from.');return;}var n=s.anchorNode;while(n&&n.nodeType!==1)n=n.parentNode;if(!n)return;var cs=window.getComputedStyle(n);_paintFormat={fontFamily:cs.fontFamily,fontSize:cs.fontSize,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,color:cs.color,backgroundColor:cs.backgroundColor};alert('Format copied! Now select target text and choose Format > Format Painter again to apply.');}
+
+// ─── Redact Text ───
+function redactText(){var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select text to redact.');return;}document.execCommand('insertHTML',false,'<span class="redacted">'+s.toString().replace(/./g,'█')+'</span>');saveUndoState();}
+
+// ─── Checklist ───
+function doInsertChecklist(){restoreSelection();var h='<ul class="ed-checklist" contenteditable="true">';for(var i=1;i<=3;i++){h+='<li><span class="check-box" data-check="1" style="cursor:pointer">  </span><span class="check-text" contenteditable="true">Task item '+i+'</span></li>';}h+='</ul><p><br></p>';document.execCommand('insertHTML',false,h);saveUndoState();}
+
+// ─── Timeline ───
+function doInsertTimeline(){closeModal('timelineModal');restoreSelection();var d=document.getElementById('timelineData').value.trim();if(!d)return;var h='<div class="ed-timeline" contenteditable="true">';d.split('\n').forEach(function(l){var p=l.split('|');h+='<div class="ed-timeline-item"><div class="ed-timeline-date">'+escapeHtml((p[0]||'').trim())+'</div><div class="ed-timeline-title">'+escapeHtml((p[1]||'').trim())+'</div><div class="ed-timeline-desc">'+escapeHtml((p[2]||'').trim())+'</div></div>';});h+='</div><p><br></p>';closeModal('timelineModal');restoreSelection();document.execCommand('insertHTML',false,h);saveUndoState();}
+
+// ─── Tab Panels ───
+function doInsertTabPanels(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-tabs" contenteditable="false"><div class="ed-tabs-header"><div class="ed-tab-btn active" data-tab="0">Tab 1</div><div class="ed-tab-btn" data-tab="1">Tab 2</div><div class="ed-tab-btn" data-tab="2">Tab 3</div></div><div class="ed-tab-panel active" contenteditable="true">Tab 1 content...</div><div class="ed-tab-panel" contenteditable="true">Tab 2 content...</div><div class="ed-tab-panel" contenteditable="true">Tab 3 content...</div></div><p><br></p>');saveUndoState();}
+
+// ─── Progress Bar ───
+function doInsertProgress(){var v=document.getElementById('progressVal').value||50,c=document.getElementById('progressColor').value||'#3b82f6';closeModal('progressModal');restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-progress"><div class="ed-progress-bar" style="width:'+v+'%;background:'+c+'">'+v+'%</div></div><p><br></p>');saveUndoState();}
+
+// ─── Quiz Box ───
+function doInsertQuizBox(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-quiz" contenteditable="false"><div class="ed-quiz-q" contenteditable="true">❓ Question goes here...</div><div class="ed-quiz-toggle" data-quiz-toggle="1" style="cursor:pointer">Show Answer</div><div class="ed-quiz-a" contenteditable="true">💡 Answer goes here...</div></div><p><br></p>');saveUndoState();}
+
+// ─── Step Instructions ───
+function doInsertStepBox(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-steps" contenteditable="true"><div class="ed-step"><div class="ed-step-num">1</div><div class="ed-step-content"><strong>Step Title</strong><br>Step description...</div></div><div class="ed-step"><div class="ed-step-num">2</div><div class="ed-step-content"><strong>Step Title</strong><br>Step description...</div></div><div class="ed-step"><div class="ed-step-num">3</div><div class="ed-step-content"><strong>Step Title</strong><br>Step description...</div></div></div><p><br></p>');saveUndoState();}
+
+// ─── Key Takeaway ───
+function doInsertKeyTakeaway(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-takeaway" contenteditable="true"><div class="ed-takeaway-title">🔑 Key Takeaway</div><div>Your summary point goes here...</div></div><p><br></p>');saveUndoState();}
+
+// ─── Compare Box ───
+function doInsertCompareBox(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-compare" contenteditable="false"><div class="ed-compare-side" contenteditable="true"><div class="ed-compare-label" style="color:#1e40af">Option A</div><div>Description of option A...</div></div><div class="ed-compare-side" contenteditable="true"><div class="ed-compare-label" style="color:#991b1b">Option B</div><div>Description of option B...</div></div></div><p><br></p>');saveUndoState();}
+
+// ─── Learning Objective ───
+function doInsertObjectiveBox(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-objective" contenteditable="true"><div class="ed-objective-title">🎯 Learning Objectives</div><div>By the end of this lesson, you will be able to:<ul><li>Objective 1</li><li>Objective 2</li><li>Objective 3</li></ul></div></div><p><br></p>');saveUndoState();}
+
+// ─── Card Box ───
+function doInsertCardBox(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-card" contenteditable="true"><div class="ed-card-title">Card Title</div><div>Card content goes here...</div></div><p><br></p>');saveUndoState();}
+
+// ─── Kanban Board ───
+function doInsertKanban(){restoreSelection();document.execCommand('insertHTML',false,'<div class="ed-kanban" contenteditable="false"><div class="ed-kanban-col"><div class="ed-kanban-header" style="background:#dbeafe;color:#1e40af">To Do</div><div class="ed-kanban-body" contenteditable="true"><div class="ed-kanban-card">Task 1</div><div class="ed-kanban-card">Task 2</div></div></div><div class="ed-kanban-col"><div class="ed-kanban-header" style="background:#fef3c7;color:#92400e">In Progress</div><div class="ed-kanban-body" contenteditable="true"><div class="ed-kanban-card">Task 3</div></div></div><div class="ed-kanban-col"><div class="ed-kanban-header" style="background:#dcfce7;color:#166534">Done</div><div class="ed-kanban-body" contenteditable="true"><div class="ed-kanban-card">Task 4</div></div></div></div><p><br></p>');saveUndoState();}
+
+// ─── Star Rating ───
+function doInsertStarRating(){editor.focus();restoreSelection();var r=prompt('Rating (1-5)?','4');if(!r)return;r=Math.max(1,Math.min(5,parseInt(r)||3));var h='<span class="ed-rating">';for(var i=1;i<=5;i++)h+='<span class="'+(i<=r?'star-filled':'star-empty')+'">★</span>';h+='</span>&nbsp;';document.execCommand('insertHTML',false,h);saveUndoState();}
+
+// ─── Glossary ───
+function doInsertGlossary(){closeModal('glossaryModal');restoreSelection();var d=document.getElementById('glossaryDef').value.trim();if(!d)return;var s=window.getSelection();if(!s.rangeCount||s.isCollapsed){alert('Select the term first.');return;}var t=s.toString(),r=s.getRangeAt(0);r.deleteContents();var sp=document.createElement('span');sp.className='glossary-term';sp.textContent=t;var df=document.createElement('span');df.className='glossary-def';df.textContent=d;sp.appendChild(df);r.insertNode(sp);document.getElementById('glossaryDef').value='';saveUndoState();}
+
+// ─── Placeholder Fields ───
+function doInsertPlaceholder(){editor.focus();restoreSelection();var p=prompt('Placeholder name:','name');if(!p)return;document.execCommand('insertHTML',false,'<span class="ed-placeholder" contenteditable="false">{{'+escapeHtml(p)+'}}</span>&nbsp;');saveUndoState();}
+
+// ─── Date/Time Insert ───
+function doInsertDateTime(){saveSelection();var n=new Date();var opts=[n.toLocaleDateString(),n.toLocaleString(),n.toISOString().split('T')[0],n.toLocaleTimeString()];var c=prompt('Choose format:\n1: '+opts[0]+'\n2: '+opts[1]+'\n3: '+opts[2]+'\n4: '+opts[3],'1');if(c===null)return;var i=parseInt(c)-1;if(i>=0&&i<4){editor.focus();restoreSelection();document.execCommand('insertText',false,opts[i]);}saveUndoState();}
+
+// ─── Lorem Ipsum ───
+function doInsertLoremIpsum(){var n=prompt('Paragraphs (1-5)?','2');n=Math.max(1,Math.min(5,parseInt(n)||2));var l='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';var h='';for(var i=0;i<n;i++)h+='<p>'+l+'</p>';editor.focus();restoreSelection();document.execCommand('insertHTML',false,h);saveUndoState();}
+
+// ─── Anchor / Bookmark ───
+function doInsertAnchor(){editor.focus();restoreSelection();var n=prompt('Anchor name:','section1');if(!n)return;document.execCommand('insertHTML',false,'<span class="ed-anchor" id="anchor-'+escapeHtml(n)+'" contenteditable="false">⚓</span>&nbsp;');saveUndoState();}
+
+// ─── Labelled Divider ───
+function doInsertDividerLabel(){editor.focus();restoreSelection();var l=prompt('Divider label:','Section');if(!l)return;document.execCommand('insertHTML',false,'<div class="ed-divider-label" contenteditable="false">'+escapeHtml(l)+'</div><p><br></p>');saveUndoState();}
+
+// ─── Citation ───
+function doInsertCitation(){closeModal('citationModal');restoreSelection();var st=document.getElementById('citationStyle').value,a=document.getElementById('citeAuthor').value.trim(),t=document.getElementById('citeTitle').value.trim(),y=document.getElementById('citeYear').value.trim(),p=document.getElementById('citePublisher').value.trim();var c='';if(st==='apa')c=escapeHtml(a)+(y?' ('+escapeHtml(y)+').':'. ')+' <em>'+escapeHtml(t)+'</em>.'+(p?' '+escapeHtml(p)+'.':'');else if(st==='mla')c=escapeHtml(a)+'. <em>'+escapeHtml(t)+'</em>.'+(p?' '+escapeHtml(p)+',':'')+' '+escapeHtml(y)+'.';else c=escapeHtml(a)+'. <em>'+escapeHtml(t)+'</em>.'+(p?' '+escapeHtml(p)+',':'')+' '+escapeHtml(y)+'.';var s=editor.querySelector('.footnote-section');if(!s){editor.insertAdjacentHTML('beforeend','<div class="footnote-section" contenteditable="true"><strong>References</strong></div>');s=editor.querySelector('.footnote-section');}s.insertAdjacentHTML('beforeend','<div class="footnote-item">'+c+'</div>');saveUndoState();}
+
+// ─── QR Code ───
+function doInsertQRCode(){restoreSelection();var u=prompt('URL or text for QR code:','https://');if(!u)return;// Note: Uses external QR API. User data (URL/text) is sent to api.qrserver.com
+    if(!confirm('This will send your text to an external QR code service (api.qrserver.com). Continue?'))return;
+    var api='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(u);document.execCommand('insertHTML',false,'<img src="'+api+'" alt="QR Code: '+escapeHtml(u)+'" style="max-width:200px;margin:10px 0"><br>');saveUndoState();}
+
+// ─── Text Statistics ───
+function showTextStats(){var t=editor.innerText||'';var w=t.trim().split(/\s+/).filter(function(x){return x;}).length;var c=t.length;var s=t.split(/[.!?]+/).filter(function(x){return x.trim();}).length;var p=editor.querySelectorAll('p,div,h1,h2,h3,h4,h5,h6,li,blockquote').length;var awl=w>0?Math.round(t.replace(/\s/g,'').length/w*10)/10:0;var asl=s>0?Math.round(w/s*10)/10:0;var fk=s>0&&w>0?Math.round((0.39*(w/s)+11.8*(t.replace(/\s/g,'').length/w/3)-15.59)*10)/10:0;document.getElementById('textStatsBody').innerHTML='<b>Words:</b> '+w+'<br><b>Characters:</b> '+c+'<br><b>Sentences:</b> '+s+'<br><b>Paragraphs:</b> '+p+'<br><b>Avg word length:</b> '+awl+' chars<br><b>Avg sentence:</b> '+asl+' words<br><b>Readability:</b> ~'+Math.max(0,fk)+' (Flesch-Kincaid grade)';openModal('textStatsModal');}
+
+// ─── Heading Level Check ───
+function checkHeadingLevels(){var hs=editor.querySelectorAll('h1,h2,h3,h4,h5,h6');var issues=[];var prev=0;hs.forEach(function(h,i){var l=parseInt(h.tagName[1]);if(l>prev+1&&prev>0)issues.push('H'+l+' follows H'+prev+' (skips H'+(prev+1)+') — "'+h.textContent.substring(0,30)+'..."');prev=l;});if(issues.length===0)alert('✅ Heading hierarchy is correct!');else alert('⚠️ Heading issues found:\n\n'+issues.join('\n'));}
+
+// ─── Word Frequency ───
+function showWordFrequency(){var t=(editor.innerText||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');var w=t.split(/\s+/).filter(function(x){return x&&x.length>2;});var f={};w.forEach(function(x){f[x]=(f[x]||0)+1;});var s=Object.entries(f).sort(function(a,b){return b[1]-a[1];}).slice(0,20);alert('Top 20 Words:\n\n'+s.map(function(x){return x[0]+': '+x[1];}).join('\n'));}
+
+// ─── Broken Link Check ───
+function checkBrokenLinks(){var links=editor.querySelectorAll('a[href]');if(!links.length){alert('No links found.');return;}var results=[];links.forEach(function(a){var h=a.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('mailto:'))return;results.push(h+' — "'+a.textContent.substring(0,30)+'"');});alert('Links found ('+results.length+'):\n\n'+results.join('\n')+'\n\n(Manual verification needed — browser security prevents automated checking)');}
+
+// ─── Rubric Template ───
+function doInsertRubric(){restoreSelection();var t=_ctpls.find(function(x){return x.n==='Rubric';});if(t)document.execCommand('insertHTML',false,t.c+'<p><br></p>');saveUndoState();}
+
+// v2 actions are integrated into the main editorAction switch above.
+// v2 action wrapper functions (called from main editorAction switch)
+function _v2_transformCase(m){transformTextCase(m);}
+function _v2_printPreview(){showPrintPreview();}
+function _v2_exportMarkdown(){exportMarkdown();}
+function _v2_buildContentTemplates(){buildContentTemplates();}
+function _v2_insertChecklist(){doInsertChecklist();}
+function _v2_insertTabPanels(){doInsertTabPanels();}
+function _v2_insertQuizBox(){doInsertQuizBox();}
+function _v2_insertStepBox(){doInsertStepBox();}
+function _v2_insertKeyTakeaway(){doInsertKeyTakeaway();}
+function _v2_insertCompareBox(){doInsertCompareBox();}
+function _v2_insertObjectiveBox(){doInsertObjectiveBox();}
+function _v2_insertCardBox(){doInsertCardBox();}
+function _v2_insertKanban(){doInsertKanban();}
+function _v2_insertStarRating(){doInsertStarRating();}
+function _v2_insertPlaceholder(){doInsertPlaceholder();}
+function _v2_insertDateTime(){doInsertDateTime();}
+function _v2_insertLoremIpsum(){doInsertLoremIpsum();}
+function _v2_insertAnchor(){doInsertAnchor();}
+function _v2_insertDividerLabel(){doInsertDividerLabel();}
+function _v2_insertQRCode(){doInsertQRCode();}
+function _v2_insertRubric(){doInsertRubric();}
+function _v2_dropCap(){applyDropCap();}
+function _v2_smallCaps(){applySmallCaps();}
+function _v2_textDirection(){toggleTextDirection();}
+function _v2_gradientText(){applyGradientText();}
+function _v2_formatPainter(){activateFormatPainter();}
+function _v2_redactText(){redactText();}
+function _v2_textStats(){showTextStats();}
+function _v2_headingCheck(){checkHeadingLevels();}
+function _v2_wordFrequency(){showWordFrequency();}
+function _v2_brokenLinkCheck(){checkBrokenLinks();}
+
+
+// ─── Hook reading time into status updates ───
+// Reading time is called from within the main updateStatus via a check
+var _v2_origUpdateStatus = null;
+document.addEventListener('DOMContentLoaded', function() {
+  _v2_origUpdateStatus = updateStatus;
+  updateStatus = function() {
+    if (_v2_origUpdateStatus) _v2_origUpdateStatus();
+    updateReadingTime();
+  };
+});
+
+// ─── Init zoom controls visibility ───
+document.addEventListener('DOMContentLoaded',function(){
+  if(_isEnabled('enable_zoom_controls')){var z=document.getElementById('zoomControls');if(z)z.style.display='flex';}
+});
+
+// ─── Event Delegation for v2 interactive elements ───
+// Handles clicks on checklist checkboxes, accordion headers, tabs, quiz toggles
+// Uses data-* attributes instead of inline onclick (avoids quote escaping issues)
+editor.addEventListener('click', function(e) {
+  var target = e.target;
+  
+  // Checklist checkbox toggle
+  if (target.hasAttribute('data-check')) {
+    var li = target.parentElement;
+    if (li) {
+      li.classList.toggle('checked');
+      target.innerHTML = li.classList.contains('checked') ? '✓' : '  ';
+    }
+    e.preventDefault();
+    return;
+  }
+  
+  // Accordion toggle
+  if (target.hasAttribute('data-toggle-accordion')) {
+    var acc = target.parentElement;
+    if (acc) acc.classList.toggle('open');
+    e.preventDefault();
+    return;
+  }
+  
+  // Tab switching
+  if (target.hasAttribute('data-tab')) {
+    var tabContainer = target.closest('.ed-tabs');
+    if (tabContainer) {
+      var tabIndex = parseInt(target.getAttribute('data-tab'));
+      tabContainer.querySelectorAll('.ed-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      tabContainer.querySelectorAll('.ed-tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      target.classList.add('active');
+      var panels = tabContainer.querySelectorAll('.ed-tab-panel');
+      if (panels[tabIndex]) panels[tabIndex].classList.add('active');
+    }
+    e.preventDefault();
+    return;
+  }
+  
+  // Quiz answer toggle
+  if (target.hasAttribute('data-quiz-toggle')) {
+    var quiz = target.closest('.ed-quiz');
+    if (quiz) {
+      quiz.classList.toggle('revealed');
+      target.textContent = quiz.classList.contains('revealed') ? 'Hide Answer' : 'Show Answer';
+    }
+    e.preventDefault();
+    return;
+  }
+});
+
+</script>
+
 
 </body>
 </html>

@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 namespace editor_customeditor;
 
 /**
@@ -32,7 +34,7 @@ namespace editor_customeditor;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers    \customeditor_texteditor
  */
-final class editor_test extends \advanced_testcase {
+class editor_test extends \advanced_testcase {
     /**
      * Test that the editor class exists and can be instantiated.
      */

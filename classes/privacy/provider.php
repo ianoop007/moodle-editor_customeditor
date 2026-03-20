@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 namespace editor_customeditor\privacy;
 
 /**
@@ -34,6 +36,11 @@ namespace editor_customeditor\privacy;
 class provider implements \core_privacy\local\metadata\null_provider {
     /**
      * Get the language string identifier for the privacy reason.
+     *
+     * @return string
+     */
+    /**
+     * Get the reason for the privacy provider.
      *
      * @return string
      */
