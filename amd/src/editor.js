@@ -91,6 +91,7 @@ export const init = (elementid) => {
         iframe.id = 'custom-editor-iframe-' + elementid;
         iframe.src = editorurl;
         iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('allow', 'microphone');
 
         iframe.style.cssText = 'width:100%;height:100%;border:none;border-radius:8px;' +
             'background:#fff;display:block';

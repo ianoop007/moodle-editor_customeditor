@@ -2,7 +2,7 @@
 
 A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ admin-configurable features**, dark mode, accessibility support, and zero external dependencies.
 
-**Version:** 2.0.6  
+**Version:** 3.0.0  
 **Requires:** Moodle 4.1+ (compatible through Moodle 5.2)  
 **License:** GNU GPL v3  
 **Author:** Anoop Kakkur ([anoopkakkur.com](https://anoopkakkur.com))
@@ -185,14 +185,6 @@ A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ ad
 - **Invisible watermark** — Insert hidden digital fingerprints in content for plagiarism tracking.
 - **Export sanitiser** — Strip all metadata and hidden content before export.
 
-
-### Voice Typing
-
-- **Voice typing** — Allow users to dictate text using the microphone. Uses the browser's
-  built-in Web Speech API. No API key required. Supported in Chrome, Edge, and Safari.
-  Admin can enable/disable the feature and individually select which languages are available
-  in the user-facing language dropdown.
-
 ### Core Editing (always available)
 
 - Rich text formatting (Bold, Italic, Underline, Strikethrough, Sub/Superscript)
@@ -219,73 +211,60 @@ Plus 2 text configuration fields:
 
 ## Voice Typing
 
-Voice typing uses the **Web Speech API** that is built into modern browsers. The plugin
-makes no network requests itself — the browser routes audio to Google's speech recognition
-servers transparently (in Chrome/Edge). There is no API key, no registration, and no cost.
+Voice typing uses the **Web Speech API** built into modern browsers. No API key, no
+registration, no cost. The browser streams audio to Google speech servers (Chrome/Edge)
+transparently — no audio passes through Moodle or this plugin.
 
-### Setup — no configuration needed
+### Setup
+1. `Site Administration → Plugins → Text Editors → Anoop Kakkur Rich Text Editor`
+2. Under **Voice typing**, ensure **Voice typing** is ticked.
+3. Under **Voice typing languages**, tick the languages to expose to users.
+   English India, English US, English UK, Malayalam, Tamil, and Hindi are on by default.
 
-Voice typing works out of the box on supported browsers. The only admin steps are:
-
-1. Go to **Site Administration → Plugins → Text Editors → Anoop Kakkur Rich Text Editor**
-2. Under **Voice typing**, ensure **Voice typing** is ticked (enabled by default).
-3. Under **Voice typing language options**, tick the languages you want to expose to users.
-   English (India), English (US), English (UK), Malayalam, Tamil, and Hindi are enabled
-   by default. Telugu, Kannada, Bengali, and 10 more world languages are available but
-   off by default.
-
-### How users activate voice typing
-
-1. In the editor toolbar, select the desired language from the language dropdown.
-2. Click the **microphone button** (🎤).
-3. The browser shows a permission prompt on first use — click **Allow**.
-4. Speak normally. Text is inserted at the cursor in real time.
-5. Click the mic button again, or click **■ Stop** in the amber status bar, to stop.
+### How users use it
+1. Select language from the dropdown in the editor toolbar.
+2. Click the microphone button.
+3. Browser prompts for microphone permission on first use — click Allow.
+4. Speak. Text appears at the cursor in real time.
+5. Click the mic button again or click **■ Stop** to finish.
 
 ### Browser support
-
-| Browser | Status | Notes |
-|---|---|---|
-| Chrome 25+ | ✅ Full support | Best accuracy for Indian languages |
-| Edge 79+ | ✅ Full support | |
-| Safari 14.1+ | ✅ Supported | |
-| Mobile Chrome (Android) | ✅ Supported | Chrome 25+ |
-| Mobile Safari (iOS) | ✅ Supported | iOS 14.5+ |
-| Firefox | ⚠️ Disabled by default | Enable `media.webspeech.recognition.enable` in `about:config` |
+| Browser | Status |
+|---|---|
+| Chrome 25+ | Full — best accuracy for Indian languages |
+| Edge 79+ | Full |
+| Safari 14.1+ | Supported |
+| Mobile Chrome Android | Supported (Chrome 25+) |
+| Mobile Safari iOS | Supported (iOS 14.5+) |
+| Firefox | Disabled by default — enable `media.webspeech.recognition.enable` in `about:config` |
 
 ### Requirements
+- **HTTPS** — all production Moodle sites already use HTTPS.
+- **Microphone** — browser prompts the user on first use.
+- **Internet connection** — browser streams audio to recognition service.
 
-- **HTTPS** — the browser blocks microphone access on plain HTTP. All production Moodle
-  installations run over HTTPS, so this is not a concern in practice.
-- **Microphone** — a working microphone connected to the device.
-- **Microphone permission** — the browser prompts the user on first use. This is a
-  standard browser-level permission, not specific to Moodle.
-- **Internet connection** — the browser streams audio to Google's servers for recognition
-  (Chrome/Edge). No audio data passes through Moodle or the plugin.
-
-### Supported languages (admin-configurable)
-
-| Language | BCP-47 Code | Default |
+### Languages (admin-configurable)
+| Language | Code | Default |
 |---|---|---|
-| English (India) | `en-IN` | On |
-| English (US) | `en-US` | On |
-| English (UK) | `en-GB` | On |
-| Malayalam | `ml-IN` | On |
-| Tamil | `ta-IN` | On |
-| Hindi | `hi-IN` | On |
-| Telugu | `te-IN` | Off |
-| Kannada | `kn-IN` | Off |
-| Bengali | `bn-IN` | Off |
-| Urdu | `ur-PK` | Off |
-| Arabic | `ar-SA` | Off |
-| French | `fr-FR` | Off |
-| Spanish | `es-ES` | Off |
-| German | `de-DE` | Off |
-| Japanese | `ja-JP` | Off |
-| Chinese Simplified | `zh-CN` | Off |
-| Portuguese (Brazil) | `pt-BR` | Off |
-| Russian | `ru-RU` | Off |
-| Korean | `ko-KR` | Off |
+| English (India) | en-IN | On |
+| English (US) | en-US | On |
+| English (UK) | en-GB | On |
+| Malayalam | ml-IN | On |
+| Tamil | ta-IN | On |
+| Hindi | hi-IN | On |
+| Telugu | te-IN | Off |
+| Kannada | kn-IN | Off |
+| Bengali | bn-IN | Off |
+| Urdu | ur-PK | Off |
+| Arabic | ar-SA | Off |
+| French | fr-FR | Off |
+| Spanish | es-ES | Off |
+| German | de-DE | Off |
+| Japanese | ja-JP | Off |
+| Chinese Simplified | zh-CN | Off |
+| Portuguese Brazil | pt-BR | Off |
+| Russian | ru-RU | Off |
+| Korean | ko-KR | Off |
 
 ---
 

@@ -1,75 +1,57 @@
 # Changelog
 
-## v2.0.6 (2026-03-24) — Voice Typing
+## v3.0.0 (2026-03-24) — Voice Typing
+
+**Plugin version:** 2026032401
 
 ### Added
-- **Voice typing** (`enable_voice_typing`) — microphone button in the editor toolbar that
-  activates the browser's built-in Web Speech API for speech-to-text. No external API key,
-  no third-party service, and no cost. The browser (Chrome/Edge) routes audio to Google's
-  speech recognition servers transparently; the plugin itself makes no network requests.
-- **19 admin-toggleable voice languages** — each language appears as a checkbox in
+- **Voice typing** — microphone button in the editor toolbar for speech-to-text dictation.
+  Uses the browser built-in Web Speech API. No API key, no third-party service, no cost.
+- **19 admin-configurable languages** under
   `Site Administration → Plugins → Text Editors → Anoop Kakkur Rich Text Editor`:
-  - English (India) `en-IN` — **default on**
-  - English (US) `en-US` — **default on**
-  - English (UK) `en-GB` — **default on**
-  - Malayalam `ml-IN` — **default on**
-  - Tamil `ta-IN` — **default on**
-  - Hindi `hi-IN` — **default on**
-  - Telugu `te-IN` — default off
-  - Kannada `kn-IN` — default off
-  - Bengali `bn-IN` — default off
-  - Urdu `ur-PK` — default off
-  - Arabic `ar-SA` — default off
-  - French `fr-FR` — default off
-  - Spanish `es-ES` — default off
-  - German `de-DE` — default off
-  - Japanese `ja-JP` — default off
-  - Chinese Simplified `zh-CN` — default off
-  - Portuguese (Brazil) `pt-BR` — default off
-  - Russian `ru-RU` — default off
-  - Korean `ko-KR` — default off
-- Language labels shown in their **native script** in the dropdown
-  (e.g. "മലയാളം (Malayalam)", "हिंदी (Hindi)", "தமிழ் (Tamil)").
-- **Voice status bar** — amber bar below the toolbar shows a pulsing red dot,
-  "Listening…" text, live interim transcript (greyed italic preview of speech
-  as it is being recognised), and a Stop button.
-- **Pulse ring animation** on the mic button during active recording.
-- **Auto-restart** — recognition restarts automatically on Android Chrome, which
-  stops after each utterance.
-- **Graceful degradation** — if the browser does not support `SpeechRecognition`,
-  the mic button is greyed out with a tooltip explaining the requirement.
-- **Error messaging** — descriptive alerts for no-microphone, permission-denied,
-  network-error, and service-not-allowed conditions.
-- Voice typing stops cleanly when switching to source-code view or on page unload.
+  - English India `en-IN`, English US `en-US`, English UK `en-GB` — on by default
+  - Malayalam `ml-IN` (മലയാളം), Tamil `ta-IN` (தமிழ்), Hindi `hi-IN` (हिंदी) — on by default
+  - Telugu `te-IN`, Kannada `kn-IN`, Bengali `bn-IN`, Urdu `ur-PK` — off by default
+  - Arabic `ar-SA`, French `fr-FR`, Spanish `es-ES`, German `de-DE` — off by default
+  - Japanese `ja-JP`, Chinese `zh-CN`, Portuguese `pt-BR`, Russian `ru-RU`, Korean `ko-KR` — off by default
+- Language labels shown in native script in the dropdown.
+- Voice status bar — amber bar with pulsing red dot, Listening text, live interim transcript, and Stop button.
+- Auto-restart on Android Chrome (browser stops recognition after each utterance).
+- Graceful degradation — mic button greyed with tooltip on unsupported browsers.
+- Descriptive error messages for permission denied, no microphone, network error.
+- `db/upgrade.php` — new file; force-sets all voice defaults on upgrade from v2.0.5.
 
-### Technical notes — Web Speech API (no API key required)
-- The Web Speech API is **built into the browser**. No registration, no API key,
-  and no billing.
-- **Browser support:**
-  | Browser           | Support                                                     |
-  |-------------------|-------------------------------------------------------------|
-  | Chrome 25+        | ✅ Full (best accuracy for Indian languages)               |
-  | Edge 79+          | ✅ Full                                                     |
-  | Safari 14.1+      | ✅ Supported                                                |
-  | Firefox           | ⚠️ Disabled by default — enable `media.webspeech.recognition.enable` in `about:config` |
-  | Mobile Chrome     | ✅ Android Chrome 25+                                      |
-  | Mobile Safari     | ✅ iOS 14.5+                                               |
-- **HTTPS required** — the browser blocks microphone access on plain HTTP.
-  Production Moodle installations are always HTTPS, so this is not a concern
-  in practice.
-- **Microphone permission** — the browser shows its standard permission prompt
-  on first use. Users must click Allow. This is a one-time browser-level grant.
-- **No installation or configuration needed** by the Moodle admin beyond enabling
-  the feature and choosing which languages to expose.
+### Fixed
+- **PHP 8.1+ fatal crash on install** — `lib.php` `use_editor()` had `array $options = null`
+  (non-nullable typed hint). PHP 8.1+ treats this as a fatal inheritance violation under the
+  stricter class-loading triggered by the upgrade cycle. Fixed by removing the type hint
+  entirely: `$options = null`. Compatible with PHP 8.0–8.4 and Moodle 4.1–5.2.
+
+### Technical — Web Speech API
+- No API key or registration required.
+- Browser support: Chrome 25+, Edge 79+, Safari 14.1+.
+  Firefox: enable `media.webspeech.recognition.enable` in `about:config`.
+- HTTPS required (all production Moodle installations already use HTTPS).
+- Microphone permission: browser prompts on first use, one-time grant.
+- Audio streamed by browser directly to Google speech servers (Chrome/Edge).
+  No audio passes through Moodle or this plugin.
+
+### Install checklist
+1. Upload zip — `Site Administration → Install plugin`
+2. `Site Administration → Notifications` (runs upgrade.php, writes language defaults to DB)
+3. `Site Administration → Development → Purge all caches`
+4. Browser hard reload: `Ctrl+Shift+R`
 
 ### Changed
-- Version bumped to 2.0.6 (plugin version: 2026032401)
-- `settings.php`: added Voice Typing section with master toggle and 19 language checkboxes
-- `lib.php`: voice setting keys passed to editor iframe URL
-- `lang/en/editor_customeditor.php`: 42 new strings added, file remains alphabetically sorted
-- `styles.css`: voice button, status bar, pulse animation, dark-mode overrides (1481 lines)
-- `editor.html`: voice toolbar group, status bar HTML, language dropdown population,
-  browser-support check, and full `SpeechRecognition` engine added
+- Version `2026032400` → `2026032401` (release `2.0.5` → `3.0.0`)
+- `lib.php`: `use_editor()` type hint removed; voice keys added to settings URL params
+- `settings.php`: Voice Typing section with master toggle + 19 language checkboxes
+- `lang/en/editor_customeditor.php`: 42 new strings, alphabetically sorted
+- `styles.css`: voice mic button, status bar, pulse animation, dark mode (1331 lines)
+- `editor.html`: Permissions-Policy meta, voice toolbar group, status bar, init IIFE,
+  SpeechRecognition engine
+- `amd/src/editor.js`: `allow="microphone"` on iframe element (requires Grunt rebuild)
+- `db/upgrade.php`: new file
 
 ---
 

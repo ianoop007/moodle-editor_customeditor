@@ -77,7 +77,7 @@ class customeditor_texteditor extends texteditor {
      * @param mixed $fpoptions File picker options.
      * @return void
      */
-    public function use_editor($elementid, array $options = null, $fpoptions = null) {
+    public function use_editor($elementid, $options = null, $fpoptions = null) {
         global $PAGE;
 
         $cachebust = get_config('editor_customeditor', 'version') ?: time();
@@ -131,7 +131,7 @@ class customeditor_texteditor extends texteditor {
             'enable_invisible_watermark', 'enable_export_sanitiser', 'enable_moodle_linker',
             'enable_ruler_guides', 'enable_version_compare', 'enable_toolbar_customiser',
             'enable_side_panel', 'editor_height', 'default_font_size',
-            // Voice typing master toggle + per-language toggles.
+            // Voice typing.
             'enable_voice_typing',
             'voice_lang_en_in', 'voice_lang_en_us', 'voice_lang_en_gb',
             'voice_lang_ml_in', 'voice_lang_ta_in', 'voice_lang_hi_in',

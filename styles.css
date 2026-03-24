@@ -1303,179 +1303,29 @@ blockquote {
     font-weight: 400;
     font-display: swap;
 }
-/* ═══════════════════════════════════════════════════════════════════
-   VOICE TYPING — toolbar button, status bar, animations
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   VOICE TYPING — T-10 T-12 dark mode + animations
+   ═══════════════════════════════════════════════════════ */
+@keyframes voiceDotBlink { 0%,100%{opacity:1} 50%{opacity:.15} }
+@keyframes voiceRingPulse { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(1.7)} }
 
-/* Language selector in voice toolbar group */
+.voice-mic-btn { position:relative; color:#57606a; transition:color .2s,background .2s; }
+.voice-mic-btn.recording { color:#cf222e !important; background:#ffebe9 !important; }
+.voice-mic-btn.recording::before {
+  content:''; position:absolute; inset:-3px; border-radius:6px;
+  border:2px solid #cf222e; animation:voiceRingPulse 1.2s ease-out infinite;
+  pointer-events:none;
+}
 .voice-lang-select {
-    max-width: 140px;
-    font-size: 11px;
-    padding: 0 4px;
-    height: 28px;
-    border-radius: 4px;
-    border: 1px solid #d0d7de;
-    background: #fff;
-    color: #24292f;
-    cursor: pointer;
-    flex-shrink: 1;
+  max-width:130px; font-size:11px; height:28px; padding:0 4px;
+  border-radius:4px; border:1px solid #d0d7de;
+  background:#fff; color:#24292f; cursor:pointer; flex-shrink:1;
 }
-
-/* Mic button base state */
-.voice-btn {
-    position: relative;
-    color: #57606a;
-    transition: color 0.2s, background 0.2s;
-}
-
-.voice-btn svg {
-    pointer-events: none;
-}
-
-/* Active / recording state — button turns red */
-.voice-btn.voice-recording {
-    color: #cf222e;
-    background: #ffebe9;
-}
-
-.voice-btn.voice-recording:hover {
-    background: #ffd7d5;
-    color: #a40e26;
-}
-
-/* Pulse ring animation on the mic button when active */
-.voice-btn.voice-recording::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 6px;
-    border: 2px solid #cf222e;
-    animation: voice-ring-pulse 1.2s ease-out infinite;
-    pointer-events: none;
-}
-
-@keyframes voice-ring-pulse {
-    0%   { opacity: 1;   transform: scale(1); }
-    100% { opacity: 0;   transform: scale(1.6); }
-}
-
-/* Voice status bar — shown below toolbar when recording */
-.voice-status-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 12px;
-    background: #fff8f0;
-    border-bottom: 1px solid #f5a623;
-    font-size: 12px;
-    color: #7d4e00;
-    flex-wrap: wrap;
-    min-height: 28px;
-}
-
-/* Pulsing red dot indicator */
-.voice-status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #cf222e;
-    flex-shrink: 0;
-}
-
-.voice-status-dot.pulse {
-    animation: voice-dot-blink 1s ease-in-out infinite;
-}
-
-@keyframes voice-dot-blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.2; }
-}
-
-.voice-status-text {
-    font-weight: 600;
-    color: #cf222e;
-    flex-shrink: 0;
-}
-
-/* Interim (in-progress) transcript shown in grey italic */
-.voice-interim {
-    color: #57606a;
-    font-style: italic;
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Stop button inside status bar */
-.voice-stop-btn {
-    margin-left: auto;
-    padding: 2px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    border: 1px solid #cf222e;
-    border-radius: 4px;
-    background: #fff;
-    color: #cf222e;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: background 0.15s, color 0.15s;
-}
-
-.voice-stop-btn:hover {
-    background: #cf222e;
-    color: #fff;
-}
-
-/* Dark mode overrides */
-body.dark-mode .voice-lang-select {
-    background: #1f2335;
-    color: #a9b1d6;
-    border-color: #414868;
-}
-
-body.dark-mode .voice-btn.voice-recording {
-    background: #3d1a1a;
-    color: #ff7b72;
-}
-
-body.dark-mode .voice-btn.voice-recording::before {
-    border-color: #ff7b72;
-}
-
-body.dark-mode .voice-status-bar {
-    background: #2d1a00;
-    border-bottom-color: #9c5e00;
-    color: #e3a857;
-}
-
-body.dark-mode .voice-status-text {
-    color: #ff7b72;
-}
-
-body.dark-mode .voice-status-dot {
-    background: #ff7b72;
-}
-
-body.dark-mode .voice-interim {
-    color: #7d8ba8;
-}
-
-body.dark-mode .voice-stop-btn {
-    border-color: #ff7b72;
-    color: #ff7b72;
-    background: transparent;
-}
-
-body.dark-mode .voice-stop-btn:hover {
-    background: #ff7b72;
-    color: #1a1b26;
-}
-
-/* Responsive: hide language label on very small screens */
-@media (max-width: 600px) {
-    .voice-lang-select {
-        max-width: 90px;
-        font-size: 10px;
-    }
-}
+/* Dark mode */
+body.dark-mode .voice-lang-select { background:#1f2335; color:#a9b1d6; border-color:#414868; }
+body.dark-mode .voice-mic-btn.recording { color:#ff7b72 !important; background:#3d1a1a !important; }
+body.dark-mode .voice-mic-btn.recording::before { border-color:#ff7b72; }
+body.dark-mode #voiceStatusBar { background:#2d1a00 !important; border-bottom-color:#9c5e00 !important; color:#e3a857 !important; }
+body.dark-mode #voiceStatusText { color:#ff7b72 !important; }
+body.dark-mode #voiceStatusDot { background:#ff7b72 !important; }
+body.dark-mode #voiceInterimText { color:#7d8ba8 !important; }
