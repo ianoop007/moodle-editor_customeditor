@@ -93,7 +93,7 @@ const showCopied = (btn, type) => {
 };
 
 /**
- * Initialise copy button event handlers.
+ * Initialise copy button and interactive component event handlers.
  */
 export const init = () => {
     // Register global functions for onclick handlers embedded in the HTML content.
@@ -135,4 +135,74 @@ export const init = () => {
             // Clipboard copy failed silently.
         });
     };
+
+    // Use a single delegated click listener on the document body for
+    // all interactive components (accordion, tabs, quiz, checklist).
+    document.body.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // ── Accordion toggle ──
+        if (target.closest('.ed-accordion-header')) {
+            const header = target.closest('.ed-accordion-header');
+            const accordion = header.closest('.ed-accordion');
+            if (accordion) {
+                accordion.classList.toggle('open');
+            }
+            return;
+        }
+
+        // ── Tab panel switch ──
+        if (target.closest('.ed-tab-btn')) {
+            const btn = target.closest('.ed-tab-btn');
+            const tabs = btn.closest('.ed-tabs');
+            if (!tabs) {
+                return;
+            }
+            // Deactivate all tabs and panels.
+            const allBtns = tabs.querySelectorAll('.ed-tab-btn');
+            const allPanels = tabs.querySelectorAll('.ed-tab-panel');
+            allBtns.forEach((b) => {
+                b.classList.remove('active');
+            });
+            allPanels.forEach((p) => {
+                p.classList.remove('active');
+            });
+            // Activate clicked tab.
+            btn.classList.add('active');
+            const idx = Array.from(allBtns).indexOf(btn);
+            if (allPanels[idx]) {
+                allPanels[idx].classList.add('active');
+            }
+            return;
+        }
+
+        // ── Quiz reveal toggle ──
+        if (target.closest('[data-quiz-toggle]')) {
+            const toggle = target.closest('[data-quiz-toggle]');
+            const quiz = toggle.closest('.ed-quiz');
+            if (quiz) {
+                quiz.classList.toggle('revealed');
+                if (quiz.classList.contains('revealed')) {
+                    toggle.textContent = 'Hide Answer';
+                } else {
+                    toggle.textContent = 'Show Answer';
+                }
+            }
+            return;
+        }
+
+        // ── Checklist toggle ──
+        if (target.closest('.check-box')) {
+            const box = target.closest('.check-box');
+            const li = box.closest('li');
+            if (li) {
+                li.classList.toggle('checked');
+                if (li.classList.contains('checked')) {
+                    box.textContent = '\u2713';
+                } else {
+                    box.textContent = '  ';
+                }
+            }
+        }
+    });
 };
