@@ -14,19 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace editor_customeditor;
+
 /**
- * Version information for the Anoop Kakkur Rich Text Editor.
+ * Hook callbacks for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
  * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2026032300;    // YYYYMMDDXX format.
-$plugin->requires  = 2022112800;    // Moodle 4.1.0 (minimum).
-$plugin->component = 'editor_customeditor';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '2.0.5';
-$plugin->supported = [401, 502];    // Moodle 4.1 through 5.2.
+class hook_callbacks {
+    /**
+     * Load copy-button JavaScript on every Moodle page.
+     *
+     * This replaces the legacy editor_customeditor_before_footer() callback
+     * for Moodle 4.4+ which uses the Hooks API.
+     *
+     * @param \core\hook\output\before_footer_html_generation $hook The hook instance.
+     * @return void
+     */
+    public static function before_footer(\core\hook\output\before_footer_html_generation $hook): void {
+        global $PAGE;
+        $PAGE->requires->js_call_amd('editor_customeditor/copybuttons', 'init');
+    }
+}

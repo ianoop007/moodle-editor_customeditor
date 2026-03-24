@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace editor_customeditor;
+
 /**
  * Unit tests for the Anoop Kakkur Rich Text Editor.
  *
@@ -21,10 +23,6 @@
  * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-namespace editor_customeditor;
 
 /**
  * Unit tests for the customeditor_texteditor class.
@@ -35,6 +33,15 @@ namespace editor_customeditor;
  * @covers    \customeditor_texteditor
  */
 class editor_test extends \advanced_testcase {
+
+    /**
+     * Load the lib.php file before running tests.
+     */
+    public static function setUpBeforeClass(): void {
+        global $CFG;
+        require_once($CFG->dirroot . '/lib/editor/customeditor/lib.php');
+    }
+
     /**
      * Test that the editor class exists and can be instantiated.
      */
@@ -222,7 +229,7 @@ class editor_test extends \advanced_testcase {
         $this->resetAfterTest();
         $PAGE->set_url('/');
 
-        editor_customeditor_before_footer();
+        \editor_customeditor_before_footer();
 
         // If no exception, the AMD module was queued successfully.
         $this->assertTrue(true);

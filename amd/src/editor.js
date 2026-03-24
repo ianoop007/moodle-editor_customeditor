@@ -46,9 +46,8 @@ const syncAllEditors = (form) => {
  * Initialise the custom editor for a given textarea.
  *
  * @param {string} elementid The textarea element ID.
- * @param {string} editorurl The URL to the editor HTML file.
  */
-export const init = (elementid, editorurl) => {
+export const init = (elementid) => {
     const initEditor = () => {
         const textarea = document.getElementById(elementid);
         if (!textarea) {
@@ -58,6 +57,13 @@ export const init = (elementid, editorurl) => {
             return;
         }
         textarea.dataset.customEditorInit = 'true';
+
+        // Read the editor URL from the global config set by PHP (via js_init_code, runs before AMD).
+        const editorurl = (window.customeditorUrls && window.customeditorUrls[elementid]) || '';
+        if (!editorurl) {
+            return;
+        }
+
         textarea.style.display = 'none';
 
         // Hide any existing Atto or TinyMCE wrappers.
@@ -73,17 +79,21 @@ export const init = (elementid, editorurl) => {
         // Create the editor wrapper and iframe.
         const wrapper = document.createElement('div');
         wrapper.id = 'custom-editor-wrap-' + elementid;
-        wrapper.style.cssText = 'width:100%;margin-bottom:0.5rem';
+
+        const urlParams = new URLSearchParams(editorurl.split('?')[1] || '');
+        const editorHeight = urlParams.get('editor_height') || '75vh';
+        wrapper.style.cssText = 'width:100%;margin-bottom:0.5rem;' +
+            'resize:vertical;overflow:hidden;' +
+            'min-height:200px;height:' + editorHeight + ';' +
+            'border:1px solid #ccc;border-radius:8px;position:relative';
 
         const iframe = document.createElement('iframe');
         iframe.id = 'custom-editor-iframe-' + elementid;
         iframe.src = editorurl;
         iframe.setAttribute('allowfullscreen', 'true');
 
-        const urlParams = new URLSearchParams(editorurl.split('?')[1] || '');
-        const editorHeight = urlParams.get('editor_height') || '75vh';
-        iframe.style.cssText = 'width:100%;height:' + editorHeight +
-            ';border:1px solid #ccc;border-radius:8px;background:#fff;display:block';
+        iframe.style.cssText = 'width:100%;height:100%;border:none;border-radius:8px;' +
+            'background:#fff;display:block';
 
         wrapper.appendChild(iframe);
         textarea.parentNode.insertBefore(wrapper, textarea);

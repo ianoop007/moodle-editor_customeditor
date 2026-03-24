@@ -14,16 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Privacy provider for the Anoop Kakkur Rich Text Editor.
- *
- * @package   editor_customeditor
- * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die();
-
 namespace editor_customeditor\privacy;
 
 /**
@@ -34,11 +24,6 @@ namespace editor_customeditor\privacy;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\local\metadata\null_provider {
-    /**
-     * Get the language string identifier for the privacy reason.
-     *
-     * @return string
-     */
     /**
      * Get the reason for the privacy provider.
      *

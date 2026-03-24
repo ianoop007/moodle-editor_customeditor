@@ -1341,6 +1341,7 @@ body {
         <option value="h5">Heading 5</option>
         <option value="h6">Heading 6</option>
         <option value="pre">Preformatted</option>
+        <option value="code">Code</option>
         <option value="blockquote">Blockquote</option>
       </select>
     </div>
@@ -2348,7 +2349,16 @@ function restoreSelection() {
 
 // ─── Block Format ───
 function changeBlock(tag) {
-  if (tag === 'blockquote') {
+  if (tag === 'code') {
+    // Wrap selection in a styled code block using pre > code.
+    var sel = window.getSelection();
+    var text = sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+    var html = '<pre style="background:var(--bg-secondary,#f4f4f5);padding:12px 16px;border-radius:6px;' +
+      'font-family:var(--font-mono,monospace);font-size:13px;overflow-x:auto;white-space:pre-wrap;' +
+      'border:1px solid var(--border-color,#e5e7eb)">' +
+      '<code>' + (text ? escapeHtml(text) : 'code') + '</code></pre><p><br></p>';
+    document.execCommand('insertHTML', false, html);
+  } else if (tag === 'blockquote') {
     document.execCommand('formatBlock', false, 'blockquote');
   } else {
     document.execCommand('formatBlock', false, tag);

@@ -26,9 +26,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Post-installation hook.
  *
@@ -46,7 +43,7 @@ function xmldb_editor_customeditor_install() {
     $editorlist = explode(',', $editors);
 
     // Remove customeditor if it's already in the list (avoid duplicates).
-    $editorlist = array_filter($editorlist, function($e) {
+    $editorlist = array_filter($editorlist, function ($e) {
         return trim($e) !== 'customeditor';
     });
 

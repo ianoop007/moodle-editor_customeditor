@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+// phpcs:ignore moodle.Files.MoodleInternal.MoodleInternalNotNeeded
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -138,13 +139,23 @@ class customeditor_texteditor extends texteditor {
                 $params[$key] = $val;
             }
         }
-        $editorurl = new moodle_url('/lib/editor/customeditor/editor.html', $params);
 
-        // Initialise the editor via AMD module.
+        // Build the editor URL with settings as query parameters.
+        $editorurl = new moodle_url('/lib/editor/customeditor/editor.html', $params);
+        $urlstring = $editorurl->out(false);
+
+        // Store the URL in a global JS object (runs synchronously before AMD modules).
+        // This avoids exceeding Moodle's 1024-char limit on js_call_amd arguments.
+        $PAGE->requires->js_init_code(
+            'if(typeof window.customeditorUrls==="undefined"){window.customeditorUrls={};}' .
+            'window.customeditorUrls[' . json_encode($elementid) . ']=' . json_encode($urlstring) . ';'
+        );
+
+        // Pass only the element ID to js_call_amd (well under 1024 chars).
         $PAGE->requires->js_call_amd(
             'editor_customeditor/editor',
             'init',
-            [$elementid, $editorurl->out(false)]
+            [$elementid]
         );
     }
 }

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the Anoop Kakkur Rich Text Editor.
+ * Hook callbacks for the Anoop Kakkur Rich Text Editor.
  *
  * @package   editor_customeditor
  * @copyright 2026 Anoop Kakkur <anoopkakkur@gmail.com>
@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2026032300;    // YYYYMMDDXX format.
-$plugin->requires  = 2022112800;    // Moodle 4.1.0 (minimum).
-$plugin->component = 'editor_customeditor';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '2.0.5';
-$plugin->supported = [401, 502];    // Moodle 4.1 through 5.2.
+$callbacks = [
+    [
+        'hook' => core\hook\output\before_footer_html_generation::class,
+        'callback' => editor_customeditor\hook_callbacks::class . '::before_footer',
+    ],
+];
