@@ -25,7 +25,6 @@ pre[data-lang] {
     border: 1px solid #313244;
     font-family: 'IBM Plex Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
 }
-
 pre[data-lang] .code-header {
     display: flex;
     align-items: center;
@@ -35,7 +34,6 @@ pre[data-lang] .code-header {
     border-bottom: 1px solid #313244;
     font-size: 12px;
 }
-
 pre[data-lang] .code-lang {
     color: #a6adc8;
     font-family: 'IBM Plex Mono', 'Consolas', monospace;
@@ -43,7 +41,6 @@ pre[data-lang] .code-lang {
     letter-spacing: 0.5px;
     font-size: 11px;
 }
-
 pre[data-lang] .copy-code-btn {
     display: flex;
     align-items: center;
@@ -58,22 +55,18 @@ pre[data-lang] .copy-code-btn {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     transition: all 0.15s;
 }
-
 pre[data-lang] .copy-code-btn:hover {
     background: rgba(205, 214, 244, 0.15);
     color: #cdd6f4;
 }
-
 pre[data-lang] .copy-code-btn.copied {
     color: #16a34a;
     border-color: #16a34a;
 }
-
 pre[data-lang] .copy-code-btn svg {
     width: 13px;
     height: 13px;
 }
-
 pre[data-lang] code {
     display: block;
     padding: 16px 20px;
@@ -83,7 +76,6 @@ pre[data-lang] code {
     overflow-x: auto;
     white-space: pre;
 }
-
 /* Syntax highlighting colors */
 .syntax-keyword {
     color: #cba6f7;
@@ -107,7 +99,6 @@ pre[data-lang] code {
 .syntax-attr {
     color: #f9e2af;
 }
-
 /* ════════════════════════════════════════
    INLINE CODE SNIPPET — small badge style
    ════════════════════════════════════════ */
@@ -127,17 +118,14 @@ pre[data-lang] code {
     cursor: default;
     transition: border-color 0.15s, box-shadow 0.15s;
 }
-
 .code-snippet:hover {
     border-color: #93c5fd;
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
 }
-
 .code-snippet .snippet-text {
     pointer-events: none;
     user-select: all;
 }
-
 .code-snippet .snippet-copy-btn {
     display: inline-flex;
     align-items: center;
@@ -153,17 +141,14 @@ pre[data-lang] code {
     flex-shrink: 0;
     transition: all 0.15s;
 }
-
 .code-snippet .snippet-copy-btn:hover {
     background: rgba(9, 105, 218, 0.18);
     color: #0550ae;
 }
-
 .code-snippet .snippet-copy-btn.copied {
     background: rgba(22, 163, 74, 0.12);
     color: #16a34a;
 }
-
 .code-snippet .snippet-copy-btn svg {
     width: 13px;
     height: 13px;
@@ -173,7 +158,6 @@ pre[data-lang] code {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
-
 /* ════════════════════════════════════════
    BLOCK CODE SNIPPET — documentation style
    ════════════════════════════════════════ */
@@ -187,12 +171,10 @@ pre[data-lang] code {
     overflow: hidden;
     transition: border-color 0.15s, box-shadow 0.15s;
 }
-
 .code-snippet-block:hover {
     border-color: #93c5fd;
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.06);
 }
-
 .code-snippet-block .snippet-block-prefix {
     display: flex;
     align-items: center;
@@ -208,7 +190,6 @@ pre[data-lang] code {
     align-self: stretch;
     user-select: none;
 }
-
 .code-snippet-block .snippet-block-code {
     flex: 1;
     padding: 12px 16px;
@@ -220,7 +201,6 @@ pre[data-lang] code {
     overflow-x: auto;
     user-select: all;
 }
-
 .code-snippet-block .snippet-block-copy {
     display: flex;
     align-items: center;
@@ -240,16 +220,13 @@ pre[data-lang] code {
     min-width: 72px;
     white-space: nowrap;
 }
-
 .code-snippet-block .snippet-block-copy:hover {
     background: rgba(9, 105, 218, 0.08);
 }
-
 .code-snippet-block .snippet-block-copy.copied {
     color: #16a34a;
     background: rgba(22, 163, 74, 0.06);
 }
-
 .code-snippet-block .snippet-block-copy svg {
     width: 14px;
     height: 14px;
@@ -259,7 +236,6 @@ pre[data-lang] code {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
-
 /* ════════════════════════════════════════
    INLINE CODE (simple backtick style)
    ════════════════════════════════════════ */
@@ -271,7 +247,6 @@ code:not(pre code):not(.snippet-text) {
     font-family: 'IBM Plex Mono', 'Consolas', monospace;
     font-size: 0.9em;
 }
-
 /* ════════════════════════════════════════
    BLOCKQUOTE styling
    ════════════════════════════════════════ */
@@ -284,7 +259,6 @@ blockquote {
     color: #6b7280;
     font-style: italic;
 }
-
 /* ════════════════════════════════════════
    TABLE styling
    ════════════════════════════════════════ */
@@ -295,7 +269,6 @@ blockquote {
     width: 100%;
     margin: 1em 0;
 }
-
 .text_to_html table td,
 .text_to_html table th,
 .no-overflow table td,
@@ -303,13 +276,11 @@ blockquote {
     border: 1px solid #d1d5db;
     padding: 8px 12px;
 }
-
 .text_to_html table th,
 .no-overflow table th {
     background: #f4f5f7;
     font-weight: 600;
 }
-
 /* ════════════════════════════════════════
    CONTENT TYPOGRAPHY — match editor appearance
    These override the Moodle theme's gray/light
@@ -334,7 +305,6 @@ blockquote {
     font-size: 15px;
     line-height: 1.75;
 }
-
 /* Headings — ensure dark, bold, proper sizes */
 .text_to_html h1,
 .no-overflow h1,
@@ -346,7 +316,6 @@ blockquote {
     margin: 0.67em 0;
     line-height: 1.2;
 }
-
 .text_to_html h2,
 .no-overflow h2,
 #region-main .text_to_html h2,
@@ -357,7 +326,6 @@ blockquote {
     margin: 0.75em 0;
     line-height: 1.3;
 }
-
 .text_to_html h3,
 .no-overflow h3,
 #region-main .text_to_html h3,
@@ -367,7 +335,6 @@ blockquote {
     font-weight: 600;
     margin: 0.75em 0;
 }
-
 .text_to_html h4,
 .no-overflow h4,
 #region-main .text_to_html h4,
@@ -377,7 +344,6 @@ blockquote {
     font-weight: 600;
     margin: 0.75em 0;
 }
-
 .text_to_html h5,
 .no-overflow h5,
 .text_to_html h6,
@@ -386,7 +352,6 @@ blockquote {
     font-weight: 600;
     margin: 0.75em 0;
 }
-
 /* Paragraphs and body text — force dark color */
 .text_to_html p,
 .no-overflow p,
@@ -395,7 +360,6 @@ blockquote {
     color: #1a1a2e;
     margin: 0.5em 0;
 }
-
 /* Lists */
 .text_to_html ul,
 .text_to_html ol,
@@ -405,13 +369,11 @@ blockquote {
 #region-main .text_to_html ol {
     color: #1a1a2e;
 }
-
 .text_to_html li,
 .no-overflow li {
     color: #1a1a2e;
     margin: 0.25em 0;
 }
-
 /* Bold text */
 .text_to_html strong,
 .text_to_html b,
@@ -420,19 +382,16 @@ blockquote {
     color: #1a1a2e;
     font-weight: 700;
 }
-
 /* Links */
 .text_to_html a,
 .no-overflow a {
     color: #2563eb;
     text-decoration: underline;
 }
-
 .text_to_html a:hover,
 .no-overflow a:hover {
     color: #1d4ed8;
 }
-
 /* Horizontal rule */
 .text_to_html hr,
 .no-overflow hr {
@@ -441,7 +400,6 @@ blockquote {
     background: linear-gradient(to right, transparent, #d1d5db, transparent);
     margin: 1.5em 0;
 }
-
 /* Images */
 .text_to_html img,
 .no-overflow img {
@@ -449,7 +407,6 @@ blockquote {
     height: auto;
     border-radius: 6px;
 }
-
 /* ════════════════════════════════════════
    HEADING TEMPLATES — display side
    ════════════════════════════════════════ */
@@ -500,7 +457,6 @@ blockquote {
     border: 1px solid rgba(37, 99, 235, 0.15);
     margin: 1em 0 0.5em;
 }
-
 .subheading-tpl-1 {
     font-size: 1.2em;
     font-weight: 600;
@@ -544,7 +500,6 @@ blockquote {
     border: 1px solid #e5e7eb;
     margin: 0.8em 0 0.4em;
 }
-
 /* ── Styled Horizontal Rules (display side) ── */
 .hr-gradient {
     border: none;
@@ -573,7 +528,6 @@ blockquote {
     border-radius: 2px;
     margin: 1em 0;
 }
-
 /* ════════════════════════════════════════
    CALLOUT / ALERT BOXES — display side
    ════════════════════════════════════════ */
@@ -592,11 +546,26 @@ blockquote {
     align-items: center;
     gap: 6px;
 }
-.callout-info { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
-.callout-warning { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
-.callout-success { background: #f0fdf4; border-color: #22c55e; color: #166534; }
-.callout-error { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
-
+.callout-info {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+.callout-warning {
+    background: #fffbeb;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+.callout-success {
+    background: #f0fdf4;
+    border-color: #22c55e;
+    color: #166534;
+}
+.callout-error {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
 /* ════════════════════════════════════════
    ACCORDION — display side
    ════════════════════════════════════════ */
@@ -621,10 +590,16 @@ blockquote {
     transition: transform 0.2s;
     font-size: 12px;
 }
-.ed-accordion.open .ed-accordion-header::before { transform: rotate(90deg); }
-.ed-accordion-body { padding: 12px 16px; display: none; }
-.ed-accordion.open .ed-accordion-body { display: block; }
-
+.ed-accordion.open .ed-accordion-header::before {
+    transform: rotate(90deg);
+}
+.ed-accordion-body {
+    padding: 12px 16px;
+    display: none;
+}
+.ed-accordion.open .ed-accordion-body {
+    display: block;
+}
 /* ════════════════════════════════════════
    BADGES — display side
    ════════════════════════════════════════ */
@@ -637,13 +612,30 @@ blockquote {
     line-height: 1.6;
     white-space: nowrap;
 }
-.ed-badge-blue { background: #dbeafe; color: #1e40af; }
-.ed-badge-green { background: #dcfce7; color: #166534; }
-.ed-badge-red { background: #fee2e2; color: #991b1b; }
-.ed-badge-yellow { background: #fef3c7; color: #92400e; }
-.ed-badge-purple { background: #f3e8ff; color: #6b21a8; }
-.ed-badge-gray { background: #f3f4f6; color: #374151; }
-
+.ed-badge-blue {
+    background: #dbeafe;
+    color: #1e40af;
+}
+.ed-badge-green {
+    background: #dcfce7;
+    color: #166534;
+}
+.ed-badge-red {
+    background: #fee2e2;
+    color: #991b1b;
+}
+.ed-badge-yellow {
+    background: #fef3c7;
+    color: #92400e;
+}
+.ed-badge-purple {
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+.ed-badge-gray {
+    background: #f3f4f6;
+    color: #374151;
+}
 /* ════════════════════════════════════════
    FOOTNOTES — display side
    ════════════════════════════════════════ */
@@ -661,13 +653,20 @@ blockquote {
     font-size: 13px;
     color: #6b7280;
 }
-.footnote-item { margin: 4px 0; }
-.footnote-item .fn-num { color: #2563eb; font-weight: 700; margin-right: 6px; }
-
+.footnote-item {
+    margin: 4px 0;
+}
+.footnote-item .fn-num {
+    color: #2563eb;
+    font-weight: 700;
+    margin-right: 6px;
+}
 /* ════════════════════════════════════════
    DEFINITION LIST — display side
    ════════════════════════════════════════ */
-.def-list { margin: 12px 0; }
+.def-list {
+    margin: 12px 0;
+}
 .def-list dt {
     font-weight: 700;
     color: #1a1a2e;
@@ -681,7 +680,6 @@ blockquote {
     color: #6b7280;
     line-height: 1.6;
 }
-
 /* ════════════════════════════════════════
    MATH — display side
    ════════════════════════════════════════ */
@@ -702,7 +700,6 @@ blockquote {
     padding: 1px 4px;
     border-radius: 3px;
 }
-
 /* ════════════════════════════════════════
    ANNOTATIONS — display side
    ════════════════════════════════════════ */
@@ -712,7 +709,9 @@ blockquote {
     position: relative;
     cursor: pointer;
 }
-.annotation-mark:hover .annotation-note { display: block; }
+.annotation-mark:hover .annotation-note {
+    display: block;
+}
 .annotation-note {
     display: none;
     position: absolute;
@@ -728,7 +727,6 @@ blockquote {
     z-index: 100;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 /* ════════════════════════════════════════
    PROGRESS BAR — display side
    ════════════════════════════════════════ */
@@ -751,7 +749,6 @@ blockquote {
     font-size: 12px;
     font-weight: 600;
 }
-
 /* ════════════════════════════════════════
    TIMELINE — display side
    ════════════════════════════════════════ */
@@ -769,7 +766,10 @@ blockquote {
     width: 2px;
     background: #d1d5db;
 }
-.ed-timeline-item { position: relative; margin-bottom: 16px; }
+.ed-timeline-item {
+    position: relative;
+    margin-bottom: 16px;
+}
 .ed-timeline-item::before {
     content: '';
     position: absolute;
@@ -779,12 +779,21 @@ blockquote {
     height: 12px;
     border-radius: 50%;
     background: #2563eb;
-    border: 2px solid #ffffff;
+    border: 2px solid #fff;
 }
-.ed-timeline-date { font-size: 12px; color: #2563eb; font-weight: 600; }
-.ed-timeline-title { font-weight: 700; margin: 2px 0; }
-.ed-timeline-desc { font-size: 13px; color: #6b7280; }
-
+.ed-timeline-date {
+    font-size: 12px;
+    color: #2563eb;
+    font-weight: 600;
+}
+.ed-timeline-title {
+    font-weight: 700;
+    margin: 2px 0;
+}
+.ed-timeline-desc {
+    font-size: 13px;
+    color: #6b7280;
+}
 /* ════════════════════════════════════════
    TAB PANELS — display side
    ════════════════════════════════════════ */
@@ -812,15 +821,23 @@ blockquote {
 .ed-tab-btn.active {
     color: #2563eb;
     border-bottom-color: #2563eb;
-    background: #ffffff;
+    background: #fff;
 }
-.ed-tab-panel { padding: 12px 16px; display: none; }
-.ed-tab-panel.active { display: block; }
-
+.ed-tab-panel {
+    padding: 12px 16px;
+    display: none;
+}
+.ed-tab-panel.active {
+    display: block;
+}
 /* ════════════════════════════════════════
    CHECKLIST — display side
    ════════════════════════════════════════ */
-.ed-checklist { list-style: none; padding: 0; margin: 10px 0; }
+.ed-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
 .ed-checklist li {
     padding: 6px 0;
     display: flex;
@@ -848,7 +865,6 @@ blockquote {
     text-decoration: line-through;
     color: #6b7280;
 }
-
 /* ════════════════════════════════════════
    CARD COMPONENT — display side
    ════════════════════════════════════════ */
@@ -859,8 +875,11 @@ blockquote {
     margin: 12px 0;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.ed-card-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
-
+.ed-card-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
 /* ════════════════════════════════════════
    QUIZ BOX — display side
    ════════════════════════════════════════ */
@@ -870,14 +889,20 @@ blockquote {
     margin: 12px 0;
     overflow: hidden;
 }
-.ed-quiz-q { padding: 14px 18px; background: #f5f3ff; font-weight: 600; }
+.ed-quiz-q {
+    padding: 14px 18px;
+    background: #f5f3ff;
+    font-weight: 600;
+}
 .ed-quiz-a {
     padding: 14px 18px;
     background: #ecfdf5;
     border-top: 1px dashed #8b5cf6;
     display: none;
 }
-.ed-quiz.revealed .ed-quiz-a { display: block; }
+.ed-quiz.revealed .ed-quiz-a {
+    display: block;
+}
 .ed-quiz-toggle {
     font-size: 12px;
     color: #8b5cf6;
@@ -885,12 +910,17 @@ blockquote {
     margin-top: 6px;
     font-weight: 600;
 }
-
 /* ════════════════════════════════════════
    STEP INSTRUCTION — display side
    ════════════════════════════════════════ */
-.ed-steps { margin: 12px 0; }
-.ed-step { display: flex; gap: 12px; margin-bottom: 12px; }
+.ed-steps {
+    margin: 12px 0;
+}
+.ed-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
 .ed-step-num {
     width: 32px;
     height: 32px;
@@ -904,8 +934,9 @@ blockquote {
     font-size: 14px;
     flex-shrink: 0;
 }
-.ed-step-content { flex: 1; }
-
+.ed-step-content {
+    flex: 1;
+}
 /* ════════════════════════════════════════
    KEY TAKEAWAY — display side
    ════════════════════════════════════════ */
@@ -924,7 +955,6 @@ blockquote {
     align-items: center;
     gap: 6px;
 }
-
 /* ════════════════════════════════════════
    COMPARE BOX — display side
    ════════════════════════════════════════ */
@@ -936,9 +966,17 @@ blockquote {
     border-radius: 8px;
     overflow: hidden;
 }
-.ed-compare-side { flex: 1; padding: 14px; }
-.ed-compare-side:first-child { background: #eff6ff; border-right: 2px solid #d1d5db; }
-.ed-compare-side:last-child { background: #fef2f2; }
+.ed-compare-side {
+    flex: 1;
+    padding: 14px;
+}
+.ed-compare-side:first-child {
+    background: #eff6ff;
+    border-right: 2px solid #d1d5db;
+}
+.ed-compare-side:last-child {
+    background: #fef2f2;
+}
 .ed-compare-label {
     font-weight: 700;
     font-size: 13px;
@@ -946,7 +984,6 @@ blockquote {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
 /* ════════════════════════════════════════
    LEARNING OBJECTIVE — display side
    ════════════════════════════════════════ */
@@ -965,7 +1002,6 @@ blockquote {
     align-items: center;
     gap: 6px;
 }
-
 /* ════════════════════════════════════════
    GLOSSARY TOOLTIP — display side
    ════════════════════════════════════════ */
@@ -974,7 +1010,9 @@ blockquote {
     cursor: help;
     position: relative;
 }
-.glossary-term:hover .glossary-def { display: block; }
+.glossary-term:hover .glossary-def {
+    display: block;
+}
 .glossary-def {
     display: none;
     position: absolute;
@@ -991,18 +1029,29 @@ blockquote {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 4px;
 }
-
 /* ════════════════════════════════════════
    STAR RATING — display side
    ════════════════════════════════════════ */
-.ed-rating { display: inline-flex; gap: 2px; font-size: 20px; }
-.ed-rating .star-filled { color: #f59e0b; }
-.ed-rating .star-empty { color: #d1d5db; }
-
+.ed-rating {
+    display: inline-flex;
+    gap: 2px;
+    font-size: 20px;
+}
+.ed-rating .star-filled {
+    color: #f59e0b;
+}
+.ed-rating .star-empty {
+    color: #d1d5db;
+}
 /* ════════════════════════════════════════
    KANBAN BOARD — display side
    ════════════════════════════════════════ */
-.ed-kanban { display: flex; gap: 8px; margin: 12px 0; min-height: 120px; }
+.ed-kanban {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+    min-height: 120px;
+}
 .ed-kanban-col {
     flex: 1;
     border: 1px solid #d1d5db;
@@ -1016,16 +1065,18 @@ blockquote {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-.ed-kanban-body { padding: 8px; min-height: 80px; }
+.ed-kanban-body {
+    padding: 8px;
+    min-height: 80px;
+}
 .ed-kanban-card {
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #d1d5db;
     border-radius: 6px;
     padding: 8px 10px;
     margin-bottom: 6px;
     font-size: 13px;
 }
-
 /* ════════════════════════════════════════
    CONTENT DIVIDER — display side
    ════════════════════════════════════════ */
@@ -1047,18 +1098,20 @@ blockquote {
     height: 1px;
     background: #d1d5db;
 }
-
 /* ════════════════════════════════════════
    COLOUR PALETTE — display side
    ════════════════════════════════════════ */
-.ed-palette { display: flex; gap: 4px; margin: 8px 0; }
+.ed-palette {
+    display: flex;
+    gap: 4px;
+    margin: 8px 0;
+}
 .ed-palette-swatch {
     width: 36px;
     height: 36px;
     border-radius: 6px;
     border: 2px solid #d1d5db;
 }
-
 /* ════════════════════════════════════════
    DROP CAP — display side
    ════════════════════════════════════════ */
@@ -1070,7 +1123,6 @@ blockquote {
     font-weight: 700;
     color: #2563eb;
 }
-
 /* ════════════════════════════════════════
    PLACEHOLDER — display side
    ════════════════════════════════════════ */
@@ -1083,7 +1135,6 @@ blockquote {
     font-weight: 600;
     border: 1px dashed #93c5fd;
 }
-
 /* ════════════════════════════════════════
    REDACTION — display side
    ════════════════════════════════════════ */
@@ -1094,12 +1145,12 @@ blockquote {
     padding: 0 2px;
     border-radius: 2px;
 }
-
 /* ════════════════════════════════════════
    TEXT COLUMNS — display side
    ════════════════════════════════════════ */
-.text-columns { column-gap: 24px; }
-
+.text-columns {
+    column-gap: 24px;
+}
 /* ════════════════════════════════════════
    PAGE BREAK — display side
    ════════════════════════════════════════ */
@@ -1117,7 +1168,6 @@ blockquote {
     position: relative;
     top: -9px;
 }
-
 /* ════════════════════════════════════════
    TABLE OF CONTENTS — display side
    ════════════════════════════════════════ */
@@ -1128,9 +1178,13 @@ blockquote {
     padding: 16px 20px;
     margin: 16px 0;
 }
-.editor-toc a { color: #3b82f6; text-decoration: none; }
-.editor-toc a:hover { text-decoration: underline; }
-
+.editor-toc a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+.editor-toc a:hover {
+    text-decoration: underline;
+}
 /* ── Default Bundled Fonts ── */
 
 @font-face {
@@ -1140,7 +1194,6 @@ blockquote {
     font-style: normal;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Work Sans';
     src: url('fonts/WorkSans-Bold.ttf') format('truetype');
@@ -1148,7 +1201,6 @@ blockquote {
     font-style: normal;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Work Sans';
     src: url('fonts/WorkSans-Italic.ttf') format('truetype');
@@ -1156,7 +1208,6 @@ blockquote {
     font-style: italic;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Work Sans';
     src: url('fonts/WorkSans-BoldItalic.ttf') format('truetype');
@@ -1164,35 +1215,30 @@ blockquote {
     font-style: italic;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'IBM Plex Mono';
     src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'IBM Plex Mono';
     src: url('fonts/IBMPlexMono-Bold.ttf') format('truetype');
     font-weight: 700;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Instrument Sans';
     src: url('fonts/InstrumentSans-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Instrument Sans';
     src: url('fonts/InstrumentSans-Bold.ttf') format('truetype');
     font-weight: 700;
     font-display: swap;
 }
-
 /* ── Malayalam Fonts (bundled) ── */
 
 @font-face {
@@ -1201,49 +1247,42 @@ blockquote {
     font-weight: 100 900;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Noto Sans Malayalam';
     src: url('fonts/NotoSansMalayalam-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Noto Sans Malayalam';
     src: url('fonts/NotoSansMalayalam-Bold.ttf') format('truetype');
     font-weight: 700;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Dyuthi';
     src: url('fonts/Dyuthi-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Mandaram';
     src: url('fonts/MANDARAM.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Raghu Malayalam Sans';
     src: url('fonts/RaghuMalayalamSans-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Suruma';
     src: url('fonts/Suruma.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Thumba';
     src: url('fonts/THUMBA.ttf') format('truetype');
