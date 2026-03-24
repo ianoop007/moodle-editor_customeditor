@@ -2177,9 +2177,11 @@ document.addEventListener('click', () => {
 // Prevent toolbar buttons and dropdown options from stealing focus
 document.querySelectorAll('.toolbar-btn, .toolbar-select, .hr-option, .snippet-type-option, .tpl-item, .special-char-btn, .emoji-btn, .char-cat-tab').forEach(function(btn) {
   btn.addEventListener('mousedown', function(e) {
-    // Do not preventDefault on the voice language select — it prevents the dropdown opening
-    if (btn.id === 'voiceLangSelect') return;
-    e.preventDefault(); // Keep editor focused
+    // Do not preventDefault on select elements — it prevents native dropdowns from opening.
+    if (btn.tagName === 'SELECT') {
+      return;
+    }
+    e.preventDefault(); // Keep editor focused for buttons and other controls.
   });
 });
 
