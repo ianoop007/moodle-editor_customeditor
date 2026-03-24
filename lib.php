@@ -131,6 +131,15 @@ class customeditor_texteditor extends texteditor {
             'enable_invisible_watermark', 'enable_export_sanitiser', 'enable_moodle_linker',
             'enable_ruler_guides', 'enable_version_compare', 'enable_toolbar_customiser',
             'enable_side_panel', 'editor_height', 'default_font_size',
+            // Voice typing master toggle + per-language toggles.
+            'enable_voice_typing',
+            'voice_lang_en_in', 'voice_lang_en_us', 'voice_lang_en_gb',
+            'voice_lang_ml_in', 'voice_lang_ta_in', 'voice_lang_hi_in',
+            'voice_lang_te_in', 'voice_lang_kn_in', 'voice_lang_bn_in',
+            'voice_lang_ur_pk', 'voice_lang_ar_sa', 'voice_lang_fr_fr',
+            'voice_lang_es_es', 'voice_lang_de_de', 'voice_lang_ja_jp',
+            'voice_lang_zh_cn', 'voice_lang_pt_br', 'voice_lang_ru_ru',
+            'voice_lang_ko_kr',
         ];
         $params = ['v' => $cachebust];
         foreach ($settingskeys as $key) {

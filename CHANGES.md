@@ -1,5 +1,78 @@
 # Changelog
 
+## v2.0.6 (2026-03-24) — Voice Typing
+
+### Added
+- **Voice typing** (`enable_voice_typing`) — microphone button in the editor toolbar that
+  activates the browser's built-in Web Speech API for speech-to-text. No external API key,
+  no third-party service, and no cost. The browser (Chrome/Edge) routes audio to Google's
+  speech recognition servers transparently; the plugin itself makes no network requests.
+- **19 admin-toggleable voice languages** — each language appears as a checkbox in
+  `Site Administration → Plugins → Text Editors → Anoop Kakkur Rich Text Editor`:
+  - English (India) `en-IN` — **default on**
+  - English (US) `en-US` — **default on**
+  - English (UK) `en-GB` — **default on**
+  - Malayalam `ml-IN` — **default on**
+  - Tamil `ta-IN` — **default on**
+  - Hindi `hi-IN` — **default on**
+  - Telugu `te-IN` — default off
+  - Kannada `kn-IN` — default off
+  - Bengali `bn-IN` — default off
+  - Urdu `ur-PK` — default off
+  - Arabic `ar-SA` — default off
+  - French `fr-FR` — default off
+  - Spanish `es-ES` — default off
+  - German `de-DE` — default off
+  - Japanese `ja-JP` — default off
+  - Chinese Simplified `zh-CN` — default off
+  - Portuguese (Brazil) `pt-BR` — default off
+  - Russian `ru-RU` — default off
+  - Korean `ko-KR` — default off
+- Language labels shown in their **native script** in the dropdown
+  (e.g. "മലയാളം (Malayalam)", "हिंदी (Hindi)", "தமிழ் (Tamil)").
+- **Voice status bar** — amber bar below the toolbar shows a pulsing red dot,
+  "Listening…" text, live interim transcript (greyed italic preview of speech
+  as it is being recognised), and a Stop button.
+- **Pulse ring animation** on the mic button during active recording.
+- **Auto-restart** — recognition restarts automatically on Android Chrome, which
+  stops after each utterance.
+- **Graceful degradation** — if the browser does not support `SpeechRecognition`,
+  the mic button is greyed out with a tooltip explaining the requirement.
+- **Error messaging** — descriptive alerts for no-microphone, permission-denied,
+  network-error, and service-not-allowed conditions.
+- Voice typing stops cleanly when switching to source-code view or on page unload.
+
+### Technical notes — Web Speech API (no API key required)
+- The Web Speech API is **built into the browser**. No registration, no API key,
+  and no billing.
+- **Browser support:**
+  | Browser           | Support                                                     |
+  |-------------------|-------------------------------------------------------------|
+  | Chrome 25+        | ✅ Full (best accuracy for Indian languages)               |
+  | Edge 79+          | ✅ Full                                                     |
+  | Safari 14.1+      | ✅ Supported                                                |
+  | Firefox           | ⚠️ Disabled by default — enable `media.webspeech.recognition.enable` in `about:config` |
+  | Mobile Chrome     | ✅ Android Chrome 25+                                      |
+  | Mobile Safari     | ✅ iOS 14.5+                                               |
+- **HTTPS required** — the browser blocks microphone access on plain HTTP.
+  Production Moodle installations are always HTTPS, so this is not a concern
+  in practice.
+- **Microphone permission** — the browser shows its standard permission prompt
+  on first use. Users must click Allow. This is a one-time browser-level grant.
+- **No installation or configuration needed** by the Moodle admin beyond enabling
+  the feature and choosing which languages to expose.
+
+### Changed
+- Version bumped to 2.0.6 (plugin version: 2026032401)
+- `settings.php`: added Voice Typing section with master toggle and 19 language checkboxes
+- `lib.php`: voice setting keys passed to editor iframe URL
+- `lang/en/editor_customeditor.php`: 42 new strings added, file remains alphabetically sorted
+- `styles.css`: voice button, status bar, pulse animation, dark-mode overrides (1481 lines)
+- `editor.html`: voice toolbar group, status bar HTML, language dropdown population,
+  browser-support check, and full `SpeechRecognition` engine added
+
+---
+
 ## v2.0.5 (2026-03-24) — Bug Fixes & CI Improvements
 
 ### Fixed
