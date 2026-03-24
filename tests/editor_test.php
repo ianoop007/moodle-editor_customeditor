@@ -32,11 +32,12 @@ namespace editor_customeditor;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers    \customeditor_texteditor
  */
-class editor_test extends \advanced_testcase {
+final class editor_test extends \advanced_testcase {
     /**
      * Load the lib.php file before running tests.
      */
     public static function setUpBeforeClass(): void {
+        parent::setUpBeforeClass();
         global $CFG;
         require_once($CFG->dirroot . '/lib/editor/customeditor/lib.php');
     }
