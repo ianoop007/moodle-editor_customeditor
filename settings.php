@@ -1783,7 +1783,7 @@ if ($ADMIN->fulltree) {
     );
 
 
-    // ── Voice Typing ─────────────────────────────────────────────────────────
+    // Voice Typing settings.
     $settings->add(new admin_setting_heading(
         $cmp . '/voice_typing_heading',
         get_string('voice_typing_heading', $cmp),
@@ -1803,25 +1803,158 @@ if ($ADMIN->fulltree) {
         get_string('voice_lang_heading_desc', $cmp)
     ));
 
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_en_in', get_string('voice_lang_en_in', $cmp), get_string('voice_lang_en_in_desc', $cmp), 1));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_en_us', get_string('voice_lang_en_us', $cmp), get_string('voice_lang_en_us_desc', $cmp), 1));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_en_gb', get_string('voice_lang_en_gb', $cmp), get_string('voice_lang_en_gb_desc', $cmp), 1));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ml_in', get_string('voice_lang_ml_in', $cmp), get_string('voice_lang_ml_in_desc', $cmp), 1));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ta_in', get_string('voice_lang_ta_in', $cmp), get_string('voice_lang_ta_in_desc', $cmp), 1));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_hi_in', get_string('voice_lang_hi_in', $cmp), get_string('voice_lang_hi_in_desc', $cmp), 1));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_te_in', get_string('voice_lang_te_in', $cmp), get_string('voice_lang_te_in_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_kn_in', get_string('voice_lang_kn_in', $cmp), get_string('voice_lang_kn_in_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_bn_in', get_string('voice_lang_bn_in', $cmp), get_string('voice_lang_bn_in_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ur_pk', get_string('voice_lang_ur_pk', $cmp), get_string('voice_lang_ur_pk_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ar_sa', get_string('voice_lang_ar_sa', $cmp), get_string('voice_lang_ar_sa_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_fr_fr', get_string('voice_lang_fr_fr', $cmp), get_string('voice_lang_fr_fr_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_es_es', get_string('voice_lang_es_es', $cmp), get_string('voice_lang_es_es_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_de_de', get_string('voice_lang_de_de', $cmp), get_string('voice_lang_de_de_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ja_jp', get_string('voice_lang_ja_jp', $cmp), get_string('voice_lang_ja_jp_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_zh_cn', get_string('voice_lang_zh_cn', $cmp), get_string('voice_lang_zh_cn_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_pt_br', get_string('voice_lang_pt_br', $cmp), get_string('voice_lang_pt_br_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ru_ru', get_string('voice_lang_ru_ru', $cmp), get_string('voice_lang_ru_ru_desc', $cmp), 0));
-    $settings->add(new admin_setting_configcheckbox($cmp . '/voice_lang_ko_kr', get_string('voice_lang_ko_kr', $cmp), get_string('voice_lang_ko_kr_desc', $cmp), 0));
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_en_in',
+            get_string('voice_lang_en_in', $cmp),
+            get_string('voice_lang_en_in_desc', $cmp),
+            1
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_en_us',
+            get_string('voice_lang_en_us', $cmp),
+            get_string('voice_lang_en_us_desc', $cmp),
+            1
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_en_gb',
+            get_string('voice_lang_en_gb', $cmp),
+            get_string('voice_lang_en_gb_desc', $cmp),
+            1
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ml_in',
+            get_string('voice_lang_ml_in', $cmp),
+            get_string('voice_lang_ml_in_desc', $cmp),
+            1
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ta_in',
+            get_string('voice_lang_ta_in', $cmp),
+            get_string('voice_lang_ta_in_desc', $cmp),
+            1
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_hi_in',
+            get_string('voice_lang_hi_in', $cmp),
+            get_string('voice_lang_hi_in_desc', $cmp),
+            1
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_te_in',
+            get_string('voice_lang_te_in', $cmp),
+            get_string('voice_lang_te_in_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_kn_in',
+            get_string('voice_lang_kn_in', $cmp),
+            get_string('voice_lang_kn_in_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_bn_in',
+            get_string('voice_lang_bn_in', $cmp),
+            get_string('voice_lang_bn_in_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ur_pk',
+            get_string('voice_lang_ur_pk', $cmp),
+            get_string('voice_lang_ur_pk_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ar_sa',
+            get_string('voice_lang_ar_sa', $cmp),
+            get_string('voice_lang_ar_sa_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_fr_fr',
+            get_string('voice_lang_fr_fr', $cmp),
+            get_string('voice_lang_fr_fr_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_es_es',
+            get_string('voice_lang_es_es', $cmp),
+            get_string('voice_lang_es_es_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_de_de',
+            get_string('voice_lang_de_de', $cmp),
+            get_string('voice_lang_de_de_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ja_jp',
+            get_string('voice_lang_ja_jp', $cmp),
+            get_string('voice_lang_ja_jp_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_zh_cn',
+            get_string('voice_lang_zh_cn', $cmp),
+            get_string('voice_lang_zh_cn_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_pt_br',
+            get_string('voice_lang_pt_br', $cmp),
+            get_string('voice_lang_pt_br_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ru_ru',
+            get_string('voice_lang_ru_ru', $cmp),
+            get_string('voice_lang_ru_ru_desc', $cmp),
+            0
+        )
+    );
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/voice_lang_ko_kr',
+            get_string('voice_lang_ko_kr', $cmp),
+            get_string('voice_lang_ko_kr_desc', $cmp),
+            0
+        )
+    );
 
     // Text configuration settings.
     $settings->add(
