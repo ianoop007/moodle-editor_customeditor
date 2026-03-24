@@ -1194,6 +1194,7 @@ blockquote {
     font-style: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Work Sans';
     src: url('fonts/WorkSans-Bold.ttf') format('truetype');
@@ -1201,6 +1202,7 @@ blockquote {
     font-style: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Work Sans';
     src: url('fonts/WorkSans-Italic.ttf') format('truetype');
@@ -1208,6 +1210,7 @@ blockquote {
     font-style: italic;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Work Sans';
     src: url('fonts/WorkSans-BoldItalic.ttf') format('truetype');
@@ -1215,24 +1218,28 @@ blockquote {
     font-style: italic;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'IBM Plex Mono';
     src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'IBM Plex Mono';
     src: url('fonts/IBMPlexMono-Bold.ttf') format('truetype');
     font-weight: 700;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Instrument Sans';
     src: url('fonts/InstrumentSans-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Instrument Sans';
     src: url('fonts/InstrumentSans-Bold.ttf') format('truetype');
@@ -1247,42 +1254,49 @@ blockquote {
     font-weight: 100 900;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Noto Sans Malayalam';
     src: url('fonts/NotoSansMalayalam-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Noto Sans Malayalam';
     src: url('fonts/NotoSansMalayalam-Bold.ttf') format('truetype');
     font-weight: 700;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Dyuthi';
     src: url('fonts/Dyuthi-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Mandaram';
     src: url('fonts/MANDARAM.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Raghu Malayalam Sans';
     src: url('fonts/RaghuMalayalamSans-Regular.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Suruma';
     src: url('fonts/Suruma.ttf') format('truetype');
     font-weight: 400;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Thumba';
     src: url('fonts/THUMBA.ttf') format('truetype');
