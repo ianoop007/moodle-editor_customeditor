@@ -33,7 +33,6 @@ namespace editor_customeditor;
  * @covers    \customeditor_texteditor
  */
 class editor_test extends \advanced_testcase {
-
     /**
      * Load the lib.php file before running tests.
      */

@@ -26,4 +26,4 @@ Feature: Anoop Kakkur Rich Text Editor loads on Moodle pages
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage with editing mode on
     When I add a "label" activity to course "Course 1" section "1"
-    Then I should see "Label text"
+    Then "[id^=custom-editor-iframe-]" "css_element" should exist

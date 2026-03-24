@@ -1,5 +1,55 @@
 # Changelog
 
+## v2.0.5 (2026-03-24) — Bug Fixes & CI Improvements
+
+### Fixed
+- **Debug mode deprecation notice**: Migrated `before_footer` callback to Moodle 4.4+
+  Hooks API (`db/hooks.php` + `classes/hook_callbacks.php`). Legacy callback in `lib.php`
+  retained for backward compatibility with Moodle 4.1–4.3. Editor no longer triggers
+  `E_USER_NOTICE` when debugging is set to Developer.
+- **Editor not loading on Moodle pages**: Fixed race condition where `js_amd_inline()`
+  was not guaranteed to execute before the AMD `init()` module. Replaced with
+  `js_init_code()` which runs synchronously before AMD modules, using a
+  `window.customeditorUrls` global object to pass the editor URL.
+- **js_call_amd argument exceeding 1024 characters**: Moved the long settings URL out
+  of `js_call_amd` arguments. Settings are now passed via `js_init_code()` and only the
+  element ID is sent to `js_call_amd`.
+- **Editor window not resizable**: The iframe wrapper now uses `resize: vertical` with
+  `overflow: hidden` and `min-height: 200px`. The border is on the wrapper so the native
+  browser resize grip is visible.
+- **PHP Lint errors**: `namespace` declarations must precede `defined('MOODLE_INTERNAL')`
+  in namespaced files. Fixed in `editor_test.php` and `privacy/provider.php`.
+- **PHPUnit class-not-found errors**: Added `setUpBeforeClass()` with
+  `require_once(lib.php)` and fixed `\editor_customeditor_before_footer()` call with
+  global namespace prefix.
+- **CodeSniffer violations**: Added space after `function` keyword in `install.php`
+  anonymous function. Removed unnecessary `MOODLE_INTERNAL` from namespaced class files.
+  Fixed blank line after opening brace in `editor_test.php`.
+- **Behat test failure**: Changed assertion from checking text inside the editor iframe
+  (not visible to Behat) to verifying the editor iframe element exists on the page.
+- **CI PostgreSQL version**: Upgraded from `postgres:13` to `postgres:14` to satisfy
+  Moodle 5.0+ requirement (minimum PostgreSQL 14).
+
+### Added
+- Code option in block Format dropdown (`<pre><code>` styled block with monospace font,
+  background shading, and border)
+- `db/hooks.php` — hook callback registration for Moodle 4.4+ Hooks API
+- `classes/hook_callbacks.php` — new-style hook callback class
+- AMD build sourcemap files (`.map`) for `editor.min.js` and `copybuttons.min.js`
+- Behat faildump upload step in CI workflow (screenshots retained 7 days)
+- Cancelled job failure step in CI workflow
+
+### Changed
+- Version bumped to 2.0.5 (plugin version: 2026032400)
+- CI workflow updated to official `moodlehq/moodle-plugin-ci` `gha.dist.yml` template
+- CI uses `if: ${{ !cancelled() }}` instead of `if: ${{ always() }}`
+- CI uses `--max-warnings 0` on `phpcs` and `phpdoc` steps (strict mode)
+- CI PostgreSQL image upgraded from 13 to 14
+- `editor.js` AMD module reads editor URL from `window.customeditorUrls` global
+  (set by `js_init_code`) instead of `js_call_amd` argument
+
+---
+
 ## v2.0.0 (2026-03-20) — Major Feature Release
 
 ### 120 New Features Added (all with admin settings toggles)
