@@ -1928,11 +1928,24 @@ document.addEventListener('DOMContentLoaded', function() {
   (function() {
     var voiceGroup = document.getElementById('voiceToolbarGroup');
     var voiceStatus = document.getElementById('voiceStatusBar');
-    if (!_isEnabled('enable_voice_typing')) {
+
+    // Separate helper for voice_lang_* keys.
+    // These keys default to ENABLED when absent (fresh install / DB not saved yet).
+    // Moodle only writes '0' or '1' to the URL. Absent = treat as enabled.
+    function _isVoiceLangEnabled(key) {
+      var val = _editorSettings[key];
+      if (val === '0' || val === '') return false;
+      return true; // '1' or absent both mean enabled
+    }
+
+    // Master voice toggle: only disable when explicitly set to '0'.
+    // Absent (fresh install) = enabled.
+    if (_editorSettings['enable_voice_typing'] === '0') {
       if (voiceGroup) voiceGroup.style.display = 'none';
       if (voiceStatus) voiceStatus.style.display = 'none';
       return;
     }
+
     // All possible languages in display order.
     var allLangs = [
       { key: 'voice_lang_en_in', code: 'en-IN', label: 'English (India)' },
@@ -1955,22 +1968,25 @@ document.addEventListener('DOMContentLoaded', function() {
       { key: 'voice_lang_ru_ru', code: 'ru-RU', label: 'Русский (Russian)' },
       { key: 'voice_lang_ko_kr', code: 'ko-KR', label: '한국어 (Korean)' }
     ];
+
     var sel = document.getElementById('voiceLangSelect');
     if (sel) {
       allLangs.forEach(function(lang) {
-        if (_isEnabled(lang.key)) {
+        if (_isVoiceLangEnabled(lang.key)) {
           var opt = document.createElement('option');
           opt.value = lang.code;
           opt.textContent = lang.label;
           sel.appendChild(opt);
         }
       });
-      // If no languages enabled, hide the whole group.
+      // If no languages at all, hide the whole voice group.
       if (sel.options.length === 0) {
         if (voiceGroup) voiceGroup.style.display = 'none';
+        return;
       }
     }
-    // Check browser support — hide mic if SpeechRecognition not available.
+
+    // Check browser support — grey out mic if SpeechRecognition unavailable.
     if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
       var micBtn = document.getElementById('voiceMicBtn');
       if (micBtn) {
@@ -1978,12 +1994,12 @@ document.addEventListener('DOMContentLoaded', function() {
         micBtn.style.opacity = '0.4';
         micBtn.style.cursor = 'not-allowed';
         micBtn.onclick = function() {
-          alert('Voice typing requires Chrome 25+, Edge 79+, or Safari 14.1+.
-Firefox users: enable media.webspeech.recognition.enable in about:config.');
+          alert('Voice typing requires Chrome 25+, Edge 79+, or Safari 14.1+.\nFirefox users: enable media.webspeech.recognition.enable in about:config.');
         };
       }
     }
   })();
+
 
   // Hide menu items
   hideActions.forEach(function(action) {
@@ -2020,7 +2036,9 @@ Firefox users: enable media.webspeech.recognition.enable in about:config.');
   }
 
   // Remove empty toolbar groups (groups where all buttons are hidden)
+  // Skip voiceToolbarGroup — its select is populated dynamically after this loop.
   document.querySelectorAll('.toolbar-group').forEach(function(g) {
+    if (g.id === 'voiceToolbarGroup') return;
     var visible = g.querySelectorAll('.toolbar-btn:not([style*="display: none"]):not([style*="display:none"]), select:not([style*="display: none"]):not([style*="display:none"])');
     if (visible.length === 0) g.style.display = 'none';
   });
