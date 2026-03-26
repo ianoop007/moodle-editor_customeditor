@@ -112,4 +112,18 @@
     <license>GPL-3.0</license>
     <licenseversion>3.0</licenseversion>
   </library>
+  <library>
+    <location>lib/ime</location>
+    <n>jQuery.IME</n>
+    <version>0.2.0</version>
+    <license>MIT</license>
+    <licenseversion></licenseversion>
+  </library>
+  <library>
+    <location>lib/ime/jquery.min.js</location>
+    <n>jQuery</n>
+    <version>3.7.1</version>
+    <license>MIT</license>
+    <licenseversion></licenseversion>
+  </library>
 </libraries>

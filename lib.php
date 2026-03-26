@@ -131,6 +131,12 @@ class customeditor_texteditor extends texteditor {
             'enable_invisible_watermark', 'enable_export_sanitiser', 'enable_moodle_linker',
             'enable_ruler_guides', 'enable_version_compare', 'enable_toolbar_customiser',
             'enable_side_panel', 'editor_height', 'default_font_size',
+            // Phonetic keyboard (IME).
+            'enable_ime',
+            'ime_lang_ml', 'ime_lang_ta', 'ime_lang_hi', 'ime_lang_te', 'ime_lang_kn',
+            'ime_lang_bn', 'ime_lang_gu', 'ime_lang_pa', 'ime_lang_ur', 'ime_lang_as',
+            'ime_lang_or', 'ime_lang_mr', 'ime_lang_sa', 'ime_lang_ar', 'ime_lang_fa',
+            'ime_lang_ru', 'ime_lang_el', 'ime_lang_zh', 'ime_lang_de',
             // Voice typing.
             'enable_voice_typing',
             'voice_lang_en_in', 'voice_lang_en_us', 'voice_lang_en_gb',

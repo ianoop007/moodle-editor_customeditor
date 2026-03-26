@@ -1397,3 +1397,103 @@ body.dark-mode #voiceStatusDot {
 body.dark-mode #voiceInterimText {
     color: #7d8ba8;
 }
+
+/* ─────────────────────────────────────────────
+   PHONETIC KEYBOARD (IME) TOOLBAR STYLES
+   Controls: Phonetic button, Script Language
+   label+select, Input Method label+select.
+   Labels ensure users never confuse IME
+   controls with Font Family, Font Size, or
+   Voice Language controls.
+   ───────────────────────────────────────────── */
+
+.ime-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: nowrap;
+}
+
+.ime-toggle-btn {
+    width: auto;
+    min-width: auto;
+    padding: 0 8px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    gap: 4px;
+    border: none;
+    background: transparent;
+}
+
+.ime-field-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: #57606a;
+    white-space: nowrap;
+    padding: 0 2px;
+    user-select: none;
+}
+
+.ime-lang-select,
+.ime-method-select {
+    font-size: 11px;
+    height: 28px;
+    padding: 0 4px;
+    border-radius: 4px;
+    border: 1px solid #d0d7de;
+    background: #fff;
+    color: #24292f;
+    cursor: pointer;
+    max-width: 160px;
+}
+
+.ime-lang-select:focus,
+.ime-method-select:focus {
+    outline: 2px solid #0969da;
+    outline-offset: 1px;
+}
+
+/* Dark mode overrides. */
+
+body.dark-mode .ime-toggle-btn {
+    background: #1f2335;
+    border-color: #414868;
+    color: #a9b1d6;
+}
+
+body.dark-mode .ime-toggle-btn:hover {
+    background: #2a2f4a;
+    border-color: #565f89;
+}
+
+body.dark-mode .ime-field-label {
+    color: #7982a9;
+}
+
+body.dark-mode .ime-lang-select,
+body.dark-mode .ime-method-select {
+    background: #1f2335;
+    border-color: #414868;
+    color: #a9b1d6;
+}
+
+/* IME bar dark mode */
+
+body.dark-mode #imeBar {
+    background: #0d1f3c;
+    border-bottom-color: #1f4070;
+    color: #79c0ff;
+}
+
+body.dark-mode #imeBar select {
+    background: #1f2335;
+    border-color: #1f4070;
+    color: #a9b1d6;
+}
+
+body.dark-mode #imeBar button {
+    border-color: #79c0ff;
+    color: #79c0ff;
+    background: transparent;
+}

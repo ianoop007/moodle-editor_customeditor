@@ -1783,6 +1783,203 @@ if ($ADMIN->fulltree) {
     );
 
 
+    // Phonetic keyboard (IME) settings.
+    $settings->add(
+        new admin_setting_heading(
+            $cmp . '/ime_heading',
+            get_string('ime_heading', $cmp),
+            get_string('ime_heading_desc', $cmp)
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/enable_ime',
+            get_string('enable_ime', $cmp),
+            get_string('enable_ime_desc', $cmp),
+            1
+        )
+    );
+
+    $settings->add(
+        new admin_setting_heading(
+            $cmp . '/ime_lang_heading',
+            get_string('ime_lang_heading', $cmp),
+            get_string('ime_lang_heading_desc', $cmp)
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_ml',
+            get_string('ime_lang_ml', $cmp),
+            get_string('ime_lang_ml_desc', $cmp),
+            1
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_ta',
+            get_string('ime_lang_ta', $cmp),
+            get_string('ime_lang_ta_desc', $cmp),
+            1
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_hi',
+            get_string('ime_lang_hi', $cmp),
+            get_string('ime_lang_hi_desc', $cmp),
+            1
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_te',
+            get_string('ime_lang_te', $cmp),
+            get_string('ime_lang_te_desc', $cmp),
+            1
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_kn',
+            get_string('ime_lang_kn', $cmp),
+            get_string('ime_lang_kn_desc', $cmp),
+            1
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_bn',
+            get_string('ime_lang_bn', $cmp),
+            get_string('ime_lang_bn_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_gu',
+            get_string('ime_lang_gu', $cmp),
+            get_string('ime_lang_gu_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_pa',
+            get_string('ime_lang_pa', $cmp),
+            get_string('ime_lang_pa_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_ur',
+            get_string('ime_lang_ur', $cmp),
+            get_string('ime_lang_ur_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_as',
+            get_string('ime_lang_as', $cmp),
+            get_string('ime_lang_as_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_or',
+            get_string('ime_lang_or', $cmp),
+            get_string('ime_lang_or_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_mr',
+            get_string('ime_lang_mr', $cmp),
+            get_string('ime_lang_mr_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_sa',
+            get_string('ime_lang_sa', $cmp),
+            get_string('ime_lang_sa_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_ar',
+            get_string('ime_lang_ar', $cmp),
+            get_string('ime_lang_ar_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_fa',
+            get_string('ime_lang_fa', $cmp),
+            get_string('ime_lang_fa_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_ru',
+            get_string('ime_lang_ru', $cmp),
+            get_string('ime_lang_ru_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_el',
+            get_string('ime_lang_el', $cmp),
+            get_string('ime_lang_el_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_zh',
+            get_string('ime_lang_zh', $cmp),
+            get_string('ime_lang_zh_desc', $cmp),
+            0
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            $cmp . '/ime_lang_de',
+            get_string('ime_lang_de', $cmp),
+            get_string('ime_lang_de_desc', $cmp),
+            0
+        )
+    );
+
     // Voice Typing settings.
     $settings->add(new admin_setting_heading(
         $cmp . '/voice_typing_heading',

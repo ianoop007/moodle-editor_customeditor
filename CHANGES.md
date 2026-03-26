@@ -1,5 +1,47 @@
 # Changelog
 
+## v3.1.0 (2026-03-25) — Phonetic Keyboard (jQuery.IME)
+
+**Plugin version:** 2026032402
+
+### Added
+- **Phonetic keyboard** — new toolbar control group for typing Indian and
+  international scripts using a standard keyboard. Powered by jQuery.IME
+  (Wikimedia Foundation, MIT/GPL v2+, bundled in `lib/ime/`).
+
+- **Toolbar UX** — the IME group uses clear labels so users never confuse
+  it with Font Family, Font Size, or Voice Language controls:
+  - **[ ⌨ Phonetic ]** button — shows "Phonetic ▸ On" when active (highlighted blue)
+  - **Script Language:** label + dropdown — shows only admin-enabled languages
+  - **Input Method:** label + dropdown — shows all methods for chosen language;
+    hidden when language has only one method
+
+- **19 admin-configurable languages** (Site Admin → Plugins → Text Editors):
+  - Malayalam `ml` — on by default (Transliteration, InScript, InScript 2)
+  - Tamil `ta` — on by default (Transliteration, Tamil99, InScript, Bamini, InScript 2)
+  - Hindi `hi` — on by default (Transliteration, InScript, Bolnagri, Phonetic, InScript 2)
+  - Telugu `te` — on by default (Transliteration, InScript, InScript 2, Apple, Modular)
+  - Kannada `kn` — on by default (Transliteration, InScript, KGP, InScript 2)
+  - Bengali, Gujarati, Punjabi, Urdu, Assamese, Odia, Marathi, Sanskrit — off by default
+  - Arabic, Persian, Russian, Greek, Chinese Simplified, German — off by default
+
+- **localStorage persistence** — last used language and method remembered
+  per language independently across sessions
+
+- **Mutual exclusion** — activating IME stops voice typing; activating voice
+  typing stops IME
+
+- **Ctrl+M** shortcut to toggle IME (built into jQuery.IME)
+
+- `db/upgrade.php` v3.1.0 block — unconditional defaults, no false guard
+- `thirdpartylibs.xml` — jQuery.IME entry (MIT licence)
+- `.eslintignore` / `.stylelintignore` — exclude `lib/ime/` from CI linting
+
+### Changed
+- version: `2026032401` → `2026032402`, release: `3.0.0` → `3.1.0`
+
+---
+
 ## v3.0.0 (2026-03-24) — Voice Typing
 
 **Plugin version:** 2026032401

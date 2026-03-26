@@ -74,5 +74,47 @@ function xmldb_editor_customeditor_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026032401, 'editor', 'customeditor');
     }
 
+    if ($oldversion < 2026032402) {
+        // Version 3.1.0 - Phonetic keyboard (jQuery.IME) feature added.
+        // Force-set defaults unconditionally — no false guard.
+
+        set_config('enable_ime', 1, 'editor_customeditor');
+
+        // Default-on: Malayalam, Tamil, Hindi, Telugu, Kannada.
+        $imedefaulton = [
+            'ime_lang_ml',
+            'ime_lang_ta',
+            'ime_lang_hi',
+            'ime_lang_te',
+            'ime_lang_kn',
+        ];
+        foreach ($imedefaulton as $key) {
+            set_config($key, 1, 'editor_customeditor');
+        }
+
+        // Default-off: remaining 14 languages.
+        $imedefaultoff = [
+            'ime_lang_bn',
+            'ime_lang_gu',
+            'ime_lang_pa',
+            'ime_lang_ur',
+            'ime_lang_as',
+            'ime_lang_or',
+            'ime_lang_mr',
+            'ime_lang_sa',
+            'ime_lang_ar',
+            'ime_lang_fa',
+            'ime_lang_ru',
+            'ime_lang_el',
+            'ime_lang_zh',
+            'ime_lang_de',
+        ];
+        foreach ($imedefaultoff as $key) {
+            set_config($key, 0, 'editor_customeditor');
+        }
+
+        upgrade_plugin_savepoint(true, 2026032402, 'editor', 'customeditor');
+    }
+
     return true;
 }

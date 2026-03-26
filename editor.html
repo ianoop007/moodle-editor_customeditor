@@ -5,6 +5,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: blob:; img-src * data: blob:; media-src *; frame-src https://www.youtube.com https://player.vimeo.com https://www.dailymotion.com https://drive.google.com https://docs.google.com; script-src 'self' 'unsafe-inline'; font-src 'self' data:; style-src 'self' 'unsafe-inline'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Permissions-Policy" content="microphone=*">
+<script src="lib/ime/jquery.min.js"></script>
+<script src="lib/ime/jquery.ime.js"></script>
 <title>Moodle Rich Text Editor</title>
 <style>
   /* Bundled fonts — no external dependency, works offline, no tracking */
@@ -1121,6 +1123,21 @@ body {
 .shortcut-help .sh-close { float:right; background:none; border:none; font-size:20px; cursor:pointer; color:var(--text-secondary); }
 .shortcut-help .sh-close:hover { color:var(--danger); }
 
+/* ── Phonetic keyboard button — overrides fixed .toolbar-btn 32x32 size ── */
+.ime-toggle-btn {
+  width: auto;
+  height: var(--toolbar-btn-size);
+  padding: 0 8px;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  justify-content: flex-start;
+}
+.ime-toggle-btn[title]::after {
+  display: none;
+}
+
 @media print {
   .toolbar, .menu-bar, .status-bar, .find-replace-bar { display: none !important; }
   .editor-wrapper { box-shadow: none; border: none; }
@@ -1519,6 +1536,14 @@ body {
         <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
       </button>
     </div>
+    <!-- PHONETIC KEYBOARD GROUP — button only in toolbar -->
+    <div class="toolbar-group ime-toolbar-group" id="imeToolbarGroup">
+      <button class="toolbar-btn ime-toggle-btn" id="imeToggleBtn"
+              onclick="toggleIME()"
+              title="Phonetic keyboard (Ctrl+M)">
+        <span style="font-size:14px;line-height:1">&#9000;</span><span id="imeToggleLabel">Phonetic</span>
+      </button>
+    </div>
     <!-- VOICE TYPING GROUP — T-07 -->
     <div class="toolbar-group" id="voiceToolbarGroup">
       <select class="toolbar-select voice-lang-select" id="voiceLangSelect" title="Select voice language" style="min-width:120px;max-width:160px;font-size:11px"></select>
@@ -1535,6 +1560,27 @@ body {
     <span id="voiceStatusText" style="font-weight:600;color:#cf222e">Listening…</span>
     <span id="voiceInterimText" style="color:#57606a;font-style:italic;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
     <button onclick="stopVoiceTyping()" style="margin-left:auto;padding:2px 10px;font-size:11px;font-weight:600;border:1px solid #cf222e;border-radius:4px;background:#fff;color:#cf222e;cursor:pointer">■ Stop</button>
+  </div>
+
+  <!-- PHONETIC KEYBOARD (IME) BAR — shown below toolbar when IME is active -->
+  <div id="imeBar" style="display:none;align-items:center;gap:8px;padding:4px 12px;background:#f0f6ff;border-bottom:1px solid #b6d0f7;font-size:12px;color:#0550ae;flex-wrap:wrap;min-height:32px">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="#0969da" style="flex-shrink:0">
+      <path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/>
+    </svg>
+    <span style="font-weight:600;color:#0969da;white-space:nowrap">Phonetic keyboard active</span>
+    <span style="color:#57606a;font-size:11px">|</span>
+    <label for="imeLangSelect" style="font-size:11px;font-weight:500;color:#0550ae;white-space:nowrap">Script Language:</label>
+    <select class="ime-lang-select" id="imeLangSelect"
+            title="Select the language you want to type in"
+            style="font-size:11px;height:24px;padding:0 4px;border:1px solid #b6d0f7;border-radius:4px;background:#fff;color:#24292f;max-width:180px"></select>
+    <span id="imeMethodWrap" style="display:none;align-items:center;gap:4px">
+      <span style="color:#57606a;font-size:11px">|</span>
+      <label for="imeMethodSelect" style="font-size:11px;font-weight:500;color:#0550ae;white-space:nowrap">Input Method:</label>
+      <select class="ime-method-select" id="imeMethodSelect"
+              title="Select input method — Transliteration: type English sounds, InScript: standard keyboard layout"
+              style="font-size:11px;height:24px;padding:0 4px;border:1px solid #b6d0f7;border-radius:4px;background:#fff;color:#24292f;max-width:180px"></select>
+    </span>
+    <button onclick="toggleIME()" style="margin-left:auto;padding:2px 10px;font-size:11px;font-weight:600;border:1px solid #0969da;border-radius:4px;background:#fff;color:#0969da;cursor:pointer;white-space:nowrap">■ Turn off</button>
   </div>
 
   <!-- FIND & REPLACE -->
@@ -1962,9 +2008,172 @@ document.addEventListener('DOMContentLoaded', function() {
   // Remove empty toolbar groups — skip voiceToolbarGroup (T-07: populated dynamically)
   document.querySelectorAll('.toolbar-group').forEach(function(g) {
     if (g.id === 'voiceToolbarGroup') return;
+    if (g.id === 'imeToolbarGroup') return;
     var visible = g.querySelectorAll('.toolbar-btn:not([style*="display: none"]):not([style*="display:none"]), select:not([style*="display: none"]):not([style*="display:none"])');
     if (visible.length === 0) g.style.display = 'none';
   });
+
+  // ── Phonetic Keyboard (IME) Init ────────────────────────────────────────────
+  // Runs once on DOMContentLoaded. Reads _editorSettings keys written by
+  // lib.php from Moodle DB. Populates toolbar dropdowns. Does NOT activate
+  // transliteration — that only happens when user clicks the Phonetic button.
+  (function () {
+    var imeGroup  = document.getElementById('imeToolbarGroup');
+    var langSel   = document.getElementById('imeLangSelect');
+    var methSel   = document.getElementById('imeMethodSelect');
+    var methWrap  = document.getElementById('imeMethodWrap');
+
+    // Step 1: Master toggle — absent = enabled (fresh install safety).
+    // Only hide when DB has explicitly written '0'.
+    if (_editorSettings['enable_ime'] === '0') {
+      if (imeGroup) { imeGroup.style.display = 'none'; }
+      return;
+    }
+
+    // Step 2: Language data — code, display name, available input methods.
+    // Sourced from jQuery.IME v0.2.0 (Wikimedia Foundation, MIT/GPL).
+    var IME_LANGS = [
+      { key:'ime_lang_ml', code:'ml', name:'മലയാളം (Malayalam)',
+        methods:[{id:'ml-transliteration',label:'ലിപ്യന്തരണം (Transliteration)'},
+                 {id:'ml-inscript',label:'ഇൻസ്ക്രിപ്റ്റ് (InScript)'},
+                 {id:'ml-inscript2',label:'ഇൻസ്ക്രിപ്റ്റ് 2 (InScript 2)'}] },
+      { key:'ime_lang_ta', code:'ta', name:'தமிழ் (Tamil)',
+        methods:[{id:'ta-transliteration',label:'Transliteration'},{id:'ta-99',label:'Tamil99'},
+                 {id:'ta-inscript',label:'InScript'},{id:'ta-bamini',label:'Bamini'},{id:'ta-inscript2',label:'InScript 2'}] },
+      { key:'ime_lang_hi', code:'hi', name:'हिन्दी (Hindi)',
+        methods:[{id:'hi-transliteration',label:'Transliteration'},{id:'hi-inscript',label:'InScript'},
+                 {id:'hi-bolnagri',label:'Bolnagri'},{id:'hi-phonetic',label:'Phonetic'},{id:'hi-inscript2',label:'InScript 2'}] },
+      { key:'ime_lang_te', code:'te', name:'తెలుగు (Telugu)',
+        methods:[{id:'te-transliteration',label:'Transliteration'},{id:'te-inscript',label:'InScript'},
+                 {id:'te-inscript2',label:'InScript 2'},{id:'te-apple',label:'Apple'},{id:'te-modular',label:'Modular'}] },
+      { key:'ime_lang_kn', code:'kn', name:'ಕನ್ನಡ (Kannada)',
+        methods:[{id:'kn-transliteration',label:'Transliteration'},{id:'kn-inscript',label:'InScript'},
+                 {id:'kn-kgp',label:'KGP'},{id:'kn-inscript2',label:'InScript 2'}] },
+      { key:'ime_lang_bn', code:'bn', name:'বাংলা (Bengali)',
+        methods:[{id:'bn-avro',label:'Avro'},{id:'bn-inscript',label:'InScript'},
+                 {id:'bn-nkb',label:'National Keyboard'},{id:'bn-probhat',label:'Probhat'},{id:'bn-inscript2',label:'InScript 2'}] },
+      { key:'ime_lang_gu', code:'gu', name:'ગુજરાતી (Gujarati)',
+        methods:[{id:'gu-transliteration',label:'Transliteration'},{id:'gu-inscript',label:'InScript'},
+                 {id:'gu-inscript2',label:'InScript 2'},{id:'gu-phonetic',label:'Phonetic'}] },
+      { key:'ime_lang_pa', code:'pa', name:'ਪੰਜਾਬੀ (Punjabi)',
+        methods:[{id:'pa-transliteration',label:'Transliteration'},{id:'pa-inscript',label:'InScript'},
+                 {id:'pa-phonetic',label:'Phonetic'},{id:'pa-inscript2',label:'InScript 2'},{id:'pa-jhelum',label:'Jhelum'}] },
+      { key:'ime_lang_ur', code:'ur', name:'اردو (Urdu)',
+        methods:[{id:'ur-transliteration',label:'Transliteration'},{id:'ur-phonetic',label:'Phonetic'}] },
+      { key:'ime_lang_as', code:'as', name:'অসমীয়া (Assamese)',
+        methods:[{id:'as-transliteration',label:'Transliteration'},{id:'as-avro',label:'Avro'},
+                 {id:'as-bornona',label:'Bornona'},{id:'as-inscript',label:'InScript'},
+                 {id:'as-phonetic',label:'Phonetic'},{id:'as-inscript2',label:'InScript 2'},{id:'as-rodali',label:'Rodali'}] },
+      { key:'ime_lang_or', code:'or', name:'ଓଡ଼ିଆ (Odia)',
+        methods:[{id:'or-phonetic',label:'Phonetic'},{id:'or-transliteration',label:'Transliteration'},
+                 {id:'or-inscript',label:'InScript'},{id:'or-inscript2',label:'InScript 2'},
+                 {id:'or-lekhani',label:'Lekhani'},{id:'or-OdiScript',label:'OdiScript'}] },
+      { key:'ime_lang_mr', code:'mr', name:'मराठी (Marathi)',
+        methods:[{id:'mr-transliteration',label:'Transliteration'},{id:'mr-inscript2',label:'InScript 2'},
+                 {id:'mr-inscript',label:'InScript'},{id:'mr-phonetic',label:'Phonetic'}] },
+      { key:'ime_lang_sa', code:'sa', name:'संस्कृत (Sanskrit)',
+        methods:[{id:'sa-transliteration',label:'Transliteration'},{id:'sa-inscript2',label:'InScript 2'},
+                 {id:'sa-inscript',label:'InScript'},{id:'sa-iast',label:'IAST'}] },
+      { key:'ime_lang_ar', code:'ar', name:'العربية (Arabic)',
+        methods:[{id:'ar-kbd',label:'Arabic Keyboard'}] },
+      { key:'ime_lang_fa', code:'fa', name:'فارسی (Persian)',
+        methods:[{id:'fa-kbd',label:'Persian Keyboard'}] },
+      { key:'ime_lang_ru', code:'ru', name:'русский (Russian)',
+        methods:[{id:'ru-jcuken',label:'JCUKEN'},{id:'ru-kbd',label:'Russian Keyboard'},
+                 {id:'ru-phonetic',label:'Phonetic'},{id:'ru-yawerty',label:'YAWERTY'}] },
+      { key:'ime_lang_el', code:'el', name:'Ελληνικά (Greek)',
+        methods:[{id:'el-kbd',label:'Greek Keyboard'}] },
+      { key:'ime_lang_zh', code:'zh', name:'中文 (Chinese Simplified)',
+        methods:[{id:'zh-pinyin-transliteration',label:'Pinyin'}] },
+      { key:'ime_lang_de', code:'de', name:'Deutsch (German)',
+        methods:[{id:'de-transliteration',label:'Transliteration'}] }
+    ];
+
+    // Step 3: Build language dropdown — only admin-enabled languages.
+    // Absent key = enabled (fresh install before upgrade.php has run).
+    var enabledLangs = [];
+    IME_LANGS.forEach(function (lang) {
+      var v = _editorSettings[lang.key];
+      if (v !== '0') {
+        enabledLangs.push(lang);
+        var opt = document.createElement('option');
+        opt.value = lang.code;
+        opt.textContent = lang.name;
+        langSel.appendChild(opt);
+      }
+    });
+
+    // Step 4: If no languages enabled by admin, hide entire group.
+    if (enabledLangs.length === 0) {
+      if (imeGroup) { imeGroup.style.display = 'none'; }
+      return;
+    }
+
+    // Step 5: Restore last used language from localStorage.
+    var savedLang = '';
+    try { savedLang = localStorage.getItem('ce_ime_lang') || ''; } catch (ex) {}
+    if (savedLang && langSel.querySelector('option[value="' + savedLang + '"]')) {
+      langSel.value = savedLang;
+    }
+
+    // Step 6: Populate input method dropdown for a given language code.
+    // Only populates <option> elements — display state handled by _imeSetUI().
+    function populateMethods(langCode) {
+      var langData = null;
+      for (var i = 0; i < IME_LANGS.length; i++) {
+        if (IME_LANGS[i].code === langCode) { langData = IME_LANGS[i]; break; }
+      }
+      if (!langData || !methSel) { return; }
+      methSel.innerHTML = '';
+      langData.methods.forEach(function (m) {
+        var opt = document.createElement('option');
+        opt.value = m.id;
+        opt.textContent = m.label;
+        methSel.appendChild(opt);
+      });
+      // Restore saved method for this language.
+      var savedMeth = '';
+      try { savedMeth = localStorage.getItem('ce_ime_method_' + langCode) || ''; } catch (ex) {}
+      if (savedMeth && methSel.querySelector('option[value="' + savedMeth + '"]')) {
+        methSel.value = savedMeth;
+      }
+      // If IME is currently active, update imeMethodWrap visibility.
+      if (window._imeActive && methWrap) {
+        methWrap.style.display = langData.methods.length > 1 ? 'flex' : 'none';
+      }
+    }
+
+    populateMethods(langSel.value);
+
+    // Step 7: Language change handler.
+    langSel.addEventListener('change', function () {
+      populateMethods(langSel.value);
+      try { localStorage.setItem('ce_ime_lang', langSel.value); } catch (ex) {}
+      // If IME is active, switch language and reload rule immediately.
+      if (window._imeActive && window._imeInstance) {
+        var newLang = langSel.value;
+        var newMid  = methSel && methSel.value ? methSel.value :
+                      newLang + '-transliteration';
+        window._imeInstance.setLanguage(newLang);
+        window._imeInstance.load(newMid).done(function () {
+          window._imeInstance.enable();
+          window._imeInstance.setIM(newMid);
+        });
+      }
+    });
+
+    // Step 8: Method change handler.
+    methSel.addEventListener('change', function () {
+      try { localStorage.setItem('ce_ime_method_' + langSel.value, methSel.value); } catch (ex) {}
+      if (window._imeActive && window._imeInstance) {
+        var mid = methSel.value;
+        window._imeInstance.load(mid).done(function () {
+          window._imeInstance.enable();
+          window._imeInstance.setIM(mid);
+        });
+      }
+    });
+  })();
 
   // ── Voice Typing Init (T-07 T-08 T-09 T-05 T-06 T-18) ────────────────────
   (function() {
@@ -5893,6 +6102,12 @@ function _voiceInsert(text) {
 
 function startVoiceTyping() {
   if (_voiceActive) return;
+  // Mutual exclusion: stop IME if it is running.
+  if (window._imeActive) {
+    window._imeActive = false;
+    if (typeof deactivateIME === 'function') { deactivateIME(); }
+    if (typeof _imeSetUI     === 'function') { _imeSetUI(false); }
+  }
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
     alert('Voice typing is not supported in this browser.\n\nUse Chrome 25+, Edge 79+, or Safari 14.1+.\nFirefox: enable media.webspeech.recognition.enable in about:config.');
@@ -5985,12 +6200,19 @@ function toggleVoiceTyping() {
   }
 }
 
-// T-19: Stop when switching to source view
+// T-19: Stop when switching to source view.
+// Source button calls editorAction('source') -> toggleSource().
+// Wrap toggleSource (not toggleSourceMode which is never defined).
 (function() {
-  var _orig = window.toggleSourceMode;
+  var _orig = window.toggleSource;
   if (typeof _orig === 'function') {
-    window.toggleSourceMode = function() {
+    window.toggleSource = function() {
       if (_voiceActive) stopVoiceTyping();
+      if (window._imeActive) {
+        window._imeActive = false;
+        if (typeof deactivateIME === 'function') { deactivateIME(); }
+        if (typeof _imeSetUI     === 'function') { _imeSetUI(false); }
+      }
       _orig.apply(this, arguments);
     };
   }
@@ -6003,6 +6225,163 @@ window.addEventListener('beforeunload', function() {
 
 // ═══════════════════════════════════════════════════════════════
 // END VOICE TYPING ENGINE
+// ═══════════════════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════════════════
+// PHONETIC KEYBOARD ENGINE
+// jQuery.IME v0.2.0 — Wikimedia Foundation — MIT / GPL v2+
+// https://github.com/wikimedia/jquery.ime
+// Bundled offline in lib/ime/ — no CDN dependency.
+//
+// Public functions:
+//   toggleIME()     — called by toolbar button onclick
+//   activateIME()   — called internally when IME turned on
+//   deactivateIME() — called internally + by voice typing mutual exclusion
+// ═══════════════════════════════════════════════════════════════
+
+window._imeActive   = false;
+window._imeInstance = null;
+
+// Update toolbar button appearance to reflect active/inactive state.
+function _imeSetUI(active) {
+  var btn      = document.getElementById('imeToggleBtn');
+  var lbl      = document.getElementById('imeToggleLabel');
+  var imeBar   = document.getElementById('imeBar');
+  var methWrap = document.getElementById('imeMethodWrap');
+  var methSel  = document.getElementById('imeMethodSelect');
+
+  // Update toolbar button state.
+  if (btn) {
+    btn.style.color      = active ? '#0969da' : '';
+    btn.style.background = active ? '#dbeafe' : '';
+    btn.style.fontWeight = active ? '600' : '';
+    btn.title = active
+      ? 'Phonetic keyboard is ON — click to turn off (or press Ctrl+M)'
+      : 'Phonetic keyboard — type Indian and international scripts. Click to enable (or press Ctrl+M)';
+  }
+  if (lbl) {
+    lbl.textContent = active ? 'Phonetic ▸ On' : 'Phonetic';
+  }
+
+  // Show/hide the IME bar (below toolbar, similar to voice status bar).
+  if (imeBar) {
+    imeBar.style.display = active ? 'flex' : 'none';
+  }
+
+  // Show/hide input method selector inside the bar.
+  // Only show when there is more than one method to choose from.
+  if (methWrap) {
+    var hasChoice = methSel && methSel.options.length > 1;
+    methWrap.style.display = (active && hasChoice) ? 'flex' : 'none';
+  }
+}
+
+// Activate jQuery.IME on the editor contenteditable div.
+// Correct sequence (from jQuery.IME selectIM source):
+//   1. attach plugin  2. setLanguage  3. load(rule).done → enable() → setIM()
+// enable() sets this.active=true so keystrokes are processed.
+// setIM() must run AFTER load() completes — rule file must be in memory first.
+function activateIME(langCode, methodId) {
+  var ed = document.getElementById('editor');
+  if (!ed) { return; }
+  if (typeof $ === 'undefined' || typeof $.fn.ime === 'undefined') {
+    console.error('Phonetic keyboard: jQuery or jQuery.IME not loaded.');
+    return;
+  }
+
+  // Detach any previous instance cleanly.
+  if (window._imeInstance) {
+    try { window._imeInstance.disable(); } catch (ex) {}
+    window._imeInstance = null;
+  }
+
+  // Step 1: Attach jQuery.IME to the editor div.
+  $(ed).ime({ showSelector: false, imePath: 'lib/ime/' });
+  window._imeInstance = $(ed).data('ime');
+
+  if (!window._imeInstance) {
+    console.error('Phonetic keyboard: failed to get IME instance.');
+    return;
+  }
+
+  // Step 2: Set language.
+  window._imeInstance.setLanguage(langCode);
+
+  // Step 3: Resolve method id — use provided or fall back to first available.
+  var mid = methodId;
+  if (!mid || mid === '') {
+    var methods = window._imeInstance.getInputMethods(langCode);
+    mid = (methods && methods.length) ? methods[0].id : langCode + '-transliteration';
+  }
+
+  // Step 4: Load the rule file asynchronously, then enable and activate.
+  // Rule files are fetched via $.ajax from lib/ime/rules/{lang}/{method}.js
+  window._imeInstance.load(mid).done(function () {
+    window._imeInstance.enable();   // sets this.active = true → keystrokes processed
+    window._imeInstance.setIM(mid); // sets this.inputmethod → patterns applied
+  }).fail(function () {
+    console.error('Phonetic keyboard: failed to load rule file for ' + mid);
+  });
+}
+
+// Deactivate jQuery.IME and detach from editor.
+function deactivateIME() {
+  if (window._imeInstance) {
+    try { window._imeInstance.disable(); } catch (ex) {}
+    window._imeInstance = null;
+  }
+  var ed = document.getElementById('editor');
+  if (ed && typeof $ !== 'undefined' && typeof $.fn.ime !== 'undefined') {
+    try { $(ed).ime('disable'); } catch (ex) {}
+  }
+}
+
+// Main toggle — called by toolbar Phonetic button onclick.
+function toggleIME() {
+  var langSel = document.getElementById('imeLangSelect');
+  var methSel = document.getElementById('imeMethodSelect');
+  if (!langSel || langSel.options.length === 0) { return; }
+
+  if (window._imeActive) {
+    // Turn OFF.
+    window._imeActive = false;
+    deactivateIME();
+    _imeSetUI(false);
+  } else {
+    // Mutual exclusion: stop voice typing if running.
+    if (typeof stopVoiceTyping === 'function' && window._voiceActive) {
+      stopVoiceTyping();
+    }
+    // Turn ON.
+    window._imeActive = true;
+    activateIME(langSel.value, methSel ? methSel.value : '');
+    _imeSetUI(true);
+  }
+}
+
+// Stop IME when user switches to source code view (T-23).
+(function () {
+  var _origToggleSource = window.toggleSource;
+  if (typeof _origToggleSource === 'function') {
+    window.toggleSource = function () {
+      if (window._imeActive) {
+        window._imeActive = false;
+        deactivateIME();
+        _imeSetUI(false);
+      }
+      _origToggleSource.apply(this, arguments);
+    };
+  }
+})();
+
+// Clean up on page unload.
+window.addEventListener('beforeunload', function () {
+  if (window._imeActive) { deactivateIME(); }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// END PHONETIC KEYBOARD ENGINE
 // ═══════════════════════════════════════════════════════════════
 
 </script>
