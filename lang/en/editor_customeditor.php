@@ -34,7 +34,7 @@ $string['default_font_size_desc'] = 'Default font size in pixels for the editor 
 $string['document_heading'] = 'Document features';
 $string['document_heading_desc'] = 'Enable or disable document-level features.';
 $string['editor_height'] = 'Editor height';
-$string['editor_height_desc'] = 'Height of the editor iframe (CSS value, e.g. 75vh, 500px).';
+$string['editor_height_desc'] = 'Controls the height of the editor text input area. Set to 0 (zero, the default) to automatically match the height that each Moodle plugin requests — for example HotQuestion (rows=3) gets a small editor (~100px) and Diary (rows=10) gets a taller editor (~280px). This respects each plugin form definition. Set to any CSS value to force a fixed height for all editors regardless of the plugin: 75vh = 75 percent of the viewport height; 400px = fixed 400 pixels. Example: type 0 for automatic height per plugin, or type 75vh for a fixed height.';
 $string['enable_accessibility'] = 'Keyboard accessibility mode';
 $string['enable_accessibility_desc'] = 'Enable enhanced keyboard navigation and ARIA support for accessibility.';
 $string['enable_accordion'] = 'Accordion / Collapsible sections';

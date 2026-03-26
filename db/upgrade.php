@@ -113,6 +113,13 @@ function xmldb_editor_customeditor_upgrade($oldversion) {
             set_config($key, 0, 'editor_customeditor');
         }
 
+        // Reset editor_height default to '0' (auto-detect from plugin rows attribute).
+        // Previous default was '75vh' — new default respects each plugin form definition.
+        $current = get_config('editor_customeditor', 'editor_height');
+        if ($current === '75vh' || $current === false) {
+            set_config('editor_height', '0', 'editor_customeditor');
+        }
+
         upgrade_plugin_savepoint(true, 2026032402, 'editor', 'customeditor');
     }
 

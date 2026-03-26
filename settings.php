@@ -2159,7 +2159,7 @@ if ($ADMIN->fulltree) {
             $cmp . '/editor_height',
             get_string('editor_height', $cmp),
             get_string('editor_height_desc', $cmp),
-            '75vh'
+            '0'
         )
     );
 

@@ -64,6 +64,14 @@ export const init = (elementid) => {
             return;
         }
 
+        // Snapshot the textarea content NOW — at initialisation time — before any
+        // form submit handlers can overwrite it via syncAllEditors().
+        // Reading textarea.value at iframe 'load' time is too late: if the user
+        // submitted a previous entry on this same page, syncAllEditors() may have
+        // already written the previous entry's content back into this textarea,
+        // causing the new editor to show stale content from the previous submission.
+        const initialContent = textarea.value || '';
+
         textarea.style.display = 'none';
 
         // Hide any existing Atto or TinyMCE wrappers.
@@ -81,7 +89,26 @@ export const init = (elementid) => {
         wrapper.id = 'custom-editor-wrap-' + elementid;
 
         const urlParams = new URLSearchParams(editorurl.split('?')[1] || '');
-        const editorHeight = urlParams.get('editor_height') || '75vh';
+        const editorHeightSetting = urlParams.get('editor_height') || '0';
+
+        // Resolve the actual CSS height to use for the wrapper.
+        // If editor_height is '0' (the default), auto-detect from the textarea's
+        // rows attribute — which is set by each Moodle plugin's own form definition.
+        // This means HotQuestion (rows=3) gets a compact editor and Diary (rows=10)
+        // gets a taller one, matching exactly what the plugin author intended.
+        // If editor_height is any other value (e.g. '75vh', '400px'), use it as-is.
+        let editorHeight;
+        if (!editorHeightSetting || editorHeightSetting === '0') {
+            // Auto mode: derive height from textarea rows attribute.
+            // Each row ≈ 24px (line-height) + top/bottom padding overhead of ~140px
+            // for the toolbar rows, status bar, and IME/voice bars.
+            const rows = parseInt(textarea.rows, 10) || 5;
+            const px = Math.max(200, rows * 24 + 140);
+            editorHeight = px + 'px';
+        } else {
+            editorHeight = editorHeightSetting;
+        }
+
         wrapper.style.cssText = 'width:100%;margin-bottom:0.5rem;' +
             'resize:vertical;overflow:hidden;' +
             'min-height:200px;height:' + editorHeight + ';' +
@@ -99,12 +126,13 @@ export const init = (elementid) => {
         wrapper.appendChild(iframe);
         textarea.parentNode.insertBefore(wrapper, textarea);
 
-        // Load existing content into the editor.
+        // Load the snapshotted content into the editor.
+        // Uses initialContent captured above — not textarea.value which may
+        // have been overwritten by syncAllEditors() by the time 'load' fires.
         iframe.addEventListener('load', () => {
             try {
-                const content = textarea.value || '';
-                if (content) {
-                    iframe.contentWindow.setMoodleEditorContent(content);
+                if (initialContent) {
+                    iframe.contentWindow.setMoodleEditorContent(initialContent);
                 }
             } catch (e) {
                 window.console.warn('Custom editor load:', e);
