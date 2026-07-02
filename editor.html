@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: blob:; img-src * data: blob:; media-src *; frame-src https://www.youtube.com https://player.vimeo.com https://www.dailymotion.com https://drive.google.com https://docs.google.com; script-src 'self' 'unsafe-inline'; font-src 'self' data:; style-src 'self' 'unsafe-inline'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: blob:; img-src * data: blob:; media-src *; frame-src 'self' https: http: blob: data:; script-src 'self' 'unsafe-inline'; font-src 'self' data:; style-src 'self' 'unsafe-inline'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Permissions-Policy" content="microphone=*">
 <script src="lib/ime/jquery.min.js"></script>
@@ -1223,6 +1223,7 @@ body {
         <div class="menu-dropdown-item" onclick="editorAction('insertLink')">🔗 Link</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertTable')">📊 Table</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertVideo')">🎬 Video Embed</div>
+        <div class="menu-dropdown-item" onclick="editorAction('insertH5P')">🎓 H5P Content</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertIframe')">📐 Iframe</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertHR')">➖ Horizontal Line</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertSpecialChar')">Ω Special Characters</div>
@@ -2494,6 +2495,10 @@ function editorAction(cmd) {
       document.getElementById('iframeCode').value = '';
       openModal('iframeModal');
       break;
+    case 'insertH5P':
+      saveSelection();
+      openModal('h5pModal');
+      break;
     case 'source':
       toggleSource();
       break;
@@ -2987,7 +2992,7 @@ function insertVideo() {
   var vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
   if (vimeoMatch) embedUrl = 'https://player.vimeo.com/video/' + vimeoMatch[1];
   // SECURITY: Whitelist allowed embed domains
-  var allowedDomains = ['youtube.com', 'www.youtube.com', 'youtu.be', 'player.vimeo.com', 'vimeo.com', 'www.dailymotion.com', 'drive.google.com', 'docs.google.com'];
+  var allowedDomains = ['youtube.com', 'www.youtube.com', 'youtu.be', 'player.vimeo.com', 'vimeo.com', 'www.dailymotion.com', 'drive.google.com', 'docs.google.com', 'h5p.org', 'codepen.io', 'jsfiddle.net'];
   try {
     var urlObj = new URL(embedUrl);
     var domain = urlObj.hostname.toLowerCase();
@@ -3015,7 +3020,7 @@ function insertIframe() {
   restoreSelection();
   if (code.startsWith('http')) {
     // URL mode — safe, we control the HTML
-    code = '<iframe src="' + escapeHtml(code) + '" width="100%" height="400" frameborder="0" style="border-radius:8px" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>';
+    code = '<iframe src="' + escapeHtml(code) + '" width="100%" height="400" frameborder="0" style="border-radius:8px" sandbox="allow-scripts allow-same-origin allow-popups" data-editor-embed="1"></iframe>';
   } else {
     // Raw HTML mode — MUST sanitize
     code = sanitizeHTML(code);
@@ -3033,6 +3038,41 @@ function insertIframe() {
     }
   }
   document.execCommand('insertHTML', false, '<div style="margin:1em 0">' + code + '</div><p><br></p>');
+}
+
+
+// ─── H5P Content Insert ───
+function doInsertH5P() {
+  var url = document.getElementById('h5pUrl').value.trim();
+  closeModal('h5pModal');
+  restoreSelection();
+  if (!url) return;
+  
+  // Detect H5P URL type and create appropriate embed
+  var embedHtml = '';
+  
+  if (url.match(/\/h5p\/embed\.php/i) || url.match(/h5p\.org/i) || url.match(/\.h5p$/i)) {
+    // Direct H5P embed URL — use iframe
+    embedHtml = '<div class="h5p-embed" style="margin:1em 0;text-align:center">' +
+      '<iframe src="' + escapeHtml(url) + '" width="100%" height="500" frameborder="0" ' +
+      'allowfullscreen="allowfullscreen" data-h5p="1" data-editor-embed="1" allow="autoplay; fullscreen; microphone" ' +
+      'style="border:1px solid #e5e7eb;border-radius:8px;max-width:800px"></iframe>' +
+      '</div><p><br></p>';
+  } else if (url.match(/\/contentbank\/view\.php/i) || url.match(/\/mod\/h5pactivity/i)) {
+    // Moodle content bank or H5P activity URL — insert as plain URL for filter_h5p
+    embedHtml = '<p><a href="' + escapeHtml(url) + '">' + escapeHtml(url) + '</a></p><p><br></p>';
+  } else {
+    // Generic URL — try as iframe embed
+    embedHtml = '<div class="h5p-embed" style="margin:1em 0;text-align:center">' +
+      '<iframe src="' + escapeHtml(url) + '" width="100%" height="500" frameborder="0" ' +
+      'allowfullscreen="allowfullscreen" data-h5p="1" data-editor-embed="1" allow="autoplay; fullscreen; microphone" ' +
+      'style="border:1px solid #e5e7eb;border-radius:8px;max-width:800px"></iframe>' +
+      '</div><p><br></p>';
+  }
+  
+  document.execCommand('insertHTML', false, embedHtml);
+  document.getElementById('h5pUrl').value = '';
+  saveUndoState();
 }
 
 // ─── Special Characters ───
@@ -3411,21 +3451,40 @@ function sanitizeHTML(htmlStr) {
     els.forEach(function(el) { el.remove(); });
   });
 
-  // Remove rogue iframes (from pasted/dropped content — editor's own iframes use insertVideo/insertIframe)
+  // Remove rogue iframes but preserve editor-inserted and whitelisted ones
   temp.querySelectorAll('iframe').forEach(function(ifr) {
+    // Always keep iframes inserted via the editor's own Insert Iframe/Video/H5P buttons
+    if (ifr.hasAttribute('data-editor-embed') || ifr.hasAttribute('data-h5p')) return;
     var src = (ifr.getAttribute('src') || '').toLowerCase().replace(/\s/g, '');
-    // Only allow whitelisted video domains
-    var allowed = ['youtube.com','www.youtube.com','player.vimeo.com','www.dailymotion.com','drive.google.com','docs.google.com'];
+    // Expanded allowlist — includes educational platforms and common embed services
+    var allowed = ['youtube.com','www.youtube.com','player.vimeo.com','www.dailymotion.com',
+      'drive.google.com','docs.google.com','h5p.org','*.h5p.com',
+      'codepen.io','jsfiddle.net','codesandbox.io','stackblitz.com',
+      'padlet.com','genial.ly','canva.com','prezi.com','slideshare.net',
+      'maps.google.com','www.google.com','open.spotify.com',
+      'anchor.fm','soundcloud.com','ted.com','edpuzzle.com','nearpod.com',
+      'quizlet.com','kahoot.it','mentimeter.com','slido.com'];
     try {
       var u = new URL(src);
-      if (!allowed.some(function(d){ return u.hostname === d || u.hostname.endsWith('.'+d); })) {
-        ifr.remove();
-      } else if (u.protocol !== 'https:') {
+      var domainOk = allowed.some(function(d) {
+        if (d.startsWith('*.')) {
+          return u.hostname.endsWith(d.substring(1));
+        }
+        return u.hostname === d || u.hostname.endsWith('.' + d);
+      });
+      // Also allow same-origin iframes (Moodle H5P embeds are on the same domain)
+      var sameOrigin = false;
+      try { sameOrigin = u.origin === window.location.origin || u.hostname === window.parent.location.hostname; } catch(e2) {}
+      if (!domainOk && !sameOrigin) {
+        // Not allowed — add sandbox for safety instead of removing
+        ifr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups');
+      }
+      if (u.protocol !== 'https:' && u.protocol !== 'http:') {
         ifr.remove();
       }
     } catch(e) {
-      // Not a valid URL — only keep if it has sandbox
-      if (!ifr.hasAttribute('sandbox')) ifr.remove();
+      // Not a valid URL — add sandbox instead of removing
+      ifr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups');
     }
   });
 
@@ -5612,6 +5671,30 @@ Ops:50</textarea></div>
 <div class="modal-input-group"><label>Content</label><textarea class="modal-input" id="calloutContent" rows="3" placeholder="Enter content..."></textarea></div>
 </div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('calloutModal')">Cancel</button><button class="btn btn-primary" onclick="doInsertCallout()">Insert</button></div></div></div>
 
+<!-- H5P Insert Modal -->
+<div class="modal-overlay" id="h5pModal">
+  <div class="modal">
+    <div class="modal-header">Insert H5P Content<button class="modal-close" onclick="closeModal('h5pModal')">✕</button></div>
+    <div class="modal-body">
+      <label>H5P Content URL</label>
+      <input class="modal-input" id="h5pUrl" placeholder="https://yourmoodle.com/h5p/embed.php?url=... or H5P.org URL">
+      <p style="font-size:12px;color:#6b7280;margin-top:8px">
+        <strong>How to get the URL:</strong><br>
+        1. Go to your Moodle Content Bank<br>
+        2. Click on the H5P content you want to embed<br>
+        3. Copy the URL from the address bar<br>
+        4. Or paste any H5P.org share URL
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('h5pModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="doInsertH5P()">Insert</button>
+    </div>
+  </div>
+</div>
+
+
+
 <!-- FOOTNOTE MODAL -->
 <div class="modal-overlay" id="footnoteModal"><div class="modal" style="width:420px">
 <div class="modal-header">Insert Footnote<button class="modal-close" onclick="closeModal('footnoteModal')">✕</button></div>
@@ -5748,15 +5831,23 @@ function initAutosave() {
   var indicator = document.getElementById('autosaveStatus');
   if (indicator) indicator.style.display = 'flex';
   
-  // Try to restore draft
+  // Try to restore draft — only if editor is genuinely empty (new object)
   try {
     var draft = localStorage.getItem(_autosaveKey);
-    if (draft && editor.innerHTML.trim() === '') {
+    // Check: is the editor truly empty? Also check the parent textarea
+    // to ensure Moodle hasn't pre-filled it with existing content.
+    var parentTextarea = window.parent ? window.parent.document.querySelector('textarea[id$="editoreditable"]') : null;
+    var hasExistingContent = parentTextarea && parentTextarea.value && parentTextarea.value.trim().length > 0;
+    var editorEmpty = editor.innerHTML.trim() === '' || editor.innerHTML.trim() === '<br>' || editor.innerHTML.trim() === '<p><br></p>';
+    if (draft && editorEmpty && !hasExistingContent) {
       editor.innerHTML = draft;
       var bytes = new Blob([draft]).size;
       var sizeStr = bytes > 1024 ? Math.round(bytes/1024) + 'KB' : bytes + 'B';
       _setAutosaveState('restored', 'Draft restored (' + sizeStr + ')');
       saveUndoState();
+    } else if (draft && !editorEmpty) {
+      // Editor has content from Moodle — clear the old draft to avoid confusion
+      localStorage.removeItem(_autosaveKey);
     }
   } catch(e) {}
   

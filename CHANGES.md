@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.1.2 (2026-07-02)
+
+### Community Feedback Fixes
+- Fixed: Autosave no longer restores stale drafts when editing existing content — now checks both editor state and parent textarea before restoring, and clears old drafts when Moodle pre-fills the editor
+- Fixed: Iframe/embed insertion now works for any URL — editor-inserted iframes are marked with `data-editor-embed` attribute and preserved by the sanitizer
+- Fixed: Expanded iframe allowlist to include 25+ educational embed domains (H5P.org, CodePen, Padlet, Canva, Prezi, EdPuzzle, Nearpod, Quizlet, Kahoot, Mentimeter, etc.)
+- Fixed: Same-origin iframes (like Moodle H5P embeds) are now always allowed by the sanitizer
+- Added: H5P Content insertion (Insert → 🎓 H5P Content) — supports H5P embed URLs, Moodle Content Bank URLs, and H5P.org share links
+- Security: Unknown-domain iframes now get sandbox attribute added instead of being removed entirely
+
 ## v3.1.0 (2026-03-25) — Phonetic Keyboard (jQuery.IME)
 
 **Plugin version:** 2026032402

@@ -87,7 +87,7 @@ class customeditor_texteditor extends texteditor {
             'enable_menubar', 'enable_statusbar', 'enable_source', 'enable_fullscreen',
             'enable_font_family', 'enable_font_size', 'enable_text_color', 'enable_line_spacing',
             'enable_para_borders', 'enable_columns', 'enable_images', 'enable_links',
-            'enable_tables', 'enable_code_blocks', 'enable_hr', 'enable_special_chars',
+            'enable_tables', 'enable_code_blocks', 'enable_hr', 'enable_h5p', 'enable_special_chars',
             'enable_video', 'enable_shapes', 'enable_smartart', 'enable_charts', 'enable_textbox',
             'enable_heading_templates', 'enable_page_break', 'enable_toc', 'enable_watermark',
             'enable_header_footer', 'enable_export_pdf', 'enable_export_word',
