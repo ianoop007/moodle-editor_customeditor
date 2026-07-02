@@ -1,14 +1,49 @@
 # Changelog
 
-## v3.1.2 (2026-07-02)
+## v3.1.4 (2026-07-02)
 
-### Community Feedback Fixes
-- Fixed: Autosave no longer restores stale drafts when editing existing content — now checks both editor state and parent textarea before restoring, and clears old drafts when Moodle pre-fills the editor
-- Fixed: Iframe/embed insertion now works for any URL — editor-inserted iframes are marked with `data-editor-embed` attribute and preserved by the sanitizer
-- Fixed: Expanded iframe allowlist to include 25+ educational embed domains (H5P.org, CodePen, Padlet, Canva, Prezi, EdPuzzle, Nearpod, Quizlet, Kahoot, Mentimeter, etc.)
-- Fixed: Same-origin iframes (like Moodle H5P embeds) are now always allowed by the sanitizer
-- Added: H5P Content insertion (Insert → 🎓 H5P Content) — supports H5P embed URLs, Moodle Content Bank URLs, and H5P.org share links
-- Security: Unknown-domain iframes now get sandbox attribute added instead of being removed entirely
+**Plugin version:** 2026032406
+
+### Added
+- **H5P Content embedding** — new Insert → 🎓 H5P Content menu item with modal dialog.
+  Supports Moodle Content Bank URLs, H5P.org embed/share URLs, and H5P activity URLs.
+  H5P iframes are marked with `data-h5p` and `data-editor-embed` attributes so the
+  sanitiser preserves them. Admin-configurable via `enable_h5p` setting.
+- `enable_h5p` admin setting with language strings in settings.php and lib.php
+- H5P modal with usage instructions for Content Bank, H5P.org, and activity URLs
+
+### Fixed
+- **Autosave stale draft restore** — draft restore now checks both the editor content
+  and the parent Moodle textarea before restoring. If Moodle pre-fills the editor with
+  existing content, the old draft is cleared instead of overwriting it. Fixes the issue
+  where editing an existing Forum post, Diary entry, or HotQuestion would load stale
+  content from a previous session.
+- **Iframe/embed insertion** — editor-inserted iframes are now marked with
+  `data-editor-embed="1"` attribute and always preserved by the HTML sanitiser.
+  Previously, iframes inserted via Insert → Iframe were stripped on source-mode toggle
+  or paste operations.
+- **Expanded iframe domain allowlist** — 25+ educational platform domains added:
+  H5P.org, CodePen, JSFiddle, CodeSandbox, StackBlitz, Padlet, Canva, Genially, Prezi,
+  SlideShare, Google Maps, Spotify, Anchor.fm, SoundCloud, TED, EdPuzzle, Nearpod,
+  Quizlet, Kahoot, Mentimeter, Slido.
+- **Same-origin iframes** — iframes pointing to the same Moodle domain (e.g. Moodle's
+  own H5P embed endpoint `/h5p/embed.php`) are now always allowed by the sanitiser.
+- **CSP frame-src** — Content Security Policy updated from a strict domain allowlist
+  to `'self' https: http:` to support external educational embeds. Security is maintained
+  via the `sandbox` attribute on all non-H5P iframes.
+- **H5P iframe sandbox removed** — H5P iframes no longer have the restrictive `sandbox`
+  attribute, which was preventing media playback, form submission (quizzes), and
+  fullscreen. Added `allow="autoplay; fullscreen; microphone"` instead.
+
+### Security
+- Unknown-domain iframes now receive a `sandbox="allow-scripts allow-same-origin
+  allow-popups"` attribute instead of being removed entirely. This allows content to
+  render while restricting dangerous capabilities.
+
+### Changed
+- Version: `2026032402` → `2026032406`, release: `3.1.0` → `3.1.4`
+- Video embed domain list expanded to include H5P.org, CodePen, JSFiddle
+- Insert menu: H5P Content item added after Video Embed in Content section
 
 ## v3.1.0 (2026-03-25) — Phonetic Keyboard (jQuery.IME)
 

@@ -1,8 +1,8 @@
 # Anoop Kakkur Rich Text Editor for Moodle
 
-A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ admin-configurable features**, dark mode, accessibility support, and zero external dependencies.
+A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ admin-configurable features**, dark mode, H5P content embedding, accessibility support, and zero external dependencies.
 
-**Version:** 3.1.0  
+**Version:** 3.1.4  
 **Requires:** Moodle 4.1+ (compatible through Moodle 5.2)  
 **License:** GNU GPL v3  
 **Author:** Anoop Kakkur ([anoopkakkur.com](https://anoopkakkur.com))
@@ -19,7 +19,7 @@ A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ ad
 - **Fullscreen mode** — Allow users to enter fullscreen editing mode (F11).
 - **Dark mode toggle** — Allow users to switch between light and dark editor themes.
 - **Spell check toggle** — Allow users to toggle browser spell checking on and off.
-- **Auto-save drafts** — Periodically auto-save editor content to browser storage with draft recovery.
+- **Auto-save drafts** — Periodically auto-save editor content to browser storage with draft recovery. Smarter restore logic checks parent textarea to avoid overwriting existing content.
 - **Reading time estimate** — Display estimated reading time in the status bar.
 - **Keyboard accessibility mode** — Enable enhanced keyboard navigation and ARIA support for accessibility.
 - **Zoom controls** — Allow users to zoom editor content in and out.
@@ -69,6 +69,7 @@ A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ ad
 - **Horizontal lines** — Allow users to insert styled horizontal lines.
 - **Special characters and emoji** — Allow users to insert special characters, currency symbols, and emoji.
 - **Video and iframe embeds** — Allow users to embed YouTube/Vimeo videos and iframes.
+- **H5P content embedding** — Allow users to embed interactive H5P content from Moodle Content Bank, H5P.org, or H5P activity URLs.
 - **Shapes** — Allow users to insert shapes with text overlay, resize, and drag.
 - **SmartArt** — Allow users to insert SmartArt templates (process, hierarchy, cycle, etc.).
 - **Charts** — Allow users to insert charts (bar, column, line, pie, donut, area).
@@ -209,6 +210,38 @@ Plus 2 text configuration fields:
 
 ---
 
+## H5P Content Embedding
+
+Embed interactive H5P content directly into the editor — quizzes, interactive videos,
+flashcards, drag-and-drop activities, presentations, and more.
+
+### Setup
+1. `Site Administration → Plugins → Text Editors → Anoop Kakkur Rich Text Editor`
+2. Under **Insert features**, ensure **H5P Content** is ticked (enabled by default).
+
+### How users use it
+1. Click **Insert → 🎓 H5P Content** in the menu bar.
+2. Paste the H5P URL into the modal dialog.
+3. Click **Insert**.
+4. The H5P content appears as an interactive iframe in the editor.
+
+### Supported URL types
+
+| URL Type | Example | How it embeds |
+|---|---|---|
+| Moodle H5P embed | `https://yourmoodle.com/h5p/embed.php?url=...` | Interactive iframe |
+| H5P.org share URL | `https://h5p.org/h5p/embed/617` | Interactive iframe |
+| Moodle Content Bank | `https://yourmoodle.com/contentbank/view.php?id=123` | Link (filter_h5p renders it) |
+| Moodle H5P activity | `https://yourmoodle.com/mod/h5pactivity/view.php?id=456` | Link (filter_h5p renders it) |
+
+### Iframe handling
+- H5P iframes are marked with `data-h5p="1"` and `data-editor-embed="1"` attributes
+- The HTML sanitiser always preserves these marked iframes
+- No restrictive `sandbox` attribute — H5P content has full interactivity (media playback, quizzes, fullscreen)
+- `allow="autoplay; fullscreen; microphone"` attribute added for media support
+
+---
+
 ## Voice Typing
 
 Voice typing uses the **Web Speech API** built into modern browsers. No API key, no
@@ -293,7 +326,9 @@ transparently — no audio passes through Moodle or this plugin.
 - Content Security Policy headers
 - 2-phase HTML sanitizer (regex + DOM-based)
 - XSS protection on all user inputs
-- Iframe sandboxing with domain allowlist
+- Iframe sandboxing with domain allowlist (25+ educational platforms)
+- Editor-inserted iframes preserved via `data-editor-embed` marker attribute
+- Same-origin iframes (Moodle H5P embeds) always allowed
 - Paste normalization and sanitization
 - Export sanitiser option
 - Content encryption support
