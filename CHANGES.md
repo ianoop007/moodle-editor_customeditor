@@ -1,5 +1,29 @@
 # Changelog
 
+## v3.1.5 (2026-07-05)
+
+**Plugin version:** 2026032407
+
+### Added
+- **Browse Moodle Files** — new "📁 Browse Moodle" button in the image insertion modal.
+  Opens Moodle's built-in file picker (M.core_filepicker) so users can browse
+  Private Files, Course Files, Recent Files, and all configured repositories
+  without leaving the editor. Selected file URL is automatically filled into
+  the Image URL field with preview.
+- **Clickable images (Link URL)** — new "Link URL" field in the image insertion
+  modal. When filled, the inserted image is wrapped in an `<a>` tag with
+  `target="_blank"` and `rel="noopener"`, making it clickable. Works with both
+  URL and file upload images.
+- PostMessage bridge between editor iframe and parent Moodle page for file
+  picker communication (`customeditor-filepicker` / `customeditor-filepicker-response`)
+
+### Changed
+- `amd/src/editor.js` — added M.core_filepicker integration with postMessage listener.
+  **Requires AMD rebuild (Grunt).**
+- `editor.html` — image modal enhanced with Browse button, Link URL field, and
+  postMessage listener for file picker responses
+- Version: `2026032406` → `2026032407`, release: `3.1.4` → `3.1.5`
+
 ## v3.1.4 (2026-07-02)
 
 **Plugin version:** 2026032406

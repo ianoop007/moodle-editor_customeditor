@@ -1719,7 +1719,10 @@ body {
     <div class="modal-body">
       <div class="modal-input-group">
         <label>Image URL</label>
-        <input class="modal-input" id="imageUrl" placeholder="https://example.com/image.jpg" type="url">
+        <div style="display:flex;gap:6px">
+          <input class="modal-input" id="imageUrl" placeholder="https://example.com/image.jpg" type="url" style="flex:1">
+          <button class="btn btn-secondary" onclick="browseMoodleFiles()" title="Browse files from Moodle" style="white-space:nowrap;font-size:12px;padding:6px 12px">📁 Browse Moodle</button>
+        </div>
       </div>
       <div class="modal-input-group">
         <label>Or Upload File</label>
@@ -1732,6 +1735,10 @@ body {
       <div class="modal-input-group">
         <label>Width (optional)</label>
         <input class="modal-input" id="imageWidth" placeholder="e.g. 400 or 50%" type="text">
+      </div>
+      <div class="modal-input-group">
+        <label>Link URL (makes image clickable)</label>
+        <input class="modal-input" id="imageLink" placeholder="https://example.com (optional)" type="url">
       </div>
       <div id="imagePreviewContainer" style="margin-top:10px;text-align:center;display:none">
         <img id="imagePreview" style="max-width:100%;max-height:200px;border-radius:6px;border:1px solid var(--border-color)">
@@ -2725,13 +2732,25 @@ function insertImage() {
   const url = document.getElementById('imageUrl').value.trim();
   const alt = document.getElementById('imageAlt').value || '';
   const width = document.getElementById('imageWidth').value;
+  const linkUrl = document.getElementById('imageLink') ? document.getElementById('imageLink').value.trim() : '';
   closeModal('imageModal');
   restoreSelection();
   const widthAttr = width ? ` width="${escapeHtml(width)}"` : '';
+
+  function wrapWithLink(imgTag) {
+    if (linkUrl) {
+      var testLink = linkUrl.replace(/\s/g, '').toLowerCase();
+      if (testLink.indexOf('javascript:') === 0 || testLink.indexOf('vbscript:') === 0) return imgTag;
+      return '<a href="' + escapeHtml(linkUrl) + '" target="_blank" rel="noopener">' + imgTag + '</a>';
+    }
+    return imgTag;
+  }
+
   if (file) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      document.execCommand('insertHTML', false, `<img src="${e.target.result}" alt="${escapeHtml(alt)}"${widthAttr}>`)
+      var imgHtml = '<img src="' + e.target.result + '" alt="' + escapeHtml(alt) + '"' + widthAttr + '>';
+      document.execCommand('insertHTML', false, wrapWithLink(imgHtml));
     };
     reader.readAsDataURL(file);
   } else if (url) {
@@ -2741,9 +2760,44 @@ function insertImage() {
       alert('This URL protocol is not allowed for security reasons.');
       return;
     }
-    document.execCommand('insertHTML', false, `<img src="${escapeHtml(url)}" alt="${escapeHtml(alt)}"${widthAttr}>`);
+    var imgHtml = '<img src="' + escapeHtml(url) + '" alt="' + escapeHtml(alt) + '"' + widthAttr + '>';
+    document.execCommand('insertHTML', false, wrapWithLink(imgHtml));
+  }
+  // Clear inputs
+  if (document.getElementById('imageLink')) document.getElementById('imageLink').value = '';
+}
+
+// ─── Browse Moodle Files (File Picker integration) ───
+function browseMoodleFiles() {
+  try {
+    // Send message to parent Moodle page to open the file picker
+    window.parent.postMessage({type: 'customeditor-filepicker', action: 'open'}, '*');
+  } catch(e) {
+    alert('File browser is not available. You can use the URL field or Upload File option instead.');
   }
 }
+
+// Listen for file picker responses from parent Moodle page
+window.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'customeditor-filepicker-response') {
+    var url = event.data.url || '';
+    if (url) {
+      document.getElementById('imageUrl').value = url;
+      // Show preview
+      var prev = document.getElementById('imagePreview');
+      var cont = document.getElementById('imagePreviewContainer');
+      if (prev && cont) {
+        prev.src = url;
+        cont.style.display = 'block';
+      }
+      // Auto-fill alt text from filename if empty
+      var altInput = document.getElementById('imageAlt');
+      if (altInput && !altInput.value && event.data.filename) {
+        altInput.value = event.data.filename.replace(/\.[^.]+$/, '');
+      }
+    }
+  }
+});
 
 // ─── Table ───
 function insertTable() {

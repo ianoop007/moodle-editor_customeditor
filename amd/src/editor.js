@@ -139,6 +139,90 @@ export const init = (elementid) => {
             }
         });
 
+        // ─── Moodle File Picker integration ───
+        // Listen for postMessage from the editor iframe requesting the file picker.
+        // Opens Moodle's built-in M.core_filepicker, and sends the selected file URL back.
+        window.addEventListener('message', (event) => {
+            if (!event.data || event.data.type !== 'customeditor-filepicker') {
+                return;
+            }
+            if (event.data.action !== 'open') {
+                return;
+            }
+            // Check if M.core_filepicker is available (Moodle's file picker)
+            if (typeof M === 'undefined' || !M.core_filepicker) {
+                // Fallback: tell user to use URL or upload
+                try {
+                    iframe.contentWindow.postMessage({
+                        type: 'customeditor-filepicker-response',
+                        url: '',
+                        error: 'File picker not available'
+                    }, '*');
+                } catch (err) {
+                    window.console.warn('File picker not available:', err);
+                }
+                return;
+            }
+            // Build file picker options
+            const fpOptions = {
+                env: 'editor',
+                itemid: textarea.dataset.itemid || 0,
+                context: M.cfg.contextid || 1,
+                client_id: 'customeditor_' + elementid + '_' + Date.now(),
+                accepted_types: ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.ico'],
+                maxbytes: -1,
+                maxfiles: 1
+            };
+
+            // Get repository options from the page if available
+            if (typeof M.core_filepicker !== 'undefined' && M.core_filepicker.instances) {
+                // Try to borrow repository config from an existing file picker on the page
+                const existingPickers = Object.values(M.core_filepicker.instances);
+                if (existingPickers.length > 0 && existingPickers[0].options) {
+                    const existingOpts = existingPickers[0].options;
+                    if (existingOpts.repositories) {
+                        fpOptions.repositories = existingOpts.repositories;
+                    }
+                    if (existingOpts.context) {
+                        fpOptions.context = existingOpts.context;
+                    }
+                }
+            }
+
+            // Open the file picker
+            try {
+                M.core_filepicker.show(Y, {
+                    ...fpOptions,
+                    formcallback: (params) => {
+                        // File selected — send URL back to iframe
+                        const fileUrl = params.url || '';
+                        const fileName = params.file || '';
+                        try {
+                            iframe.contentWindow.postMessage({
+                                type: 'customeditor-filepicker-response',
+                                url: fileUrl,
+                                filename: fileName
+                            }, '*');
+                        } catch (err) {
+                            window.console.warn('File picker response error:', err);
+                        }
+                    }
+                });
+            } catch (err) {
+                window.console.warn('File picker open error:', err);
+                // Fallback: tell iframe file picker is not available
+                try {
+                    iframe.contentWindow.postMessage({
+                        type: 'customeditor-filepicker-response',
+                        url: '',
+                        error: 'Could not open file picker: ' + err.message
+                    }, '*');
+                } catch (e2) {
+                    // Silently fail
+                }
+            }
+        });
+
         // Bind form submit to sync content back to textarea.
         const form = textarea.closest('form');
         if (form && !form.dataset.customEditorBound) {

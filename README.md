@@ -2,7 +2,7 @@
 
 A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ admin-configurable features**, dark mode, H5P content embedding, accessibility support, and zero external dependencies.
 
-**Version:** 3.1.4  
+**Version:** 3.1.5  
 **Requires:** Moodle 4.1+ (compatible through Moodle 5.2)  
 **License:** GNU GPL v3  
 **Author:** Anoop Kakkur ([anoopkakkur.com](https://anoopkakkur.com))
@@ -62,7 +62,7 @@ A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ ad
 
 ### Insert Features
 
-- **Images** — Allow users to insert images (URL, file upload, drag and drop).
+- **Images** — Allow users to insert images (URL, file upload, drag and drop). Browse Moodle file picker for existing files. Clickable image support with Link URL.
 - **Links** — Allow users to insert hyperlinks.
 - **Tables** — Allow users to insert and edit tables.
 - **Code blocks and snippets** — Allow users to insert code blocks with syntax highlighting and code snippets.
