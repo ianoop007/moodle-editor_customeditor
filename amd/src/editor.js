@@ -168,8 +168,8 @@ export const init = (elementid) => {
                 env: 'editor',
                 itemid: textarea.dataset.itemid || 0,
                 context: M.cfg.contextid || 1,
-                client_id: 'customeditor_' + elementid + '_' + Date.now(),
-                accepted_types: ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.ico'],
+                clientId: 'customeditor_' + elementid + '_' + Date.now(),
+                acceptedTypes: ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.ico'],
                 maxbytes: -1,
                 maxfiles: 1
             };
