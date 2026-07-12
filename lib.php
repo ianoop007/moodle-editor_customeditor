@@ -166,6 +166,14 @@ class customeditor_texteditor extends texteditor {
             'window.customeditorUrls[' . json_encode($elementid) . ']=' . json_encode($urlstring) . ';'
         );
 
+        // Pass file picker options to JS so the editor can open Moodle's file browser.
+        if (!empty($fpoptions)) {
+            $PAGE->requires->js_init_code(
+                'if(typeof window.customeditorFpOptions==="undefined"){window.customeditorFpOptions={};}' .
+                'window.customeditorFpOptions[' . json_encode($elementid) . ']=' . json_encode($fpoptions) . ';'
+            );
+        }
+
         // Pass only the element ID to js_call_amd (well under 1024 chars).
         $PAGE->requires->js_call_amd(
             'editor_customeditor/editor',

@@ -1,5 +1,24 @@
 # Changelog
 
+## v3.1.6 (2026-07-12)
+
+**Plugin version:** 2026032408
+
+### Fixed
+- **File Picker "none of your repositories" error** — the file picker opened but showed
+  no repositories because `lib.php` was ignoring the `$fpoptions` parameter passed by
+  Moodle. The file picker now receives the full repository configuration (Private Files,
+  Course Files, Recent Files, Wikimedia Commons, and all admin-configured repositories).
+- `lib.php` now passes `$fpoptions` to JavaScript via `window.customeditorFpOptions`
+- `amd/src/editor.js` reads Moodle's image file picker config with correct `repositories`,
+  `context`, and `itemid` instead of guessing
+- Changed `accepted_types` from array of extensions to `'image'` string (Moodle's expected format)
+- Falls back to borrowing config from existing file pickers on the page, then to minimal config
+
+### Changed
+- `amd/src/editor.js` — file picker initialization rewritten. **Requires AMD rebuild (Grunt).**
+- Version: `2026032407` → `2026032408`, release: `3.1.5` → `3.1.6`
+
 ## v3.1.5 (2026-07-05)
 
 **Plugin version:** 2026032407
