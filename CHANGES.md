@@ -1,5 +1,33 @@
 # Changelog
 
+## v3.1.7 (2026-07-24)
+
+**Plugin version:** 2026032409
+
+### Added
+- **File Attachment support** — new Insert → 📎 Attach File menu item. Opens Moodle's
+  file picker for ALL file types (xlsx, txt, mp4, pdf, docx, zip, etc.). Inserts a
+  styled download link with file-type icon and extension badge. Supports all Moodle
+  repositories (Private Files, Course Files, Recent Files, etc.).
+
+### Fixed
+- **CSS `background-image: url()` stripped by sanitizer** — the HTML sanitizer was
+  removing ALL `url()` values containing `https://` or `http://` from inline CSS.
+  Now uses same-origin check: allows URLs from the same Moodle domain (pluginfile.php,
+  theme images, etc.) while blocking external domain URLs that could be used for
+  tracking or data exfiltration.
+
+### Security
+- Same-origin URLs allowed in CSS `url()` (your Moodle domain only)
+- External domain URLs in CSS `url()` blocked (prevents tracking pixels)
+- `javascript:`, `vbscript:` URLs still blocked
+- Non-image `data:` URIs still blocked
+
+### Changed
+- `amd/src/editor.js` — file picker now supports `fileType: 'all'` for attachments.
+  **Requires AMD rebuild (Grunt).**
+- Version: `2026032408` → `2026032409`, release: `3.1.6` → `3.1.7`
+
 ## v3.1.6 (2026-07-12)
 
 **Plugin version:** 2026032408

@@ -150,6 +150,9 @@ export const init = (elementid) => {
             if (event.data.action !== 'open') {
                 return;
             }
+
+            // Determine if this is an image picker or a general file attachment
+            const isFileAttach = event.data.fileType === 'all';
             // Check if M.core_filepicker is available (Moodle's file picker)
             if (typeof M === 'undefined' || !M.core_filepicker) {
                 try {
@@ -213,16 +216,19 @@ export const init = (elementid) => {
 
             // Ensure correct client_id and accepted_types
             fpConfig.clientId = 'customeditor_' + elementid + '_' + Date.now();
-            fpConfig.acceptedTypes = 'image';
+            fpConfig.acceptedTypes = isFileAttach ? '*' : 'image';
 
             // Open the file picker
             try {
                 fpConfig.formcallback = (params) => {
                     const fileUrl = params.url || '';
                     const fileName = params.file || '';
+                    const responseType = isFileAttach
+                        ? 'customeditor-fileattach-response'
+                        : 'customeditor-filepicker-response';
                     try {
                         iframe.contentWindow.postMessage({
-                            type: 'customeditor-filepicker-response',
+                            type: responseType,
                             url: fileUrl,
                             filename: fileName
                         }, '*');

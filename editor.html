@@ -1224,6 +1224,7 @@ body {
         <div class="menu-dropdown-item" onclick="editorAction('insertTable')">📊 Table</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertVideo')">🎬 Video Embed</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertH5P')">🎓 H5P Content</div>
+        <div class="menu-dropdown-item" onclick="editorAction('attachFile')">📎 Attach File</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertIframe')">📐 Iframe</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertHR')">➖ Horizontal Line</div>
         <div class="menu-dropdown-item" onclick="editorAction('insertSpecialChar')">Ω Special Characters</div>
@@ -2506,6 +2507,10 @@ function editorAction(cmd) {
       saveSelection();
       openModal('h5pModal');
       break;
+    case 'attachFile':
+      saveSelection();
+      openAttachFile();
+      break;
     case 'source':
       toggleSource();
       break;
@@ -2795,6 +2800,51 @@ window.addEventListener('message', function(event) {
       if (altInput && !altInput.value && event.data.filename) {
         altInput.value = event.data.filename.replace(/\.[^.]+$/, '');
       }
+    }
+  }
+});
+
+// ─── File Attachment (xlsx, txt, mp4, pdf, etc.) ───
+function openAttachFile() {
+  // Send message to parent Moodle page to open file picker for ALL file types
+  try {
+    window.parent.postMessage({type: 'customeditor-filepicker', action: 'open', fileType: 'all'}, '*');
+  } catch(e) {
+    alert('File browser is not available. Use the source code view to add file links manually.');
+  }
+}
+
+// Listen for file attachment responses (extends the existing image listener)
+window.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'customeditor-fileattach-response') {
+    var url = event.data.url || '';
+    var filename = event.data.filename || 'Download file';
+    if (url) {
+      restoreSelection();
+      // Determine icon based on file extension
+      var ext = filename.split('.').pop().toLowerCase();
+      var icon = '📎';
+      if (['pdf'].includes(ext)) icon = '📄';
+      else if (['doc','docx','odt','rtf'].includes(ext)) icon = '📝';
+      else if (['xls','xlsx','ods','csv'].includes(ext)) icon = '📊';
+      else if (['ppt','pptx','odp'].includes(ext)) icon = '📽️';
+      else if (['mp4','avi','mov','webm','mkv'].includes(ext)) icon = '🎬';
+      else if (['mp3','wav','ogg','m4a','flac'].includes(ext)) icon = '🎵';
+      else if (['zip','rar','7z','tar','gz'].includes(ext)) icon = '📦';
+      else if (['jpg','jpeg','png','gif','svg','webp','bmp'].includes(ext)) icon = '🖼️';
+      else if (['txt','log','md'].includes(ext)) icon = '📃';
+      else if (['html','htm','css','js','php','py','java'].includes(ext)) icon = '💻';
+      
+      var linkHtml = '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener" ' +
+        'style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;' +
+        'background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;' +
+        'text-decoration:none;color:#1e40af;font-size:14px;font-weight:500;margin:4px 2px">' +
+        icon + ' ' + escapeHtml(filename) + 
+        '<span style="font-size:11px;color:#6b7280;text-transform:uppercase">' + escapeHtml(ext) + '</span>' +
+        '</a>&nbsp;';
+      
+      document.execCommand('insertHTML', false, linkHtml);
+      saveUndoState();
     }
   }
 });
@@ -3593,8 +3643,19 @@ function sanitizeHTML(htmlStr) {
       style = style.replace(/-moz-binding\s*:/gi, '');
       style = style.replace(/behavior\s*:/gi, '');
       style = style.replace(/url\s*\(\s*["']?\s*javascript\s*:/gi, 'url(blocked:');
-      // SECURITY: Strip external url() references (data exfiltration via CSS)
-      style = style.replace(/url\s*\(\s*["']?\s*https?:\/\/[^)]+\)/gi, '');
+      style = style.replace(/url\s*\(\s*["']?\s*vbscript\s*:/gi, 'url(blocked:');
+      // SECURITY: Block data: URIs in CSS except data:image
+      style = style.replace(/url\s*\(\s*["']?\s*data\s*:(?!image\/)[^)]+\)/gi, '');
+      // SECURITY: Only allow same-origin URLs in CSS url() — block external domains
+      style = style.replace(/url\s*\(\s*["']?(https?:\/\/[^)"']+)["']?\s*\)/gi, function(match, rawUrl) {
+        try {
+          var cssUrl = new URL(rawUrl.trim());
+          var pageOrigin = window.location.origin;
+          if (cssUrl.origin === pageOrigin) return match;
+          try { if (cssUrl.origin === window.parent.location.origin) return match; } catch(e2) {}
+          return '';
+        } catch(e) { return ''; }
+      });
       // SECURITY: Strip position:fixed and position:absolute (UI overlay attacks)
       style = style.replace(/position\s*:\s*(fixed|absolute)/gi, 'position:relative');
       el.setAttribute('style', style);
