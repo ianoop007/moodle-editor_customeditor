@@ -2849,6 +2849,108 @@ window.addEventListener('message', function(event) {
   }
 });
 
+// ─── Table Context Menu (right-click editing) ───
+var _tableContextCell = null;
+
+function showTableContextMenu(e) {
+  var cell = e.target.closest('td, th');
+  if (!cell) return;
+  e.preventDefault();
+  _tableContextCell = cell;
+  var menu = document.getElementById('tableContextMenu');
+  menu.style.display = 'block';
+  menu.style.left = Math.min(e.clientX, window.innerWidth - 220) + 'px';
+  menu.style.top = Math.min(e.clientY, window.innerHeight - 300) + 'px';
+}
+
+function hideTableContextMenu() {
+  var menu = document.getElementById('tableContextMenu');
+  if (menu) menu.style.display = 'none';
+}
+
+function tableAction(action) {
+  hideTableContextMenu();
+  if (!_tableContextCell) return;
+  var table = _tableContextCell.closest('table');
+  var row = _tableContextCell.closest('tr');
+  if (!table || !row) return;
+  var rowIndex = Array.from(table.rows).indexOf(row);
+  var cellIndex = Array.from(row.cells).indexOf(_tableContextCell);
+  var colCount = row.cells.length;
+
+  switch(action) {
+    case 'addRowAbove': {
+      var newRow = table.insertRow(rowIndex);
+      for (var i = 0; i < colCount; i++) newRow.insertCell().innerHTML = '&nbsp;';
+      break;
+    }
+    case 'addRowBelow': {
+      var newRow = table.insertRow(rowIndex + 1);
+      for (var i = 0; i < colCount; i++) newRow.insertCell().innerHTML = '&nbsp;';
+      break;
+    }
+    case 'addColLeft': {
+      Array.from(table.rows).forEach(function(r) {
+        var idx = Math.min(cellIndex, r.cells.length);
+        var cell = r.insertCell(idx);
+        cell.innerHTML = '&nbsp;';
+        if (r.cells[0] && r.cells[0].tagName === 'TH') cell.outerHTML = '<th>&nbsp;</th>';
+      });
+      break;
+    }
+    case 'addColRight': {
+      Array.from(table.rows).forEach(function(r) {
+        var idx = Math.min(cellIndex + 1, r.cells.length);
+        var cell = r.insertCell(idx);
+        cell.innerHTML = '&nbsp;';
+        if (r.cells[0] && r.cells[0].tagName === 'TH') cell.outerHTML = '<th>&nbsp;</th>';
+      });
+      break;
+    }
+    case 'deleteRow': {
+      if (table.rows.length > 1) {
+        table.deleteRow(rowIndex);
+      } else {
+        table.remove();
+      }
+      break;
+    }
+    case 'deleteCol': {
+      if (colCount > 1) {
+        Array.from(table.rows).forEach(function(r) {
+          if (r.cells[cellIndex]) r.deleteCell(cellIndex);
+        });
+      } else {
+        table.remove();
+      }
+      break;
+    }
+    case 'deleteTable': {
+      table.remove();
+      break;
+    }
+  }
+  saveUndoState();
+}
+
+// Attach right-click listener to editor
+document.addEventListener('DOMContentLoaded', function() {
+  var ed = document.getElementById('editor');
+  if (ed) {
+    ed.addEventListener('contextmenu', function(e) {
+      if (e.target.closest('td, th')) {
+        showTableContextMenu(e);
+      } else {
+        hideTableContextMenu();
+      }
+    });
+    ed.addEventListener('click', hideTableContextMenu);
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#tableContextMenu')) hideTableContextMenu();
+    });
+  }
+});
+
 // ─── Table ───
 function insertTable() {
   const rows = parseInt(document.getElementById('tableRows').value) || 3;
@@ -5891,6 +5993,20 @@ Ops:50</textarea></div>
 <div class="modal-header">Text Statistics<button class="modal-close" onclick="closeModal('textStatsModal')">✕</button></div>
 <div class="modal-body" id="textStatsBody" style="font-size:14px;line-height:2"></div></div></div>
 
+<!-- Table Context Menu (right-click on table) -->
+<div id="tableContextMenu" style="display:none;position:fixed;z-index:10000;background:#fff;border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:6px;min-width:200px;font-size:13px">
+  <div class="menu-dropdown-item" onclick="tableAction('addRowAbove')" style="padding:8px 14px;border-radius:6px;cursor:pointer">➕ Add Row Above</div>
+  <div class="menu-dropdown-item" onclick="tableAction('addRowBelow')" style="padding:8px 14px;border-radius:6px;cursor:pointer">➕ Add Row Below</div>
+  <div style="height:1px;background:#e2e8f0;margin:4px 0"></div>
+  <div class="menu-dropdown-item" onclick="tableAction('addColLeft')" style="padding:8px 14px;border-radius:6px;cursor:pointer">➕ Add Column Left</div>
+  <div class="menu-dropdown-item" onclick="tableAction('addColRight')" style="padding:8px 14px;border-radius:6px;cursor:pointer">➕ Add Column Right</div>
+  <div style="height:1px;background:#e2e8f0;margin:4px 0"></div>
+  <div class="menu-dropdown-item" onclick="tableAction('deleteRow')" style="padding:8px 14px;border-radius:6px;cursor:pointer;color:#dc2626">🗑️ Delete Row</div>
+  <div class="menu-dropdown-item" onclick="tableAction('deleteCol')" style="padding:8px 14px;border-radius:6px;cursor:pointer;color:#dc2626">🗑️ Delete Column</div>
+  <div style="height:1px;background:#e2e8f0;margin:4px 0"></div>
+  <div class="menu-dropdown-item" onclick="tableAction('deleteTable')" style="padding:8px 14px;border-radius:6px;cursor:pointer;color:#dc2626">❌ Delete Table</div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════════════════════
 // v2.0.0 — ALL 120 NEW FEATURES JavaScript
@@ -5910,7 +6026,12 @@ function toggleDarkMode(){_darkMode=!_darkMode;document.body.classList.toggle('d
 // The key is based on the URL search params (which contain the Moodle element ID)
 // In Moodle context: ce_autosave_?v=2026032000&enable_menubar=1&... (unique per editor instance)
 // Storage location: Browser localStorage (DevTools → Application → Local Storage → your domain)
-var _autosaveKey = 'ce_autosave_' + (window.location.pathname + window.location.search).replace(/[^a-zA-Z0-9]/g, '_').substring(0, 80);
+// Use the PARENT page URL for autosave key (unique per Moodle activity/page).
+// The iframe URL is always editor.html?enable_*=... (identical for all pages).
+// The parent URL is /mod/assign/view.php?id=123 (unique per page).
+var _parentUrl = '';
+try { _parentUrl = window.parent.location.pathname + window.parent.location.search; } catch(e) { _parentUrl = window.location.pathname; }
+var _autosaveKey = 'ce_autosave_' + _parentUrl.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 120);
 var _autosaveDebounce = null;
 var _autosaveDirty = false;
 

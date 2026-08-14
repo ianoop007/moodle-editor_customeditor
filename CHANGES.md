@@ -1,5 +1,22 @@
 # Changelog
 
+## v3.1.8 (2026-08-13)
+
+**Plugin version:** 2026032410
+
+### Added
+- **Table editing context menu** — right-click on any table cell to add row above/below,
+  add column left/right, delete row, delete column, or delete the entire table. Previously
+  tables could only be inserted but not modified after insertion.
+
+### Fixed
+- **Autosave filling new pages with old content** — the autosave key was based on the
+  editor iframe URL, which is identical for ALL pages (editor.html?enable_menubar=1&...).
+  This caused every page to share the same autosave draft. The key now uses the PARENT
+  Moodle page URL (/mod/assign/view.php?id=123) which is unique per activity/page.
+  Opening a new assignment, quiz, or forum post will no longer auto-fill content from
+  a previous page.
+
 ## v3.1.7 (2026-07-24)
 
 **Plugin version:** 2026032409
