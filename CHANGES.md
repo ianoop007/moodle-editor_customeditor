@@ -1,21 +1,27 @@
 # Changelog
 
-## v3.1.8 (2026-08-13)
+## v3.1.8 (2026-10-12)
 
 **Plugin version:** 2026032410
 
-### Added
-- **Table editing context menu** — right-click on any table cell to add row above/below,
-  add column left/right, delete row, delete column, or delete the entire table. Previously
-  tables could only be inserted but not modified after insertion.
-
 ### Fixed
-- **Autosave filling new pages with old content** — the autosave key was based on the
-  editor iframe URL, which is identical for ALL pages (editor.html?enable_menubar=1&...).
-  This caused every page to share the same autosave draft. The key now uses the PARENT
-  Moodle page URL (/mod/assign/view.php?id=123) which is unique per activity/page.
-  Opening a new assignment, quiz, or forum post will no longer auto-fill content from
-  a previous page.
+- **Source code view textarea not filling editor height** — the HTML source code
+  textarea had `max-height: 70vh` which capped it at 70% of viewport height. When
+  the editor container was taller (e.g. larger iframe or fullscreen mode), a blank
+  dead space appeared below the textarea. Fixed by replacing `max-height` with
+  `min-height: 100%` so the textarea fills the entire editor container. Also removed
+  the independent `resize: vertical` handle on the textarea which created a confusing
+  "two resizable fields" experience. Added `box-sizing: border-box` to ensure padding
+  is included in the height calculation. Fixes both normal and fullscreen source code
+  view modes.
+
+### Changed
+- Moodle compatibility extended to **5.3** (LTS). `$plugin->supported` now covers
+  Moodle 4.1 through 5.3. CI matrix updated with Moodle 5.3 / PHP 8.3 job.
+- Version: `2026032409` → `2026032410`, release: `3.1.7` → `3.1.8`
+- README.md updated to reflect v3.1.8 and Moodle 5.3 compatibility.
+
+---
 
 ## v3.1.7 (2026-07-24)
 

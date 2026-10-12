@@ -29,4 +29,4 @@ $plugin->requires  = 2022112800;    // Moodle 4.1.0 (minimum).
 $plugin->component = 'editor_customeditor';
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '3.1.8';
-$plugin->supported = [401, 502];    // Moodle 4.1 through 5.2.
+$plugin->supported = [401, 503];    // Moodle 4.1 through 5.3.

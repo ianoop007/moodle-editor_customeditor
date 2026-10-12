@@ -3,7 +3,7 @@
 A powerful, modern WYSIWYG rich text editor plugin for Moodle LMS with **150+ admin-configurable features**, dark mode, H5P content embedding, accessibility support, and zero external dependencies.
 
 **Version:** 3.1.8  
-**Requires:** Moodle 4.1+ (compatible through Moodle 5.2)  
+**Requires:** Moodle 4.1+ (compatible through Moodle 5.3)  
 **License:** GNU GPL v3  
 **Author:** Anoop Kakkur ([anoopkakkur.com](https://anoopkakkur.com))
 
@@ -310,7 +310,7 @@ transparently — no audio passes through Moodle or this plugin.
 
 ## Requirements
 
-- Moodle 4.1 or later (tested through Moodle 5.2)
+- Moodle 4.1 or later (tested through Moodle 5.3)
 - Modern browser (Chrome, Firefox, Safari, Edge)
 - No external dependencies — all fonts and assets are bundled
 
