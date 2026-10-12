@@ -8,7 +8,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgres:${{ matrix.postgres-version || '14' }}
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -52,6 +52,7 @@ jobs:
           - php: '8.3'
             moodle-branch: 'MOODLE_503_STABLE'
             database: pgsql
+            postgres-version: '17'
 
     steps:
       - name: Check out repository code

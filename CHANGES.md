@@ -18,6 +18,8 @@
 ### Changed
 - Moodle compatibility extended to **5.3** (LTS). `$plugin->supported` now covers
   Moodle 4.1 through 5.3. CI matrix updated with Moodle 5.3 / PHP 8.3 job.
+- CI: Moodle 5.3 job now uses **PostgreSQL 17** (Moodle 5.3 requires PostgreSQL 17+).
+  Older Moodle jobs remain on PostgreSQL 14.
 - Version: `2026032410` → `2026032411`, release: `3.1.8` → `3.1.9`
 - README.md updated to reflect v3.1.9 and Moodle 5.3 compatibility.
 
