@@ -1,8 +1,8 @@
 # Changelog
 
-## v3.1.8 (2026-10-12)
+## v3.1.9 (2026-10-12)
 
-**Plugin version:** 2026032410
+**Plugin version:** 2026032411
 
 ### Fixed
 - **Source code view textarea not filling editor height** — the HTML source code
@@ -18,8 +18,8 @@
 ### Changed
 - Moodle compatibility extended to **5.3** (LTS). `$plugin->supported` now covers
   Moodle 4.1 through 5.3. CI matrix updated with Moodle 5.3 / PHP 8.3 job.
-- Version: `2026032409` → `2026032410`, release: `3.1.7` → `3.1.8`
-- README.md updated to reflect v3.1.8 and Moodle 5.3 compatibility.
+- Version: `2026032410` → `2026032411`, release: `3.1.8` → `3.1.9`
+- README.md updated to reflect v3.1.9 and Moodle 5.3 compatibility.
 
 ---
 

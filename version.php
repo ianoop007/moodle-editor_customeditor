@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2026032410;    // YYYYMMDDXX format.
+$plugin->version   = 2026032411;    // YYYYMMDDXX format.
 $plugin->requires  = 2022112800;    // Moodle 4.1.0 (minimum).
 $plugin->component = 'editor_customeditor';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.1.8';
+$plugin->release   = '3.1.9';
 $plugin->supported = [401, 503];    // Moodle 4.1 through 5.3.
